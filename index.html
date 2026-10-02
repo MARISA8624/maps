@@ -1,0 +1,1793 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>퍼스트 페러다이스 지도</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;700;800&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;700;900&family=Nanum+Myeongjo:wght@400;700;800&family=Gowun+Batang:wght@400;700&family=Song+Myung&family=Gowun+Dodum&family=Do+Hyeon&family=Black+Han+Sans&family=Gugi&family=Nanum+Pen+Script&display=swap">
+<script src="data.js"></script>
+</head>
+<body>
+<style>
+/* 레이아웃: 화면을 꽉 채우는 지도(좌) + 정보 패널(우). 지도 위에 떠 있는 도구막대, 우하단 미니맵 */
+:root{
+  --bg:#E6EDEC; --panel:#F7FAF9; --panel2:#EEF3F2; --rule:#CCD8D6; --ink:#15201F; --ink2:#34423F; --muted:#56696A;
+  --sea-hi:#D6E6E8; --sea-lo:#A9C6CC; --sea-line:#B3CDD1; --sea-ink:#2C5963; --wave:#7FA7B0;
+  --land:#EFF0E3; --land-edge:#3D524E; --shelf:#E4EFEF;
+  --ice:#E2EFF7; --ice-line:#86B4D0; --ice-edge:#FFFFFF;
+  --mount:#5E6E6C; --mount-lit:#8E9B98; --snow:#FFFFFF; --rock-lit:#97A3A4; --rock-dk:#56646A; --snow-shade:#C3D5E2; --mt-line:#3A4B4E; --plain:#9BB9C9;
+  --halo:rgba(247,250,249,.94); --sea-halo:rgba(214,230,232,.95);
+  --accent:#5B3F87; --accent-ink:#FFFFFF; --mana-hi:#7A52B3; --mana-lo:#6E8F9C;
+  --token:#15201F; --token-text:#F7FAF9;
+  --danger:#992C40; --danger-text:#FFFFFF;
+  --ruin:#86601C; --tree:#6E9B63; --tree-dk:#3F6A45; --hill:#B9AE8C; --hill-dk:#857C5F; --nat-lab:#2F5A38; --deep:#9EBBC1; --demon:#43336B;
+  --focus:#C2410C; --ok:#2F6B4F;
+  --ic-fg:#FFFFFF; --ic-lava:#B4361C; --ic-gold:#9A6F0E; --ic-ice:#2D7AA3; --ic-grave:#4E5A58; --ic-pond:#231E35; --ic-tower:#6F2747; --ic-generic:#7A3A4A;
+  --shadow:0 2px 10px rgba(21,32,31,.12);
+  --display:"Hahmlet","Noto Serif KR","Nanum Myeongjo",serif;
+  --body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0A1215; --panel:#101B1F; --panel2:#15242A; --rule:#24363B; --ink:#E6EEEC; --ink2:#C3D1CE; --muted:#93AAA7;
+    --sea-hi:#16303A; --sea-lo:#0B1A21; --sea-line:#1D3946; --sea-ink:#8FC1CC; --wave:#3E6572;
+    --land:#26342F; --land-edge:#93B8B0; --shelf:#1C3842;
+    --ice:#2C4250; --ice-line:#6FA6C6; --ice-edge:#8FB9D1;
+    --mount:#A7BAB6; --mount-lit:#C9D6D3; --snow:#E8F2F7; --rock-lit:#71828A; --rock-dk:#35444B; --snow-shade:#8FA8BA; --mt-line:#0E1B20; --plain:#5E8DA5;
+    --halo:rgba(16,27,31,.92); --sea-halo:rgba(18,40,49,.92);
+    --accent:#BBA2E8; --accent-ink:#0A1215; --mana-hi:#A57FE0; --mana-lo:#7C9CA9;
+    --token:#E6EEEC; --token-text:#0A1215;
+    --danger:#EE8698; --danger-text:#0A1215;
+    --ruin:#E0B66A; --tree:#4F8259; --tree-dk:#2C5237; --hill:#8B8466; --hill-dk:#5A5540; --nat-lab:#9AD0A4; --deep:#0A161C; --demon:#B6A3E6;
+    --focus:#FB923C; --ok:#7FD1A8;
+    --ic-fg:#0A1215; --ic-lava:#F08060; --ic-gold:#E6BF5C; --ic-ice:#86C8E8; --ic-grave:#B9C6C3; --ic-pond:#A79BDB; --ic-tower:#E594B6; --ic-generic:#E3A3B1;
+    --shadow:0 2px 12px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0A1215; --panel:#101B1F; --panel2:#15242A; --rule:#24363B; --ink:#E6EEEC; --ink2:#C3D1CE; --muted:#93AAA7;
+  --sea-hi:#16303A; --sea-lo:#0B1A21; --sea-line:#1D3946; --sea-ink:#8FC1CC; --wave:#3E6572;
+  --land:#26342F; --land-edge:#93B8B0; --shelf:#1C3842;
+  --ice:#2C4250; --ice-line:#6FA6C6; --ice-edge:#8FB9D1;
+  --mount:#A7BAB6; --mount-lit:#C9D6D3; --snow:#E8F2F7; --rock-lit:#71828A; --rock-dk:#35444B; --snow-shade:#8FA8BA; --mt-line:#0E1B20; --plain:#5E8DA5;
+  --halo:rgba(16,27,31,.92); --sea-halo:rgba(18,40,49,.92);
+  --accent:#BBA2E8; --accent-ink:#0A1215; --mana-hi:#A57FE0; --mana-lo:#7C9CA9;
+  --token:#E6EEEC; --token-text:#0A1215;
+  --danger:#EE8698; --danger-text:#0A1215;
+  --ruin:#E0B66A; --tree:#4F8259; --tree-dk:#2C5237; --hill:#8B8466; --hill-dk:#5A5540; --nat-lab:#9AD0A4; --deep:#0A161C; --demon:#B6A3E6;
+  --focus:#FB923C; --ok:#7FD1A8;
+  --ic-fg:#0A1215; --ic-lava:#F08060; --ic-gold:#E6BF5C; --ic-ice:#86C8E8; --ic-grave:#B9C6C3; --ic-pond:#A79BDB; --ic-tower:#E594B6; --ic-generic:#E3A3B1;
+  --shadow:0 2px 12px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.5;padding-inline:16px;padding-block:12px 16px}
+.app{max-width:1900px;margin:0 auto;height:100%;display:flex;flex-direction:column;gap:10px}
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:6px 16px}
+.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);margin:0 0 2px}
+h1{font-family:var(--display);font-weight:800;font-size:26px;line-height:1.15;margin:0;text-wrap:balance}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;padding:4px 10px;border-radius:999px;border:1px solid var(--rule);background:var(--panel);color:var(--muted);white-space:nowrap}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.chip.ok::before{background:var(--ok)} .chip.busy::before{background:var(--accent)} .chip.err{color:var(--danger)} .chip.err::before{background:var(--danger)}
+.main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:12px}
+.stage{position:relative;min-height:420px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--sea-lo)}
+.stage:fullscreen{border-radius:0;border:none}
+#hud{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:block}
+.soft #ovRuler{opacity:0}
+#map{transform-origin:0 0;will-change:transform;position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+.stage.panning #map{cursor:grabbing}
+.stage.placing #map{cursor:crosshair}
+.stage.edit #map [data-mid]{cursor:move}
+.stage:not(.edit) #map [data-mid]{cursor:pointer}
+#map [data-ch]{cursor:move}
+#map [data-ch="rx"],#map [data-ch="ry"]{cursor:nwse-resize}
+
+/* 세계(확대되는 층) */
+.gridsub{stroke:var(--land-edge);stroke-width:1;opacity:.14;stroke-dasharray:3 4}
+.stage:not(.subgrid) #gSub{display:none}
+.hide-grid #gSub{display:none}
+.gridl{stroke:var(--land-edge);stroke-width:1;opacity:.22}
+.shelf1{fill:none;stroke:var(--shelf);stroke-width:260;stroke-linejoin:round;opacity:.45}
+.shelf2{fill:none;stroke:var(--shelf);stroke-width:120;stroke-linejoin:round;opacity:.85}
+.land{fill:var(--land);stroke:var(--land-edge);stroke-width:1.6;stroke-linejoin:round}
+.land.ice{fill:var(--ice)}
+.land.selc{stroke:var(--focus);stroke-width:3}
+.frost{fill:none;stroke:var(--ice-edge);stroke-width:120;opacity:.9}
+.icepat line{stroke:var(--ice-line);stroke-width:8;stroke-linecap:round;opacity:.4}
+.plainpat line{stroke:var(--plain);stroke-width:12;stroke-linecap:round}
+.isle{fill:var(--land);stroke:var(--land-edge);stroke-width:1.1}
+.wave{fill:none;stroke:var(--wave);stroke-width:12;stroke-linecap:round;opacity:.75}
+.hl-l{fill:var(--hill)} .hl-d{fill:var(--hill-dk)} .hl-o{fill:none;stroke:var(--mt-line);stroke-width:.8;opacity:.55;stroke-linejoin:round}
+.fr-bed{fill:var(--tree);opacity:.2} .tr-c{fill:var(--tree)} .tr-cd{fill:var(--tree-dk)} .tr-r{fill:var(--tree)} .tr-rd{fill:var(--tree-dk);opacity:.75} .tr-t{stroke:var(--hill-dk);fill:none}
+.nat-river{fill:none;stroke:var(--sea-ink);opacity:.7;stroke-linecap:round;stroke-linejoin:round} .nat-spring{fill:var(--sea-ink);opacity:.7} .nat-flow{fill:none;stroke:var(--z-ice);opacity:.8;stroke-linecap:round;stroke-linejoin:round}
+.ic-bed{fill:var(--z-ice);opacity:.35} .ic-l{fill:var(--z-ice);stroke:var(--z-iceline);stroke-width:.6} .ic-d{fill:var(--z-iceline);stroke:var(--z-iceline);stroke-width:.6} .ic-g{fill:#fff}
+.nat-fzo{fill:none;stroke:var(--z-iceline);opacity:.8;stroke-linecap:round;stroke-linejoin:round} .nat-fz{fill:none;stroke:var(--z-ice);stroke-linecap:round;stroke-linejoin:round} .nat-fzc{fill:none;stroke:var(--z-iceline);stroke-linecap:round} .nat-fzs{fill:var(--z-ice);stroke:var(--z-iceline);stroke-width:2}
+.ic-nature.peak,.ic-nature.range{fill:var(--mount)} .ic-nature.ice,.ic-nature.frozen{fill:var(--z-iceline)}
+.lod-far .mk-ht,.lod-far .mk-rg,.lod-far .mk-sh,.lod-far .tr-rd,.lod-far .tr-t,.lod-far .tr-cd,.lod-far .hl-o,.lod-far .terr-line.wallj,.lod-far .fxs,.lod-far .terr-region{display:none}
+.lab.nature{fill:var(--nat-lab);font-style:italic;font-weight:500} .ic-nature{fill:var(--tree-dk);stroke:var(--halo);stroke-width:1.2} .ic-nature.hill{fill:var(--hill-dk)} .ic-nature.river{fill:var(--sea-ink)}
+.g-nature{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid var(--tree-dk)}
+.mt-l{fill:var(--mount-lit)} .mt-d{fill:var(--mount)} .mt-s{fill:var(--snow)}
+.terr-fill{fill:var(--tc);fill-opacity:.18;stroke:var(--tc);stroke-width:2.4;stroke-linejoin:round}
+.terr-fill.whole{fill-opacity:.1;stroke:none}
+.terr-line{fill:none;stroke:var(--tc);stroke-width:1.3;opacity:.8;stroke-linejoin:round;stroke-linecap:round}
+.terr-line.thin{stroke-width:.9;opacity:.55}
+.terr-line.dash{stroke-dasharray:6 5;opacity:.7}
+.terr-line.lace{stroke-dasharray:1.5 4;stroke-width:1.6}
+.terr-line.water{stroke:var(--sea-ink);stroke-width:3;opacity:.75}
+.terr-border{fill:var(--tc);fill-opacity:.08;stroke:var(--tc);stroke-width:2.2;stroke-dasharray:12 4 2 4;stroke-linejoin:round;stroke-linecap:round}
+.terr-border.coast{fill:none;stroke-width:3;opacity:.85}
+.terr-band{fill:var(--tc);fill-opacity:.72;stroke:var(--tc);stroke-width:1;vector-effect:non-scaling-stroke}
+.terr-line.wallj{stroke-width:1;opacity:.55;stroke:var(--panel)}
+.terr-line.shim{stroke:var(--z-goldhot);opacity:.9;stroke-linecap:round}
+.terr-line.barrier{stroke:var(--tc);stroke-width:3;stroke-dasharray:2 6}
+.terr-line.flowlt{stroke:var(--z-ice);opacity:.85;stroke-linecap:round}
+.terr-line.aurora{stroke:var(--z-wisp);stroke-width:14;stroke-linecap:round}
+.terr-line.crack{stroke:var(--z-lava);stroke-width:1.8}
+.terr-line.glint{stroke:var(--z-hot);stroke-width:1.4}
+.terr-dot{fill:var(--tc);opacity:.85}
+.hide-terr #gTerr{display:none}
+.mk-sh{fill:var(--mt-line);opacity:.16}
+.mk-dk{fill:var(--rock-dk)} .mk-lt{fill:var(--rock-lit)}
+.mk-ss{fill:var(--snow-shade)} .mk-sl{fill:var(--snow)}
+.mk-ol{fill:none;stroke:var(--mt-line);stroke-width:.9;stroke-linejoin:round;opacity:.85}
+.mk-ht{fill:none;stroke:var(--mt-line);stroke-width:.7;stroke-linecap:round;opacity:.45}
+.mk-rg{fill:none;stroke:var(--mt-line);stroke-width:.6;stroke-linecap:round;opacity:.35}
+.mh0{stop-color:var(--mana-hi);stop-opacity:.5} .mh1{stop-color:var(--mana-hi);stop-opacity:0}
+.hatch line{stroke:var(--mana-lo);stroke-width:13;opacity:.6}
+.hide-mana #gMana,.hide-terrain #gTex,.hide-terrain #gMount,.hide-grid #gGrid,.hide-grid #ovRuler{display:none}
+
+/* 화면 고정 크기 층(글자·표식) */
+.halo{paint-order:stroke fill;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
+.c-name{font-family:var(--display);font-weight:800;fill:var(--ink);text-anchor:middle;letter-spacing:.04em}
+.c-dir{font-family:var(--display);font-weight:700;fill:var(--ink2);text-anchor:middle}
+.c-sub{font-family:var(--body);font-weight:500;fill:var(--ink2);text-anchor:middle}
+.sea{font-family:var(--display);fill:var(--sea-ink);text-anchor:middle;dominant-baseline:central;paint-order:stroke fill;stroke:var(--sea-halo);stroke-width:4px;stroke-linejoin:round}
+.sea.outer{font-weight:700} .sea.inner{font-weight:500}
+.pill rect{fill:var(--token)}
+.pill text{fill:var(--token-text);font-family:var(--body);font-weight:700;text-anchor:middle;dominant-baseline:central}
+.pill.small rect{fill:var(--panel);stroke:var(--ink2);stroke-width:1.2}
+.pill.small text{fill:var(--ink)}
+.dot{fill:var(--ink);stroke:var(--halo);stroke-width:1.5}
+.lab{font-family:var(--body);dominant-baseline:central;paint-order:stroke fill;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
+.lab.apex{fill:var(--danger);font-weight:700} .lab.dungeon{fill:var(--danger);font-weight:500}
+.lab.ruin{fill:var(--ruin);font-weight:700} .lab.shelter{fill:var(--demon);font-family:var(--display);font-weight:700}
+.lab.place{fill:var(--ink);font-weight:500}
+.lab.capital{fill:var(--ink)} .lab.city{fill:var(--ink)} .lab.village{fill:var(--ink2)}
+.lab.region{fill:var(--tc,var(--ink2));text-anchor:middle;letter-spacing:.08em}
+.ic-cap{fill:var(--token);stroke:var(--halo);stroke-width:1.1}
+.ic-cap-s{fill:var(--token-text)}
+.ic-city{fill:var(--halo);stroke:var(--ink);stroke-width:1.4}
+.ic-vil{fill:var(--ink2);stroke:var(--halo);stroke-width:1.1}
+.terr-region{fill:var(--tc);stroke:var(--tc);stroke-width:1.3;stroke-dasharray:2 4;stroke-linejoin:round;stroke-linecap:round}
+.ic-apex{fill:var(--danger);stroke:var(--halo);stroke-width:1.6}
+.bdg-halo{fill:none;stroke:var(--halo);stroke-width:2.5}
+.bdg{stroke:var(--danger);stroke-width:2.4}
+.bdg.sm{stroke-width:1.6}
+.gf{fill:var(--ic-fg)}
+.chip-r{fill:var(--danger);stroke:var(--halo);stroke-width:1.5}
+.chip-t{fill:var(--danger-text);font-family:var(--body);font-weight:700;text-anchor:middle;dominant-baseline:central}
+.chip-g{fill:var(--halo);stroke:var(--danger);stroke-width:1.2}
+.chip-gt{fill:var(--danger);font-family:var(--body);font-weight:700;text-anchor:middle;dominant-baseline:central}
+.tcard{border:1px solid var(--rule);border-radius:6px;padding:10px;display:flex;flex-direction:column;gap:7px;background:var(--bg)}
+.thead{display:flex;justify-content:space-between;align-items:center;gap:10px;min-width:0}
+.thead b{font-size:13px;white-space:nowrap}
+.tprev{font-size:19px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.trow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center}
+.legend .legi{display:grid;grid-template-columns:30px minmax(0,1fr);gap:8px;align-items:center}
+.legend .legi svg{width:30px;height:30px;overflow:visible}
+.ic-apex-n{fill:var(--danger-text);font-family:var(--body);font-weight:700;text-anchor:middle;dominant-baseline:central}
+.ic-dungeon{fill:var(--halo);stroke:var(--danger);stroke-width:1.6}
+.ic-dungeon-g{fill:var(--danger);font-family:var(--body);font-weight:700;text-anchor:middle;dominant-baseline:central}
+.ic-ruin{fill:var(--ruin);stroke:var(--halo);stroke-width:1.4}
+.ic-shelter{fill:var(--deep);stroke:var(--demon);stroke-width:1.8}
+.ic-shelter.noking{stroke-dasharray:4 2.5}
+.ic-crown{fill:var(--demon)}
+.ic-place{fill:var(--halo);stroke:var(--ink);stroke-width:2}
+.hitpad{fill:transparent}
+.selring{fill:none;stroke:var(--focus);stroke-width:2.5}
+.warnb circle{fill:var(--danger);stroke:var(--halo);stroke-width:1.5}
+.warnb text{fill:var(--danger-text);font:700 11px var(--body);text-anchor:middle;dominant-baseline:central}
+.ruler.sub{font-size:9.5px;font-weight:500;opacity:.8}
+.ruler{font-family:var(--body);font-size:11px;font-weight:700;fill:var(--sea-ink);text-anchor:middle;dominant-baseline:central;paint-order:stroke fill;stroke:var(--sea-halo);stroke-width:3px}
+.handle{fill:var(--panel);stroke:var(--focus);stroke-width:2}
+.handle-x{stroke:var(--focus);stroke-width:2;stroke-linecap:round}
+.handle-axis{stroke:var(--focus);stroke-width:1.2;stroke-dasharray:4 4;opacity:.7}
+.compass circle{fill:var(--halo);stroke:var(--land-edge);stroke-width:1}
+.compass path.a{fill:var(--ink)} .compass path.b{fill:var(--mount-lit)}
+.compass text{font-family:var(--display);font-weight:700;font-size:13px;fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+
+/* 떠 있는 도구 */
+.tb{position:absolute;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px;background:var(--panel);border:1px solid var(--rule);border-radius:8px;box-shadow:var(--shadow);font-size:13px}
+.tb-l{top:10px;left:10px;max-width:calc(100% - 20px - 210px)}
+.tb-r{top:10px;right:10px}
+.tb-add{top:62px;left:10px;max-width:calc(100% - 20px)}
+.btn{font:inherit;font-size:13px;font-weight:500;line-height:1.2;border-radius:6px;padding:6px 10px;cursor:pointer;border:1px solid var(--rule);background:var(--bg);color:var(--ink);display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn:hover{border-color:var(--ink2)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.icon{width:32px;height:32px;padding:0;justify-content:center;font-size:17px;font-weight:700}
+.btn.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.danger{color:var(--danger);border-color:var(--danger)}
+.btn.danger.armed{background:var(--danger);color:var(--danger-text)}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.seg .btn{border:none;border-radius:0}
+.seg .btn+.btn{border-left:1px solid var(--rule)}
+#zoomPct{min-width:46px;text-align:center;font-variant-numeric:tabular-nums;color:var(--muted)}
+.addk{display:inline-flex;align-items:center;gap:6px}
+.addk i{display:inline-block;flex:none}
+.sep{width:1px;align-self:stretch;background:var(--rule)}
+.chk{display:inline-flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap}
+.pop{position:absolute;top:56px;right:10px;width:240px;max-height:calc(100% - 140px);overflow:auto;background:var(--panel);border:1px solid var(--rule);border-radius:8px;box-shadow:var(--shadow);padding:12px;display:flex;flex-direction:column;gap:8px;font-size:13px;z-index:3}
+.pop h3{margin:0;font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.where{position:absolute;left:84px;bottom:14px;padding:4px 10px;border-radius:6px;background:var(--panel);border:1px solid var(--rule);font-size:12px;color:var(--ink2);font-variant-numeric:tabular-nums;pointer-events:none}
+.hide-grid .where{display:none}
+.hint{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);max-width:calc(100% - 240px);padding:6px 12px;border-radius:999px;background:var(--panel);border:1px solid var(--rule);box-shadow:var(--shadow);font-size:12.5px;color:var(--ink2);text-align:center;pointer-events:none}
+.stage.placing .hint{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.mini{position:absolute;right:10px;bottom:10px;width:190px;background:var(--panel);border:1px solid var(--rule);border-radius:6px;box-shadow:var(--shadow);overflow:hidden}
+.mini svg{display:block;width:100%;height:auto;cursor:pointer;touch-action:none}
+.mini .ml{fill:var(--land);stroke:var(--land-edge);stroke-width:1;vector-effect:non-scaling-stroke}
+.mini .mv{fill:none;stroke:var(--focus);stroke-width:2;vector-effect:non-scaling-stroke}
+.mini .ms{fill:var(--sea-hi)}
+.mini-head{display:flex;justify-content:space-between;align-items:center;padding:3px 8px;font-size:11.5px;color:var(--muted);border-bottom:1px solid var(--rule)}
+.mini-head button{font:inherit;font-size:11.5px;background:none;border:none;color:var(--muted);cursor:pointer;padding:0}
+.mini.closed svg{display:none}
+.mini.closed .mini-head{border-bottom:none}
+
+/* 패널 */
+.side{min-height:0;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.tabs{display:flex;border-bottom:1px solid var(--rule);background:var(--panel2)}
+.tab{flex:1;font:inherit;font-size:13px;font-weight:500;padding:10px 6px;border:none;background:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;display:inline-flex;justify-content:center;align-items:center;gap:5px}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:700}
+.tab .n{font-size:11px;font-weight:700;min-width:18px;padding:0 5px;border-radius:9px;background:var(--danger);color:var(--danger-text);font-variant-numeric:tabular-nums}
+.tab .n.zero{background:var(--rule);color:var(--muted)}
+.pane{flex:1;min-height:0;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+.pane h2{font-family:var(--display);font-weight:700;font-size:22px;margin:0;line-height:1.2;overflow-wrap:anywhere}
+.pane p{margin:0}
+.muted{color:var(--muted);font-size:13px}
+.kchip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--ink2);letter-spacing:.02em}
+.facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;margin:0;font-size:13px}
+.facts dt{color:var(--muted)} .facts dd{margin:0;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.warnline{color:var(--danger);font-weight:700}
+.field{display:flex;flex-direction:column;gap:4px}
+.field>label,.field>.lb{font-size:12px;font-weight:700;color:var(--ink2)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+input[type=text],input[type=number],input[type=search],select,textarea{font:inherit;font-size:13.5px;color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:6px;padding:6px 8px;width:100%}
+textarea{min-height:84px;resize:vertical;line-height:1.5}
+input[type=range]{width:100%;accent-color:var(--accent)}
+input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px}
+input:disabled,select:disabled,textarea:disabled{opacity:.7}
+.rangev{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.group{display:flex;flex-direction:column;gap:2px}
+.ghead{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--display);font-weight:700;font-size:15px;padding:6px 2px 4px;border-bottom:1px solid var(--rule);margin-bottom:2px}
+.ghead small{font-family:var(--body);font-weight:500;font-size:12px;color:var(--muted)}
+.li{display:grid;grid-template-columns:18px minmax(0,1fr) auto;align-items:center;gap:8px;width:100%;text-align:left;font:inherit;font-size:13.5px;padding:6px 6px;border:none;border-radius:5px;background:none;color:var(--ink);cursor:pointer}
+.li:hover{background:var(--panel2)}
+.li.cur{background:var(--panel2);box-shadow:inset 3px 0 0 var(--focus)}
+.li .nm{overflow-wrap:anywhere}
+.li .nm small{color:var(--muted);font-size:11.5px;margin-left:6px}
+.li .gc{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.li .gc b{color:var(--danger)}
+.glyph{width:14px;height:14px;display:inline-block;flex:none}
+.g-nation{background:var(--token);border-radius:7px;width:16px;height:10px}
+.g-small{background:var(--panel);border:1.5px solid var(--ink2);border-radius:6px;width:16px;height:10px}
+.g-apex{background:var(--danger);transform:rotate(45deg);width:10px;height:10px;margin:2px}
+.g-dungeon{border:2px solid var(--danger);transform:rotate(45deg);width:9px;height:9px;margin:2px}
+.g-ruin{background:var(--ruin);width:10px;height:10px;border-radius:1px}
+.g-shelter{background:var(--deep);border:1.8px dashed var(--demon);border-radius:50%}
+.g-capital{background:var(--token);border-radius:50%;width:12px;height:12px}
+.g-city{border:2px solid var(--ink);background:var(--panel);width:10px;height:10px}
+.g-village{background:var(--ink2);border-radius:50%;width:7px;height:7px;margin:3px}
+.g-region{border:1.5px dotted var(--ink2);width:14px;height:10px}
+.g-place{border:2px solid var(--ink);border-radius:50%;width:10px;height:10px}
+.g-sea{border-bottom:2px solid var(--sea-ink);width:14px;height:8px}
+.issue{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;padding:10px;border:1px solid var(--rule);border-radius:6px;font-size:13px;background:var(--bg);text-align:left;font-family:inherit;color:var(--ink);cursor:pointer;width:100%}
+.issue:hover{border-color:var(--ink2)}
+.sev{font-size:11px;font-weight:700;padding:2px 7px;border-radius:9px;white-space:nowrap}
+.sev.high{background:var(--danger);color:var(--danger-text)}
+.sev.mid{background:var(--panel2);color:var(--ink2);border:1px solid var(--rule)}
+.legend{display:flex;flex-direction:column;gap:8px;font-size:13px}
+.legend div{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;align-items:center}
+.sw{width:20px;height:13px;border-radius:2px;border:1px solid var(--rule);display:inline-block}
+.sw.gr{background:linear-gradient(90deg,var(--mana-hi),transparent)}
+.sw.lo{background:repeating-linear-gradient(135deg,var(--mana-lo) 0 1.5px,transparent 1.5px 5px)}
+.sw.ice{background:repeating-linear-gradient(60deg,var(--ice-line) 0 1.2px,var(--ice) 1.2px 5px);border-color:var(--land-edge)}
+.sw.mt{border:none;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:13px solid var(--mount);border-radius:0}
+.keys{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;font-size:12.5px;margin:0}
+.keys dt{font-weight:700;white-space:nowrap} .keys dd{margin:0;color:var(--ink2)}
+kbd{font-family:var(--body);font-size:11.5px;padding:1px 5px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;background:var(--bg)}
+pre.out{margin:0;padding:10px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);font-family:var(--body);font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto}
+.empty{border:1px dashed var(--rule);border-radius:6px;padding:14px;display:flex;flex-direction:column;gap:8px;color:var(--ink2);font-size:13px}
+@media (max-width:980px){
+  .app{height:auto}
+  .main{grid-template-columns:minmax(0,1fr)}
+  .stage{height:74vh;height:74dvh}
+  .side{max-height:none}
+  .pane{overflow:visible}
+  .tb-l{max-width:calc(100% - 20px)}
+  .tb-r{top:auto;bottom:52px}
+  .pop{top:auto;bottom:100px}
+  .hint{display:none}
+  .mini{width:140px}
+}
+@media (prefers-reduced-motion: no-preference){ .btn,.li,.tab{transition:background-color .12s,border-color .12s,color .12s} }
+</style>
+
+<div class="app">
+  <header class="top">
+    <div>
+      <p class="eyebrow">4차 주기 · 대륙 6 · 큰 나라 12 · 큰 칸 = 500 · 작은 칸 = 50</p>
+      <h1>퍼스트 페러다이스 지도</h1>
+    </div>
+    <span id="saveState" class="chip busy" role="status">불러오는 중</span>
+  </header>
+
+  <div class="main">
+    <section class="stage" id="stage" aria-label="지도">
+      <svg id="map" role="img" aria-label="여섯 대륙과 나라, 던전, 악마 대피소, 바다를 표시한 지도">
+        <defs id="defs">
+          <radialGradient id="seaGrad" cx="50%" cy="48%" r="65%">
+            <stop offset="0" style="stop-color:var(--sea-hi)"/>
+            <stop offset="1" style="stop-color:var(--sea-lo)"/>
+          </radialGradient>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0" class="mh0"/><stop offset="1" class="mh1"/>
+          </radialGradient>
+          <pattern id="hatch" class="hatch" width="70" height="70" patternUnits="userSpaceOnUse" patternTransform="rotate(135)">
+            <line x1="0" y1="0" x2="0" y2="70"/>
+          </pattern>
+          <pattern id="icePat" class="icepat" width="220" height="160" patternUnits="userSpaceOnUse">
+            <line x1="20" y1="40" x2="90" y2="10"/><line x1="130" y1="120" x2="200" y2="90"/><line x1="60" y1="130" x2="80" y2="120"/>
+          </pattern>
+          <pattern id="plainPat" class="plainpat" width="180" height="120" patternUnits="userSpaceOnUse">
+            <line x1="20" y1="40" x2="80" y2="40"/><line x1="110" y1="100" x2="160" y2="100"/>
+          </pattern>
+          <g id="clips"></g>
+        </defs>
+        <g id="world">
+          <rect id="seaRect" x="-20000" y="-20000" width="50000" height="47600" fill="var(--sea-lo)"/>
+          <rect x="0" y="0" width="10000" height="7600" fill="url(#seaGrad)"/>
+                    <g id="gWaves"></g>
+          <g id="gSea"></g>
+          <g id="gShelf"></g>
+          <g id="gLand"></g>
+          <g id="gTex"></g>
+          <g id="gMana"></g>
+          <g id="gNat"></g>
+          <g id="gTerr"></g>
+          <g id="gMount"></g>
+          <g id="gNatHi"></g>
+          <g id="gZone"></g>
+          <g id="gSub" pointer-events="none"></g>
+          <g id="gGrid" pointer-events="none"></g>
+          <rect x="0" y="0" width="10000" height="7600" fill="none" stroke="var(--land-edge)" stroke-opacity=".5" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+        </g>
+        <g id="ov">
+          <g id="ovRuler"></g>
+          <g id="ovCont"></g>
+          <g id="ovLab"></g>
+          <g id="ovIcon"></g>
+          <g id="ovHandle"></g>
+          <g class="compass" id="compass">
+            <circle r="24"/>
+            <path class="a" d="M0,-21 L5,0 L0,4 Z"/><path class="b" d="M0,-21 L-5,0 L0,4 Z"/>
+            <path class="b" d="M0,21 L5,0 L0,-4 Z"/><path class="a" d="M0,21 L-5,0 L0,-4 Z" style="opacity:.55"/>
+            <text y="-35">北</text>
+          </g>
+        </g>
+      </svg>
+
+      <div class="tb tb-l" id="tbL">
+        <div class="seg" role="group" aria-label="모드">
+          <button type="button" class="btn on" id="mView" aria-pressed="true">보기</button>
+          <button type="button" class="btn" id="mEdit" aria-pressed="false">편집</button>
+        </div>
+        <button type="button" class="btn icon" id="bUndo" title="되돌리기 (Ctrl+Z)" aria-label="되돌리기" disabled>↶</button>
+        <button type="button" class="btn icon" id="bRedo" title="다시 하기 (Ctrl+Shift+Z)" aria-label="다시 하기" disabled>↷</button>
+        <label class="chk" id="contEditWrap" hidden><input type="checkbox" id="contEdit"> 대륙 모양 편집</label>
+      </div>
+      <div class="tb tb-add" id="tbAdd" hidden>
+        <span class="muted" style="font-size:12px">추가</span>
+      </div>
+      <div class="tb tb-r">
+        <button type="button" class="btn icon" id="zOut" aria-label="축소">−</button>
+        <span id="zoomPct">100%</span>
+        <button type="button" class="btn icon" id="zIn" aria-label="확대">+</button>
+        <button type="button" class="btn" id="zFit" title="전체 보기 (0)">전체</button>
+        <button type="button" class="btn" id="bLayers" aria-expanded="false" aria-controls="layerPop">레이어</button>
+        <button type="button" class="btn" id="bFull" hidden>전체 화면</button>
+      </div>
+      <div class="pop" id="layerPop" hidden>
+        <h3>표시할 것</h3>
+        <div id="layerList" style="display:flex;flex-direction:column;gap:6px"></div>
+        <h3 style="margin-top:6px">글자와 표식 크기</h3>
+        <div class="seg" role="group" aria-label="글자 크기" id="sizeSeg">
+          <button type="button" class="btn" data-s="0.85">작게</button>
+          <button type="button" class="btn" data-s="1">보통</button>
+          <button type="button" class="btn" data-s="1.2">크게</button>
+          <button type="button" class="btn" data-s="1.45">아주 크게</button>
+        </div>
+        <label class="chk" style="margin-top:4px"><input type="checkbox" id="nameGrow"> 확대하면 글자와 표식도 함께 커지기</label>
+        <p class="muted" style="font-size:12px">글꼴과 글자 크기는 오른쪽 패널의 <b>글자</b> 탭에서 종류별로 바꿀 수 있습니다.</p>
+      </div>
+      <div class="where" id="where" aria-live="off"></div>
+      <div class="hint" id="hint">드래그로 이동 · 휠이나 두 손가락으로 확대 · 표식을 누르면 정보</div>
+      <div class="mini" id="mini">
+        <div class="mini-head"><span>전체 지도</span><button type="button" id="miniT">접기</button></div>
+        <svg id="miniSvg" viewBox="0 0 10000 7600" aria-label="미니맵, 누르면 그 위치로 이동"></svg>
+      </div>
+    </section>
+
+    <aside class="side">
+      <div class="tabs" role="tablist">
+        <button type="button" class="tab" role="tab" id="tab-sel" aria-selected="true" aria-controls="pane-sel">선택</button>
+        <button type="button" class="tab" role="tab" id="tab-list" aria-selected="false" aria-controls="pane-list">목록</button>
+        <button type="button" class="tab" role="tab" id="tab-chk" aria-selected="false" aria-controls="pane-chk">검토 <span class="n zero" id="chkN">0</span></button>
+        <button type="button" class="tab" role="tab" id="tab-txt" aria-selected="false" aria-controls="pane-txt">글자</button>
+        <button type="button" class="tab" role="tab" id="tab-leg" aria-selected="false" aria-controls="pane-leg">범례</button>
+      </div>
+      <div class="pane" id="pane-sel" role="tabpanel"></div>
+      <div class="pane" id="pane-list" role="tabpanel" hidden>
+        <input type="search" id="q" placeholder="이름이나 메모로 찾기" aria-label="표식 찾기">
+        <div id="listBody" style="display:flex;flex-direction:column;gap:10px"></div>
+        <div class="field">
+          <span class="lb">배치 요약</span>
+          <p class="muted">대륙별로 무엇이 어느 격자 칸에 있는지 정리한 글입니다. 설정 문서에 붙여 넣을 수 있어요.</p>
+          <div class="btns"><button type="button" class="btn" id="bCopy">요약 복사</button></div>
+          <span class="muted" id="copyMsg" role="status"></span>
+          <pre class="out" id="sumOut"></pre>
+        </div>
+        <div class="field" id="resetWrap" hidden>
+          <span class="lb">확정 배치로 되돌리기</span>
+          <p class="muted">기본 표식(큰 나라 12, 최상위 던전 6, 대피소 5, 바다 10)을 처음 위치로 돌립니다. 직접 추가한 표식은 그대로 둡니다. 되돌리기로 취소할 수 있습니다.</p>
+          <div class="btns"><button type="button" class="btn danger" id="bReset">처음 위치로 되돌리기</button></div>
+        </div>
+      </div>
+      <div class="pane" id="pane-chk" role="tabpanel" hidden></div>
+      <div class="pane" id="pane-txt" role="tabpanel" hidden></div>
+      <div class="pane" id="pane-leg" role="tabpanel" hidden>
+        <div class="legend">
+          <div><i class="glyph g-nation"></i><span>큰 나라 (투영체 직할국)</span></div>
+          <div><i class="sw" style="background:var(--n-pandemo);opacity:.5"></i><span>나라 영토. 나라마다 콘셉트에 맞춘 모양과 색. 바깥의 긴 점선이 국경선</span></div>
+          <div style="display:block;padding-left:30px;font-size:12.5px;color:var(--ink2);line-height:1.7">환상: 태양과 햇살 · 빛: 흩어진 성운 · 판데모니움: 다이아몬드 장벽과 요새 · 기계상: 톱니바퀴 · 에센션: 강줄기와 계단식 구획 · GIV: 육각형과 네 기어 · 레바테일: 마법진 · 크루얼 키스톤: 쐐기돌과 가시 · 게뮤노미콘: 벚꽃과 별자리 · 레플리콘: 세잎 클로버 · 안트리: 보석 세공 · 백소: 눈 결정</div>
+          <div><i class="glyph g-small"></i><span>작은 나라 (허가 건국). 좁으면 점으로 줄어듭니다</span></div>
+          <div><i class="glyph g-region"></i><span>지방. 점선은 지방 경계, 글자는 지방 이름. 지방 표식을 옮기면 경계가 다시 그려짐</span></div>
+          <div><i class="glyph g-capital"></i><span>수도</span></div>
+          <div><i class="glyph g-city"></i><span>도시</span></div>
+          <div><i class="glyph g-village"></i><span>마을. 수도·도시·마을은 확대하면 차례로 나타남</span></div>
+          <div><i class="glyph g-apex"></i><span>최상위 던전, M등급. 콘셉트별 아이콘, 붉은 숫자는 위험 순위</span></div>
+          <div id="legIcons" style="display:flex;flex-direction:column;align-items:stretch;gap:6px;grid-template-columns:none;padding-left:30px"></div>
+          <div style="display:block;padding-left:30px;font-size:12.5px;color:var(--ink2);line-height:1.7">던전 주변 분위기: 용의 협곡은 용암 균열과 불씨 · 황금 제단은 금빛과 도는 빛살 · 빙산의 협곡은 갈라진 얼음과 냉기 · 무덤은 묘비와 도깨비불 · 흑연의 연못은 독안개와 고래 그림자 · 바벨론은 가라앉는 나선 구덩이</div>
+          <div style="display:block;padding-left:30px;font-size:12.5px;color:var(--ink2);line-height:1.7">바다 효과: 서리해는 유빙과 서리 · 월흔해는 달빛 조수 · 흑조해는 검은 해류 · 환류해는 잔재를 감싸 도는 해류 · 빙문해협은 얼음 관문 · 갈림해협은 두 빛깔 물길 · 북해안·남해안은 빙산 · 동해안·서해안은 너울</div>
+          <div><i class="glyph g-dungeon"></i><span>일반 던전. 글자는 등급 (G~SSS, M). 선택 탭에서 아이콘을 고를 수 있음</span></div>
+          <div><i class="glyph g-ruin"></i><span>유적</span></div>
+          <div><i class="glyph g-nature"></i><span>산지 · 숲 · 강 (빈 땅의 자연 지형)</span></div>
+          <div><i class="glyph g-shelter"></i><span>악마 대피소 (해저). 실선 + 왕관 = 그레이트 데몬이 있는 곳</span></div>
+          <div><i class="glyph g-place"></i><span>지명 (도시, 산, 거점 등)</span></div>
+          <div><i class="glyph g-sea"></i><span>바다 이름</span></div>
+          <div><i class="sw gr"></i><span>마력 농도. 진할수록 높음: 심연 › 환상 › 빛 › 경계 › 잔재</span></div>
+          <div><i class="sw lo"></i><span>침묵 = 마력 최저</span></div>
+          <div><i class="sw ice"></i><span>눈과 얼음 (환상 · 빛)</span></div>
+          <div><i class="sw mt"></i><span>산악 지대 (환상)</span></div>
+        </div>
+        <div class="field">
+          <span class="lb">조작</span>
+          <dl class="keys">
+            <dt>드래그</dt><dd>지도 이동. 편집 모드에서는 표식을 옮김</dd>
+            <dt>휠 · 두 손가락</dt><dd>확대와 축소. 더블클릭도 확대</dd>
+            <dt><kbd>E</kbd></dt><dd>보기 ↔ 편집 전환</dd>
+            <dt><kbd>←↑→↓</kbd></dt><dd>선택한 표식을 1칸씩 옮김 (<kbd>Shift</kbd> 10칸). 선택이 없으면 지도 이동</dd>
+            <dt><kbd>Ctrl</kbd>+<kbd>Z</kbd></dt><dd>되돌리기, <kbd>Shift</kbd>를 더하면 다시 하기</dd>
+            <dt><kbd>Delete</kbd></dt><dd>두 번 누르면 선택한 표식 삭제</dd>
+            <dt><kbd>+</kbd> <kbd>−</kbd> <kbd>0</kbd></dt><dd>확대, 축소, 전체 보기</dd>
+            <dt><kbd>Esc</kbd></dt><dd>추가 취소, 선택 해제</dd>
+          </dl>
+        </div>
+        <p class="muted">해안선 모양과 위치는 임시입니다. 방위, 크기 순위, 마력 농도 순위, 최상위 던전, 대피소와 바다 이름, 나라의 소속 대륙은 확정 설정을 따릅니다. 검토 탭이 지도와 설정이 어긋난 곳을 알려 줍니다.</p>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+const NS="http://www.w3.org/2000/svg";
+const $=id=>document.getElementById(id);
+function el(tag,attrs,parent){const n=document.createElementNS(NS,tag);if(attrs)for(const k in attrs){if(attrs[k]!=null)n.setAttribute(k,attrs[k]);}if(parent)parent.appendChild(n);return n;}
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const clone=o=>o==null?null:JSON.parse(JSON.stringify(o));
+const SC=5,W=2000*SC,H=1520*SC,CELL=100*SC,SUB=CELL/10,ZMAX=60,MARKCAP=2.6,NAMECAP=10;
+const BODY='"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+const DISP='"Hahmlet","Noto Serif KR",serif';
+
+/* ---------- 설정 데이터 ---------- */
+const KIND={
+  nation:{label:"큰 나라",pri:100,land:true},
+  apex:{label:"최상위 던전",pri:90,land:true},
+  sea:{label:"바다 이름",pri:70,land:false},
+  shelter:{label:"악마 대피소",pri:60,land:false},
+  small:{label:"작은 나라",pri:50,land:true},
+  place:{label:"지명",pri:40,land:true},
+  capital:{label:"수도",pri:85,land:true},
+  region:{label:"지방",pri:55,land:true},
+  city:{label:"도시",pri:45,land:true},
+  village:{label:"마을",pri:22,land:true},
+  dungeon:{label:"일반 던전",pri:30,land:true},
+  ruin:{label:"유적",pri:20,land:true},
+  nature:{label:"산지 · 숲 · 강",pri:15,land:true}
+};
+const KORDER=["nation","small","region","capital","city","village","apex","dungeon","ruin","nature","shelter","place","sea"];
+const CHILD={region:1,capital:1,city:1,village:1};
+const GRADES=["G","F","E","D","C","B","A","S","SS","SSS","M"];
+const ICONS={
+  diamond:{label:"기본 (마름모)"},
+  volcano:{label:"화산 · 용암",c:"--ic-lava"},
+  altar:{label:"황금 제단",c:"--ic-gold"},
+  iceberg:{label:"갈라진 빙산",c:"--ic-ice"},
+  grave:{label:"묘비 · 공동묘지",c:"--ic-grave"},
+  pond:{label:"검은 연못 · 유령 고래",c:"--ic-pond"},
+  tower:{label:"역방향 타워",c:"--ic-tower"},
+  cave:{label:"동굴",c:"--ic-generic"},
+  spire:{label:"탑",c:"--ic-generic"},
+  forest:{label:"숲",c:"--ic-generic"},
+  crystal:{label:"수정 광맥",c:"--ic-generic"}
+};
+const DEF_ICON={"a-simyeon":"volcano","a-hwansang":"altar","a-bit":"iceberg","a-gyeonggye":"grave","a-janjae":"pond","a-chimmuk":"tower"};
+const FONTS=[["Hahmlet","함렛 (명조 제목체)","serif"],["Noto Sans KR","본고딕","sans"],["Noto Serif KR","본명조","serif"],["Nanum Myeongjo","나눔명조","serif"],["Gowun Batang","고운바탕","serif"],["Song Myung","송명","serif"],["Gowun Dodum","고운돋움","sans"],["Do Hyeon","도현","sans"],["Black Han Sans","검은고딕","sans"],["Gugi","구기","sans"],["Nanum Pen Script","나눔펜 (손글씨)","sans"]];
+const TCAT=[["cont","대륙 이름","Hahmlet",.8,true,"환상 · 경계"],["contSub","대륙 방위 · 설명","Hahmlet",1,true,"北 · 가장 큰 대륙"],
+  ["nation","큰 나라","Noto Sans KR",1,true,"판데모니움"],["small","작은 나라","Noto Sans KR",1,true,"작은 나라"],
+  ["apex","최상위 던전","Noto Sans KR",1,true,"천상의 황금 제단"],["dungeon","일반 던전","Noto Sans KR",1,false,"일반 던전"],
+  ["ruin","유적","Noto Sans KR",1,true,"유적"],["shelter","악마 대피소","Hahmlet",1,true,"흑요궁 · 정음굴"],
+  ["place","지명","Noto Sans KR",1,false,"지명"],["nature","산지 · 숲 · 강","Gowun Batang",1,false,"까치 숲"],["region","지방 이름","Hahmlet",1,false,"북동 군관구"],["capital","수도","Noto Sans KR",1,true,"흑철성"],["city","도시","Noto Sans KR",1,false,"여울장터"],["village","마을","Noto Sans KR",1,false,"고요골"],["seaOuter","바깥 바다","Hahmlet",1,true,"북해안"],["seaInner","내해 · 해협","Hahmlet",1,false,"서리해 · 갈림해협"]];
+function typoDefaults(){const o={};TCAT.forEach(([k,,f,sz,b])=>o[k]={f,sz,b});return o;}
+let typo=typoDefaults();
+function famOf(f){const d=FONTS.find(x=>x[0]===f)||FONTS[1];return `"${d[0]}",${d[2]==="serif"?'"Noto Serif KR",serif':'"Noto Sans KR",sans-serif'}`;}
+function T(k){const t=typo[k]||typoDefaults()[k]||{};return {fam:famOf(t.f),wt:t.b?700:400,sz:t.sz||1};}
+const tstyle=t=>`font-family:${t.fam};font-weight:${t.wt}`;
+function iconKey(m){if(m.icon&&ICONS[m.icon])return m.icon;if(m.kind==="apex"){if(m.tower)return "tower";return DEF_ICON[m.id]||"diamond";}return "diamond";}
+function glyph(g,key,col){const C="var("+col+")";
+  const f=d=>el("path",{d,class:"gf"},g), st=(d,w,c)=>el("path",{d,fill:"none",stroke:c||C,"stroke-width":w||1.8,"stroke-linecap":"round","stroke-linejoin":"round"},g), dot=(cx,cy,r,o)=>el("circle",{cx,cy,r,class:"gf",opacity:o||1},g);
+  switch(key){
+    case "volcano":f("M-11.5,8.5 L-4.5,-3 Q0,-1 4.5,-3 L11.5,8.5 Z");st("M0,-1.5 L-2.2,3 L1,4.2 L-1,8.5",1.8);dot(-3.5,-8,1.7);dot(1.5,-10.5,2);dot(4.5,-6.5,1.3);break;
+    case "altar":st("M0,-12.5 V-9.5 M-7.5,-9.5 L-5.5,-7.5 M7.5,-9.5 L5.5,-7.5",1.7,"var(--ic-fg)");dot(0,-4,3.4);el("rect",{x:-10,y:0,width:20,height:3,rx:1,class:"gf"},g);
+      el("rect",{x:-8,y:3,width:3,height:6,class:"gf"},g);el("rect",{x:5,y:3,width:3,height:6,class:"gf"},g);el("rect",{x:-11,y:9,width:22,height:2.2,class:"gf"},g);break;
+    case "iceberg":f("M-12,7 L-6,-5 L-2,0 L2.5,-10.5 L12,7 Z");st("M2.5,-7.5 L0.3,-1.5 L3.2,2 L0.5,7",1.6);st("M-12,10.2 Q-9,8.6 -6,10.2 T0,10.2 T6,10.2 T12,10.2",1.4,"var(--ic-fg)");break;
+    case "grave":f("M-6.5,9 V-3.5 A6.5,6.5 0 0 1 6.5,-3.5 V9 Z");st("M0,-5.5 V4 M-3.4,-2 H3.4",1.9);st("M-11,9.5 H11",1.7,"var(--ic-fg)");st("M-9.5,9 L-8.5,6.5 M8.5,6.5 L9.5,9",1.3,"var(--ic-fg)");break;
+    case "pond":el("ellipse",{cx:0,cy:7,rx:11,ry:3.4,fill:"none",stroke:"var(--ic-fg)","stroke-width":1.6},g);
+      f("M0,6.5 C0.6,1 0.7,-2 1.1,-4 C3.2,-5.2 6.2,-7.2 9.2,-11 C5.2,-10.2 3.1,-9.2 0.5,-7.6 C-2.1,-9.2 -4.2,-10.2 -8.2,-11 C-6.2,-7.2 -3.2,-5.2 -1.1,-4 C-0.7,-2 -0.6,1 0,6.5 Z");dot(-8.5,-1,1.2,.75);dot(8.5,0,1,.75);dot(-6,2.5,.9,.6);break;
+    case "tower":st("M-12,-11.6 H12",1.5,"var(--ic-fg)");f("M-9.5,-9.5 H9.5 L6.8,-4.6 H-6.8 Z M-6,-2.6 H6 L3.8,2.2 H-3.8 Z M-2.8,4.2 H2.8 L0,10.5 Z");break;
+    case "cave":f("M-11,9 C-11,-4 -5,-10.5 0,-10.5 C5,-10.5 11,-4 11,9 Z");el("path",{d:"M-5,9 C-5,2 -3,-2.5 0,-2.5 C3,-2.5 5,2 5,9 Z",fill:C},g);break;
+    case "spire":f("M-5,9 V-3 L0,-11.5 L5,-3 V9 Z M-9.5,9 H9.5 V11.2 H-9.5 Z");el("rect",{x:-1.4,y:-1,width:2.8,height:4.5,rx:1.2,fill:C},g);break;
+    case "forest":f("M-5,-10 L0.5,-1.5 H-2 L2,5.5 H-12 L-8,-1.5 H-10.5 Z M6,-6 L10,1 H8 L11.5,7 H0.5 L4,1 H2 Z");el("rect",{x:-6.2,y:5.5,width:2.4,height:4.5,class:"gf"},g);el("rect",{x:4.8,y:7,width:2.2,height:3,class:"gf"},g);break;
+    case "crystal":f("M0,-12 L6.5,-3 L3.2,10 H-3.2 L-6.5,-3 Z");st("M0,-12 V10 M-6.5,-3 H6.5",1.2);break;
+  }}
+const GEOM=["cx","cy","rx","ry","rot","seed","amp","ly","lx","lsz"];
+const DEFAULT_C=[
+  {id:"hwansang",name:"환상",dir:"北",sub:"가장 큰 대륙 · 눈과 얼음의 산악",cx:1120,cy:290,rx:600,ry:200,rot:-2,seed:11,amp:.11,ly:-26,lx:0,lsz:1,ice:"mount",size:1,mana:2},
+  {id:"gyeonggye",name:"경계",dir:"中央",sub:"최대 인구 · 던전 최다",cx:1040,cy:840,rx:430,ry:250,rot:3,seed:41,amp:.11,lx:0,lsz:1,ly:-96,size:2,mana:4},
+  {id:"bit",name:"빛",dir:"南",sub:"눈과 얼음의 평원",cx:1080,cy:1304,rx:460,ry:144,rot:2,seed:67,amp:.11,lx:0,lsz:1,ly:-24,ice:"plain",size:3,mana:3},
+  {id:"chimmuk",name:"침묵",dir:"北西",sub:"마력 최저 · 던전과 유적 최소",cx:216,cy:436,rx:172,ry:212,rot:8,seed:23,amp:.11,lx:0,lsz:1,ly:-100,size:4,mana:6},
+  {id:"simyeon",name:"심연",dir:"西",sub:"마력 농도 최고",cx:264,cy:984,rx:152,ry:192,rot:-6,seed:37,amp:.11,lx:0,lsz:1,ly:-92,size:5,mana:1},
+  {id:"janjae",name:"잔재",dir:"東",sub:"유적 최다 · 가장 작은 대륙",cx:1760,cy:864,rx:132,ry:172,rot:9,seed:53,amp:.11,lx:0,lsz:1,ly:-80,size:6,mana:5}
+];
+const ISLES=[
+  {cx:600,cy:492,rx:26,ry:18,rot:20,seed:101,amp:.16},{cx:1584,cy:600,rx:32,ry:20,rot:-15,seed:102,amp:.16},
+  {cx:1924,cy:500,rx:20,ry:30,rot:0,seed:103,amp:.16},{cx:504,cy:1224,rx:36,ry:20,rot:25,seed:104,amp:.16},
+  {cx:1744,cy:1304,rx:30,ry:20,rot:-10,seed:105,amp:.16},{cx:1924,cy:1200,rx:22,ry:16,rot:8,seed:106,amp:.16},
+  {cx:636,cy:72,rx:24,ry:14,rot:0,seed:107,amp:.16},{cx:1520,cy:1120,rx:18,ry:12,rot:0,seed:108,amp:.16}
+];
+const DEFAULT_M=[
+  {id:"n-hwansang",kind:"nation",name:"환상",x:1120,y:380,expect:"hwansang",proj:"2위 태양",note:"1대륙 1국가. 대성당 서열 1. 세계대전 방어 성공."},
+  {id:"n-bit",kind:"nation",name:"빛",x:1080,y:1372,expect:"bit",proj:"3위 플라테리아 성운",note:"1대륙 1국가. 대성당 서열 2. 세계대전 방어 성공."},
+  {id:"n-giv",kind:"nation",name:"GIV - XxGxX",x:170,y:440,expect:"chimmuk",proj:"7위 화이트 드워프",note:"세계대전 패전."},
+  {id:"n-cruel",kind:"nation",name:"크루얼 키스톤",x:270,y:524,expect:"chimmuk",proj:"9위 명왕성",note:"세계대전 승전."},
+  {id:"n-antri",kind:"nation",name:"안트리",x:215,y:1000,expect:"simyeon",proj:"12위 사팔칠",note:"3차 주기 건국. 세계대전 패전."},
+  {id:"n-baekso",kind:"nation",name:"백소",x:305,y:1066,expect:"simyeon",proj:"13위 헤리온",note:"4차 주기 건국, 가장 젊은 큰 나라."},
+  {id:"n-essension",kind:"nation",name:"에센션",x:800,y:862,expect:"gyeonggye",proj:"6위 리버",note:"세계대전 패전."},
+  {id:"n-pandemo",kind:"nation",name:"판데모니움",x:1050,y:884,expect:"gyeonggye",proj:"4위 세레스",note:"세계대전 승전."},
+  {id:"n-gemu",kind:"nation",name:"게뮤노미콘",x:1300,y:864,expect:"gyeonggye",proj:"10위 오리온 자리",note:"1차 주기 건국. 세계대전 패전."},
+  {id:"n-reva",kind:"nation",name:"레바테일",x:1220,y:990,expect:"gyeonggye",proj:"8위 타나토스",note:"세계대전 패전."},
+  {id:"n-gigye",kind:"nation",name:"기계상",x:1750,y:880,expect:"janjae",proj:"5위 썬더",note:"구시대 장비를 보존, 기술은 비공개. 세계대전 승전."},
+  {id:"n-repli",kind:"nation",name:"레플리콘",x:1770,y:956,expect:"janjae",proj:"11위 가니메데",note:"2차 주기 건국. 세계대전 패전."},
+  {id:"a-simyeon",kind:"apex",icon:"volcano",name:"용의 협곡",x:250,y:1140,expect:"simyeon",rank:1,note:"활화산 지대, 용암이 들끓는 지면. 코어: 가짜로 생성된 용. 근처에 사는 진짜 용과는 무관."},
+  {id:"a-hwansang",kind:"apex",icon:"altar",name:"천상의 황금 제단",x:680,y:240,expect:"hwansang",rank:2,note:"높은 산 위. 골렘 지역, 돈이 가장 잘 되는 곳. 코어: 금강 마도골렘."},
+  {id:"a-bit",kind:"apex",icon:"iceberg",name:"갈라진 빙산의 협곡",x:680,y:1336,expect:"bit",rank:3,note:"빙산이 갈라진 해안 가까이. 코어: 아이스 스켈레톤 사제."},
+  {id:"a-gyeonggye",kind:"apex",icon:"grave",name:"죽은 자들의 무덤",x:720,y:1000,expect:"gyeonggye",rank:4,note:"넓은 공동묘지. 언데드, 스켈레톤, 아더 스켈레톤. 코어: 데스나이트."},
+  {id:"a-janjae",kind:"apex",icon:"pond",name:"흑연의 연못",x:1756,y:1036,expect:"janjae",rank:5,note:"검은 독안개, 지속 독 피해. 코어: 연못 속 거대한 유령 고래."},
+  {id:"a-chimmuk",kind:"apex",name:"바벨론",x:216,y:610,expect:"chimmuk",rank:6,icon:"tower",note:"지하로 파고드는 역방향 타워. 몬스터와 코어는 미정."},
+  {id:"s-heukyo",kind:"shelter",name:"흑요궁",x:530,y:940,king:true,note:"심연·경계 사이 해저."},
+  {id:"s-jeongeum",kind:"shelter",name:"정음굴",x:490,y:676,good:true,note:"침묵·경계 사이 해저. 왕 없음, 착한 악마 세력."},
+  {id:"s-bingjeo",kind:"shelter",name:"빙저원",x:1770,y:536,king:true,note:"환상·잔재 사이 해저."},
+  {id:"s-deungha",kind:"shelter",name:"등하궁",x:1660,y:1170,good:true,note:"빛·잔재 사이 해저. 왕 없음, 착한 악마 세력."},
+  {id:"s-hyeopjeo",kind:"shelter",name:"협저궁",x:1562,y:840,king:true,note:"경계·잔재 사이 해저."},
+  {id:"sea-n",kind:"sea",name:"북해안",x:1760,y:60,tier:"outer",note:"바깥 바다."},
+  {id:"sea-e",kind:"sea",name:"동해안",x:1900,y:290,tier:"outer",note:"바깥 바다."},
+  {id:"sea-w",kind:"sea",name:"서해안",x:90,y:760,tier:"outer",note:"바깥 바다."},
+  {id:"sea-s",kind:"sea",name:"남해안",x:1760,y:1476,tier:"outer",note:"바깥 바다."},
+  {id:"sea-seori",kind:"sea",name:"서리해",x:1200,y:540,tier:"inner",note:"환상과 경계 사이. 북쪽 설원에서 내려오는 찬 기운이 닿는 바다."},
+  {id:"sea-wolheun",kind:"sea",name:"월흔해",x:1080,y:1136,tier:"inner",note:"경계와 빛 사이. 달 '월흔'의 조수가 가장 크게 드나든다."},
+  {id:"sea-heukjo",kind:"sea",name:"흑조해",x:492,y:808,tier:"inner",note:"심연·침묵과 경계 사이 서쪽 내해. 대피소 두 곳이 가라앉아 있다."},
+  {id:"sea-hwanryu",kind:"sea",name:"환류해",x:1480,y:1032,tier:"inner",note:"잔재를 고리처럼 감싸 도는 동쪽 내해. 대피소 세 곳."},
+  {id:"sea-bingmun",kind:"sea",name:"빙문해협",x:444,y:150,tier:"inner",note:"침묵과 환상 사이. 얼음 대륙 환상으로 들어가는 관문."},
+  {id:"sea-galrim",kind:"sea",name:"갈림해협",x:250,y:730,tier:"inner",note:"침묵과 심연 사이. 마력 최저와 최고가 갈리는 좁은 물길."}
+];
+
+/* 좌표 배율: 예전 자료(sc 없음)는 5배로 키워서 읽는다 */
+DEFAULT_C.forEach(c=>{["cx","cy","rx","ry","ly","lx"].forEach(k=>c[k]=(c[k]||0)*SC);});
+ISLES.forEach(c=>{["cx","cy","rx","ry"].forEach(k=>c[k]*=SC);});
+DEFAULT_M.forEach(m=>{m.x*=SC;m.y*=SC;m.sc=SC;});
+function upM(v){if(v.sc===SC)return v;const f=SC/(v.sc||1);return Object.assign({},v,{x:Math.round(v.x*f),y:Math.round(v.y*f),sc:SC});}
+function upC(v){if(v.sc===SC)return v;const f=SC/(v.sc||1),o=Object.assign({},v,{sc:SC});["cx","cy","rx","ry","ly","lx"].forEach(k=>{if(typeof o[k]==="number")o[k]=Math.round(o[k]*f);});return o;}
+/* ---------- 상태 ---------- */
+const C={}; DEFAULT_C.forEach(c=>C[c.id]=Object.assign({},c));
+let M={};
+const view={k:1,tx:0,ty:0}; let k0=1;
+let mode="view", placing=null, contEdit=false, sel=null, canEdit=false, loaded=false, definitive=false;
+let dragging=null; let moveWith=true;
+const undoS=[], redoS=[];
+const LAYERS=[["all","확대하지 않아도 모두 표시"],["mana","마력 농도"],["terrain","지형 (산 · 얼음)"],["grid","격자와 좌표"],["terr","나라 영토"],["border","국경선"],["nfx","나라 효과"],["seafx","바다 효과"],["fx","던전 분위기 효과"],["fxmove","효과 움직임"],["nation","큰 나라"],["small","작은 나라"],["region","지방 (이름과 경계)"],["capital","수도"],["city","도시"],["village","마을"],["apex","최상위 던전"],["dungeon","일반 던전"],["ruin","유적"],["nature","산지 · 숲 · 강"],["shelter","악마 대피소"],["place","지명"],["sea","바다 이름"]];
+let layers={}; LAYERS.forEach(([k])=>layers[k]=true);layers.all=false;
+let uiScale=1, nameGrow=true;
+const PREF="fp-map-view-v1";
+try{const p=JSON.parse(localStorage.getItem(PREF)||"null");if(p){if(p.layers)Object.assign(layers,p.layers);if(p.ui)uiScale=p.ui;if(p.zs===false)nameGrow=false;if(p.mini===false)$("mini").classList.add("closed");}}catch(e){}
+function savePref(){try{localStorage.setItem(PREF,JSON.stringify({layers,ui:uiScale,zs:nameGrow,mini:!$("mini").classList.contains("closed")}));}catch(e){}}
+
+/* ---------- 기하 ---------- */
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function blobPts(c,N){N=N||96;const r=rng(c.seed|0),h=[];
+  for(let k=2;k<=14;k++)h.push({k,a:(r()*2-1)*((c.amp==null?.11:c.amp)/Math.pow(k,.8)),p:r()*Math.PI*2});
+  const rot=c.rot*Math.PI/180,pts=[];
+  for(let i=0;i<N;i++){const t=i/N*Math.PI*2;let m=1;for(const q of h)m+=q.a*Math.sin(q.k*t+q.p);m+=(r()-.5)*.02;
+    const x=Math.cos(t)*c.rx*m,y=Math.sin(t)*c.ry*m;
+    pts.push([c.cx+x*Math.cos(rot)-y*Math.sin(rot),c.cy+x*Math.sin(rot)+y*Math.cos(rot)]);}
+  return pts;}
+function smooth(p){const n=p.length,f=v=>v.toFixed(1);let d=`M${f(p[0][0])},${f(p[0][1])}`;
+  for(let i=0;i<n;i++){const a=p[(i-1+n)%n],b=p[i],c=p[(i+1)%n],e=p[(i+2)%n];
+    d+=`C${f(b[0]+(c[0]-a[0])/6)},${f(b[1]+(c[1]-a[1])/6)} ${f(c[0]-(e[0]-b[0])/6)},${f(c[1]-(e[1]-b[1])/6)} ${f(c[0])},${f(c[1])}`;}
+  return d+"Z";}
+function polyArea(p){let s=0;for(let i=0;i<p.length;i++){const a=p[i],b=p[(i+1)%p.length];s+=a[0]*b[1]-b[0]*a[1];}return Math.abs(s/2);}
+function inEll(c,x,y){const a=-c.rot*Math.PI/180,dx=x-c.cx,dy=y-c.cy,u=dx*Math.cos(a)-dy*Math.sin(a),v=dx*Math.sin(a)+dy*Math.cos(a);return (u/c.rx)**2+(v/c.ry)**2;}
+const CL=()=>DEFAULT_C.map(d=>C[d.id]);
+const geo={}; const landEl={};
+function cellOf(x,y){const col=clamp(Math.floor(x/CELL),0,19),row=clamp(Math.floor(y/CELL),0,15);return String.fromCharCode(65+col)+(row+1);}
+function cellFine(x,y){const sx=clamp(Math.floor((x%CELL)/SUB),0,9)+1,sy=clamp(Math.floor((y%CELL)/SUB),0,9)+1;return `${cellOf(x,y)}-${sx}·${sy}`;}
+function continentAt(x,y){
+  const list=CL().slice().sort((a,b)=>b.size-a.size);
+  for(const c of list){const p=landEl[c.id];
+    try{if(p&&p.isPointInFill(new DOMPoint(x,y)))return c.id;}catch(e){if(inEll(c,x,y)<=1)return c.id;}}
+  return null;}
+const CN=id=>C[id]?C[id].name:"?";
+
+/* ---------- 세계 그리기 ---------- */
+const svg=$("map"), stage=$("stage");
+{const hud=document.createElementNS("http://www.w3.org/2000/svg","svg");hud.id="hud";hud.setAttribute("aria-hidden","true");svg.after(hud);hud.appendChild($("ovRuler"));hud.appendChild($("compass"));}
+function renderWorld(){
+  ["gShelf","gLand","gTex","gMana","gMount","clips"].forEach(id=>$(id).replaceChildren());
+  CL().forEach(c=>{
+    const pts=blobPts(c),d=smooth(pts);geo[c.id]={pts,d,area:polyArea(pts)};
+    el("path",{d,class:"shelf1"},$("gShelf"));el("path",{d,class:"shelf2"},$("gShelf"));
+    const isSel=sel&&sel.t==="c"&&sel.id===c.id;
+    const p=el("path",{d,class:"land"+(c.ice?" ice":"")+(isSel?" selc":""),"data-cid":c.id,"vector-effect":"non-scaling-stroke"},$("gLand"));
+    landEl[c.id]=p;
+    const cp=el("clipPath",{id:"clip-"+c.id},$("clips"));el("path",{d},cp);
+    if(c.ice){const g=el("g",{"clip-path":`url(#clip-${c.id})`,"pointer-events":"none"},$("gTex"));
+      el("path",{d,class:"frost"},g);
+      el("rect",{x:c.cx-c.rx*1.4,y:c.cy-c.ry*1.4,width:c.rx*2.8,height:c.ry*2.8,fill:c.ice==="mount"?"url(#icePat)":"url(#plainPat)"},g);
+      el("path",{d,fill:"none",stroke:"var(--land-edge)","stroke-width":1.6,"vector-effect":"non-scaling-stroke","pointer-events":"none"},$("gTex"));}
+    const g=el("g",{"clip-path":`url(#clip-${c.id})`,"pointer-events":"none"},$("gMana"));
+    if(c.mana<6)el("ellipse",{cx:c.cx,cy:c.cy,rx:c.rx*1.08,ry:c.ry*1.08,fill:"url(#glow)",opacity:[0,1,.78,.6,.44,.3][c.mana]},g);
+    else el("rect",{x:c.cx-c.rx*1.4,y:c.cy-c.ry*1.4,width:c.rx*2.8,height:c.ry*2.8,fill:"url(#hatch)"},g);
+  });
+  ISLES.forEach(i=>el("path",{d:smooth(blobPts(i,60)),class:"isle","vector-effect":"non-scaling-stroke","pointer-events":"none"},$("gLand")));
+  drawMountains();
+  worldVer++;
+  renderMini();
+}
+function renderStatic(){
+  const g=$("gGrid");g.replaceChildren();
+  for(let x=CELL;x<W;x+=CELL)el("line",{x1:x,y1:0,x2:x,y2:H,class:"gridl","vector-effect":"non-scaling-stroke"},g);
+  for(let y=CELL;y<H;y+=CELL)el("line",{x1:0,y1:y,x2:W,y2:y,class:"gridl","vector-effect":"non-scaling-stroke"},g);
+  const WV=[[80,240],[140,1120],[360,1440],[840,1470],[1400,1440],[1900,1380],[1930,940],[1880,80],[1320,48],[240,40],[790,600],[1340,600],[660,1120],[1440,1170],[1960,720],[640,320],[1500,420]];
+  WV.forEach(([x,y])=>{x*=SC;y*=SC;el("path",{class:"wave",d:`M${x-120},${y} q60,-50 120,0 t120,0`},$("gWaves"));});
+  const gs=$("gSub");gs.replaceChildren();
+  for(let x=SUB;x<W;x+=SUB)if(x%CELL)el("line",{x1:x,y1:0,x2:x,y2:H,class:"gridsub","vector-effect":"non-scaling-stroke"},gs);
+  for(let y=SUB;y<H;y+=SUB)if(y%CELL)el("line",{x1:0,y1:y,x2:W,y2:y,class:"gridsub","vector-effect":"non-scaling-stroke"},gs);
+}
+function renderMini(){
+  const s=$("miniSvg");s.replaceChildren();
+  el("rect",{x:0,y:0,width:W,height:H,class:"ms"},s);
+  CL().forEach(c=>el("path",{d:geo[c.id].d,class:"ml"},s));
+  el("rect",{id:"miniV",class:"mv",x:0,y:0,width:10,height:10},s);
+  updMini();
+}
+function updMini(){const r=$("miniV");if(!r)return;const b=stageRect();const a=toW({x:0,y:0}),z=toW({x:b.width,y:b.height});
+  r.setAttribute("x",a.x);r.setAttribute("y",a.y);r.setAttribute("width",Math.max(10,z.x-a.x));r.setAttribute("height",Math.max(10,z.y-a.y));}
+
+/* ---------- 나라 영토: 콘셉트별 모양 ---------- */
+const NCOL={hwansang:["#C98A12","#F0BE55"],bit:["#2F93B3","#7FD3EA"],pandemo:["#3F3A5C","#B3ABE0"],gigye:["#8A5A2B","#E0A66A"],essension:["#B23A48","#F08C98"],giv:["#2E63A6","#86B4F0"],reva:["#7A4FB0","#C9A6F5"],cruel:["#7A1F2B","#E06A7A"],gemu:["#C4527F","#F3A3C4"],repli:["#2E8B57","#7FD9A6"],antri:["#1E8A8A","#6FD6D0"],baekso:["#5E7F96","#B5D2E6"]};
+(function(){const L=Object.keys(NCOL).map(k=>`--n-${k}:${NCOL[k][0]}`).join(";"),D=Object.keys(NCOL).map(k=>`--n-${k}:${NCOL[k][1]}`).join(";");
+  const st=document.createElement("style");st.textContent=`:root{${L}}@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){${D}}}:root[data-theme="dark"]{${D}}`;document.head.appendChild(st);})();
+const TSHAPES=[["sun","태양 · 대륙 전체에 햇살"],["nebula","성운 · 대륙 전체에 흩어진 구름"],["diamondwall","다이아몬드 장벽과 요새"],["starfort","별 모양 요새"],["gear","톱니바퀴"],["river","강줄기와 계단식 구획"],["hexgear","육각형과 네 개의 기어"],["arcane","마법진"],["keystone","쐐기돌과 가시"],["blossom","벚꽃과 별자리"],["shamrock","세잎 클로버와 레이스"],["gem","보석 세공"],["snowflake","눈 결정과 장갑판"],["blob","자연스러운 덩어리"]];
+const TERR={"n-hwansang":{sh:"sun",r:700,c:"hwansang"},"n-bit":{sh:"nebula",r:650,c:"bit"},"n-pandemo":{sh:"diamondwall",r:720,c:"pandemo"},"n-gigye":{sh:"gear",r:450,c:"gigye"},
+  "n-essension":{sh:"river",r:600,c:"essension"},"n-giv":{sh:"hexgear",r:500,c:"giv"},"n-reva":{sh:"arcane",r:420,c:"reva"},"n-cruel":{sh:"keystone",r:480,c:"cruel"},
+  "n-gemu":{sh:"blossom",r:520,c:"gemu"},"n-repli":{sh:"shamrock",r:375,c:"repli"},"n-antri":{sh:"gem",r:425,c:"antri"},"n-baekso":{sh:"snowflake",r:400,c:"baekso"}};
+function hashId(s){let h=7;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h)%100000+1;}
+function terrOf(m){if(m.kind!=="nation"&&m.kind!=="small")return null;const d=TERR[m.id]||{};const sh=m.tsh||d.sh||"";if(!sh||sh==="none")return null;
+  return {sh,r:m.tr||d.r||300,rot:m.trot||0,asp:m.tasp||1,col:m.tcol||(d.c?`var(--n-${d.c})`:"var(--accent)"),seed:hashId(m.id)};}
+function terrShape(kind,seed){
+  const R=rng(seed),D=Math.PI/180,pol=(deg,r)=>[Math.cos(deg*D)*r,Math.sin(deg*D)*r];
+  const circ=(cx,cy,r,n)=>{n=n||40;const a=[];for(let i=0;i<n;i++){const t=i/n*2*Math.PI;a.push([cx+Math.cos(t)*r,cy+Math.sin(t)*r]);}return a;};
+  const o={out:[],lines:[],dots:[],bands:[],fx:[],whole:false,reg:null};
+  const L=(pts,closed,cls,an)=>{const l=Object.assign({pts,closed:!!closed,cls:cls||""},an||{});o.lines.push(l);return l;};
+  const star=(p,s,fill,dur)=>o.fx.push({k:"star",p,s:s||1,fill:fill||"var(--z-goldhot)",dur:dur||(1.8+R()*2.6),begin:-R()*5});
+  const mote=(p,r,fill,mv,dur,op)=>o.fx.push({k:"dot",p,r,fill,mv,dur,op:op||"0;1;0",begin:-R()*dur});
+  const glow=(p,r,fill,dur,op)=>o.fx.push({k:"glow",p,r,fill,dur:dur||4,op:op||".35;.9;.35"});
+  switch(kind){
+    case "sun":{o.whole=true;glow([0,0],.55,"url(#zgGold)",5);L(circ(0,0,.2),true,"",{pulse:[3,".6;1;.6"]});L(circ(0,0,.3),true,"thin");
+      for(let i=0;i<16;i++){const a=i*22.5-90;L([pol(a,.36),pol(a,i%2?1.1:8)],false,i%2?"thin":"",i%2?{pulse:[4,".25;.8;.25",-i*.25]}:null);}
+      for(let i=0;i<34;i++)star([(R()-.5)*8.4,(R()-.5)*2.6],1.1+R()*1.2,"var(--z-hot)");break;}
+    case "nebula":{o.whole=true;for(let i=0;i<11;i++){const cx=(R()-.5)*5.4,cy=(R()-.5)*1.5,r=.38+R()*.5,ph=R()*6,pts=[];
+        for(let k=0;k<36;k++){const t=k/36*2*Math.PI,m=1+.16*Math.sin(3*t+ph)+.1*Math.sin(5*t+ph*2);pts.push([cx+Math.cos(t)*r*m,cy+Math.sin(t)*r*m*.8]);}L(pts,true,"dash",{mv:[(R()-.5)*.5,(R()-.5)*.14,22+R()*18,-R()*20]});}
+      for(let i=0;i<3;i++){const y0=-.7+i*.6,pts=[];for(let k=0;k<=40;k++){const x=-4+8*k/40;pts.push([x,y0+.18*Math.sin(x*1.3+i*2)]);}L(pts,false,"aurora",{pulse:[7+i*2,".08;.32;.08",-i*3],mv:[.5,.06,26+i*6,-i*5]});}
+      for(let i=0;i<46;i++)o.dots.push([(R()-.5)*6,(R()-.5)*1.8,.012+R()*.02,{tw:1.6+R()*3}]);break;}
+    case "starfort":{for(let i=0;i<8;i++){const a=i*45-90;o.out.push(pol(a-22.5,.72),pol(a-9,.72),pol(a-12,.86),pol(a,1),pol(a+12,.86),pol(a+9,.72));}
+      const inner=[];for(let i=0;i<8;i++){const a=i*45-90;inner.push(pol(a-22.5,.4),pol(a,.56));}L(inner,true);
+      L([pol(-45,.2),pol(45,.2),pol(135,.2),pol(225,.2)],true);for(let i=0;i<4;i++){const a=i*90-45;L([pol(a,.2),pol(a,.72)],false,"thin");}
+      for(let i=0;i<8;i++)glow(pol(i*45-90,.93),.05,"var(--z-hot)",2.5+R()*2,".1;.9;.1");break;}
+    case "diamondwall":{const dm=r=>[[0,-r],[r,0],[0,r],[-r,0]],DR=[[0,-1],[1,0],[0,1],[-1,0]],q=Math.SQRT1_2;
+      const loc=(i,u,v)=>{const d=DR[i];return [d[0]*u-d[1]*v,d[1]*u+d[0]*v];};
+      const edg=(e,n,t)=>{const a=DR[e],b=DR[(e+1)%4],nx=(a[0]+b[0])*q,ny=(a[1]+b[1])*q,tx=(b[0]-a[0])*q,ty=(b[1]-a[1])*q;return [nx*n*q+tx*t,ny*n*q+ty*t];};
+      const box=(e,n0,n1,hw,tc)=>{tc=tc||0;return [edg(e,n0,tc-hw),edg(e,n1,tc-hw),edg(e,n1,tc+hw),edg(e,n0,tc+hw)];};
+      const arrow=k=>{const a=[];for(let i=0;i<4;i++)a.push(loc(i,.9*k,-.1*k),loc(i,.975*k,-.175*k),loc(i,1.19*k,0),loc(i,.975*k,.175*k),loc(i,.9*k,.1*k));return a;};
+      o.out=arrow(1);o.bands.push({outer:arrow(1),inner:dm(.885)});L(arrow(1),true);L(dm(.885),true,"thin");
+      for(let i=0;i<4;i++){L([loc(i,.93,-.085),loc(i,.975,-.125),loc(i,1.12,0),loc(i,.975,.125),loc(i,.93,.085)],true,"wallj");L(circ(...loc(i,1.0,0),.045,14),true,"wallj");glow(loc(i,1.0,0),.05,"var(--z-hot)",2.2+R()*1.5,".25;1;.25");}
+      for(let e=0;e<4;e++){
+        for(let k=-9;k<=9;k++){const t=k*.066;if(Math.abs(k)<2)continue;L([edg(e,1,t),edg(e,.885,t)],false,"wallj");}
+        L([edg(e,.943,-.62),edg(e,.943,-.14)],false,"wallj");L([edg(e,.943,.14),edg(e,.943,.62)],false,"wallj");
+        [-.47,-.27,.27,.47].forEach(t=>{o.bands.push({outer:box(e,.93,1.045,.038,t),inner:null});L(box(e,.955,1.02,.02,t),true,"wallj");});
+        o.bands.push({outer:box(e,.85,1.07,.085),inner:null});L(box(e,.85,1.07,.085),true);L([edg(e,.85,-.022),edg(e,1.07,-.022)],false,"wallj");L([edg(e,.85,.022),edg(e,1.07,.022)],false,"wallj");
+        [-.115,.115].forEach(t=>{const c=edg(e,1.05,t);o.bands.push({outer:circ(c[0],c[1],.048,16),inner:circ(c[0],c[1],.022,12)});glow(c,.035,"var(--z-hot)",2.8+R()*2,".15;.9;.15");});
+        L([edg(e,1.13,-.11),edg(e,1.2,0),edg(e,1.13,.11)],false);
+        o.bands.push({outer:box(e,.635,.725,.05),inner:null});L([edg(e,.635,0),edg(e,.725,0)],false,"wallj");
+        [-.36,-.2,.2,.36].forEach(t=>{L(box(e,.75,.81,.06,t),true,"thin");L([edg(e,.78,t-.06),edg(e,.78,t+.06)],false,"thin");});
+        L([edg(e,.3,0),edg(e,.85,0)],false,"thin");L([edg(e,.3,.012),edg(e,.635,.012)],false,"thin");}
+      o.bands.push({outer:dm(.7),inner:dm(.655)});for(let e=0;e<4;e++)for(let k=-6;k<=6;k++){if(!k)continue;L([edg(e,.7,k*.07),edg(e,.655,k*.07)],false,"wallj");}
+      dm(.678).forEach(p=>{o.bands.push({outer:circ(p[0],p[1],.05,16),inner:circ(p[0],p[1],.024,12)});glow(p,.03,"var(--z-hot)",3+R()*2,".15;.8;.15");});
+      L(dm(.585),true,"dash");
+      const fortP=k=>{const a=[];for(let i=0;i<8;i++){const g=i*45-90;a.push(pol(g-22.5,.37*k),pol(g-9,.37*k),pol(g-12,.45*k),pol(g,.52*k),pol(g+12,.45*k),pol(g+9,.37*k));}return a;};
+      o.bands.push({outer:fortP(1),inner:circ(0,0,.315,8).map(p=>[p[0]*Math.cos(Math.PI/8)-p[1]*Math.sin(Math.PI/8),p[0]*Math.sin(Math.PI/8)+p[1]*Math.cos(Math.PI/8)])});for(let i=0;i<8;i++)glow(pol(i*45-90,.455),.022,"var(--z-hot)",2.5+R()*2,".1;.8;.1");L(fortP(1),true);
+      const sq=r=>[pol(-45,r),pol(45,r),pol(135,r),pol(225,r)];o.bands.push({outer:sq(.2),inner:sq(.15)});L(sq(.2),true);[-45,45,135,225].forEach(g=>{const c=pol(g,.2);o.bands.push({outer:circ(c[0],c[1],.03,12),inner:null});});
+      o.bands.push({outer:circ(0,0,.075,20),inner:circ(0,0,.038,14)});glow([0,0],.032,"var(--z-hot)",3.2,".3;1;.3");
+      for(let i=0;i<4;i++){const c=pol(i*90-45,.2),d=pol(i*90-45,.32);L([c,d],false,"thin");}
+      L(dm(.943).slice().reverse(),true,"shim",{flow:[.16,1.17,8,.035]});L(dm(.943).slice().reverse(),true,"shim",{flow:[.16,1.17,8,.035,-4]});
+      L(dm(.678),true,"shim",{flow:[.1,.86,9,.022]});L(dm(.678),true,"shim",{flow:[.1,.86,9,.022,-4.5]});
+      const rr=dm(.585);for(let i=0;i<4;i++){const a=rr[i],b=rr[(i+1)%4];for(let k=0;k<2;k++)mote(a,.011,"var(--z-hot)",[b[0]-a[0],b[1]-a[1]],16,"0;1;1;0");}
+      glow([-.2,-.12],.07,"var(--z-curhi)",4,".2;.7;.2");o.fx.push({k:"ring",p:[-.2,-.12],r:.05,dur:4.5,begin:0});o.fx.push({k:"ring",p:[-.2,-.12],r:.05,dur:4.5,begin:-2.2});
+      [[.3,-.9],[-.9,.3]].forEach(c=>{for(let k=-2;k<=2;k++){L([[c[0]-.07+k*.012,c[1]+.05+k*.022],[c[0]+.07+k*.012,c[1]+.05+k*.022+.03]],false,"thin");}});
+      L(arrow(1.05),true,"dash");L(dm(1.3),true,"barrier",{pulse:[5,".12;.5;.12"]});L(dm(1.36),true,"barrier",{pulse:[5,".05;.3;.05",-1.2]});break;}
+    case "gear":{for(let i=0;i<12;i++){const a=i*30;o.out.push(pol(a-10,.84),pol(a-7,1),pol(a+7,1),pol(a+10,.84));}
+      const sp={spin:[[0,0],60,1]};const rim=[];for(let i=0;i<24;i++){const a=i*15;rim.push(pol(a-3,.64),pol(a-2,.69),pol(a+2,.69),pol(a+3,.64));}L(rim,true,"",sp);L(circ(0,0,.26),true,"",sp);for(let i=0;i<6;i++)L([pol(i*60,.26),pol(i*60,.64)],false,"thin",sp);
+      const sg=[];for(let i=0;i<8;i++){const a=i*45;sg.push(pol(a-13,.1),pol(a-9,.14),pol(a+9,.14),pol(a+13,.1));}L(sg.map(p=>[p[0]+.45,p[1]]),true,"",{spin:[[.45,0],9,-1]});
+      const sg2=[];for(let i=0;i<8;i++){const a=i*45+22;sg2.push(pol(a-13,.08),pol(a-9,.115),pol(a+9,.115),pol(a+13,.08));}L(sg2.map(p=>[p[0]-.4,p[1]+.22]),true,"",{spin:[[-.4,.22],7,1]});
+      [[-.3,-.45],[.15,-.5],[.5,.35]].forEach(p=>{for(let k=0;k<3;k++)mote(p,.045,"var(--z-smoke)",[.08,-.3],5+R()*3,"0;.55;0");});break;}
+    case "river":{const N=24,sp=[],up=[],lo=[],sy=t=>.3*Math.sin(2.6*t+.4);for(let i=0;i<=N;i++){const t=-1+2*i/N;sp.push([t,sy(t)]);}
+      const wq=i=>{const t=-1+2*i/N;return Math.max(.125,Math.round(.52*(1-.55*t*t)*8)/8);};
+      for(let i=0;i<N;i++){const w=wq(i+.5);up.push([sp[i][0],sp[i][1]-w],[sp[i+1][0],sp[i+1][1]-w]);lo.push([sp[i][0],sp[i][1]+w],[sp[i+1][0],sp[i+1][1]+w]);}
+      o.out=up.concat(lo.reverse());
+      const hw=t=>{const i=Math.min(N-1,Math.max(0,Math.floor((t+1)*N/2)));return Math.min(wq(i+.5),wq(Math.max(0,i-1)+.5),wq(Math.min(N-1,i+1)+.5));};
+      const seg=(a,b,off,n)=>{n=n||16;const p=[];for(let k=0;k<=n;k++){const t=a+(b-a)*k/n;p.push([t,sy(t)+(typeof off==="function"?off(t):off||0)]);}return p;},rev=p=>p.slice().reverse();
+      o.reg=[[-3,-.6],[-.6,-.2],[-.2,.2],[.2,.6],[.6,3]].map(c=>[[c[0],-3],[c[1],-3],[c[1],3],[c[0],3]]);
+      /* 본류: 동쪽 발원지에서 서쪽 바다로 흐른다 */
+      L(sp,false,"water",{w:.03});L(rev(sp),false,"flowlt",{flow:[.1,.16,2.6,.012]});
+      /* 구획: 구마다 세 칸, 강 양쪽 두 줄 */
+      for(let d=0;d<5;d++){const a=-1+d*.4;if(d!==2)[a+.4/3,a+.8/3].forEach(t=>L([[t,sy(t)-hw(t)],[t,sy(t)+hw(t)]],false,"thin"));
+        if(d){L([[a-.012,sy(a)-.06],[a-.012,sy(a)+.06]],false);L([[a+.012,sy(a)-.06],[a+.012,sy(a)+.06]],false);}}
+      const la=sp.map((p,i)=>[p[0],p[1]-wq(Math.min(i,N-1)+.5)*.5]).slice(2,N-1),lb=sp.map((p,i)=>[p[0],p[1]+wq(Math.min(i,N-1)+.5)*.5]).slice(2,N-1);L(la,false,"thin");L(lb,false,"thin");
+      la.concat(lb).forEach((p,i)=>{if(i%2===0)star(p,.9,"var(--z-hot)",1.4+R()*1.8);});
+      /* 상류구(동): 발원지, 저수지, 수문, 수로 */
+      L(seg(.875,.96,0,6),false,"water",{w:.08});L(circ(.96,sy(.96),.03,14),true,"water",{w:.05});glow([.96,sy(.96)],.05,"var(--z-ice)",5,".2;.6;.2");
+      {const y=sy(.86);o.bands.push({outer:[[.845,y-.09],[.875,y-.09],[.875,y+.09],[.845,y+.09]],inner:null});[-.045,0,.045].forEach(d=>L([[.845,y+d],[.875,y+d]],false,"wallj"));
+        L([[.86,y+.09],[.86,.3],[.9,.34]],false,"water",{w:.012});[-.014,.014].forEach((d,k)=>L(rev(seg(.72,.845,d,6)),false,"flowlt",{flow:[.03,.05,.9,.008,-k*.4]}));}
+      /* 윗여울구·아랫여울구: 여울의 흰 물살 */
+      [[.22,.58],[-.58,-.22]].forEach(c=>[-.016,.016].forEach((d,k)=>L(rev(seg(c[0],c[1],d,12)),false,"flowlt",{flow:[.025,.045,1.2,.007,-k*.5]})));
+      /* 윗여울구: 등불 거리, 물레방아 */
+      L(seg(.24,.56,-.13,10),false,"thin");for(let k=0;k<10;k++){const t=.245+k*.035;o.dots.push([t,sy(t)-.13+(k%2?.014:-.014),.008,{tw:1.2+R()*1.6}]);if(k%3===0)star([t,sy(t)-.105],.8,"var(--z-goldhot)",1.2+R());}
+      {const c=[.585,.555],spn={spin:[c,9,1]};L([[.62,sy(.62)],[.62,.5],[.6,.53]],false,"water",{w:.01});L(circ(c[0],c[1],.036,16),true,"",spn);for(let k=0;k<4;k++)L([[c[0]+Math.cos(k*Math.PI/4)*.036,c[1]+Math.sin(k*Math.PI/4)*.036],[c[0]-Math.cos(k*Math.PI/4)*.036,c[1]-Math.sin(k*Math.PI/4)*.036]],false,"thin",spn);}
+      /* 중류구: 강심섬과 수도, 다리, 불꽃 */
+      {const off=t=>.36*Math.pow(Math.max(0,Math.cos(t/.17*Math.PI/2)),.6),lp=seg(-.17,.17,off,22);L(lp,false,"water",{w:.024});L(rev(lp),false,"flowlt",{flow:[.06,.1,2.4,.008]});
+        [[.09,.185],[.445,.535]].forEach(b=>[-.01,.01].forEach(d=>L([[.02+d,b[0]],[.02+d,b[1]]],false)));
+        [[-.06,.25],[.1,.27],[.02,.41],[-.04,.35],[.09,.38]].forEach((p,i)=>o.fx.push({k:"ring",p,r:.03,dur:2.4+i*.35,begin:-i*.9,stroke:["var(--z-hot)","var(--z-lava)","var(--z-goldhot)"][i%3]}));}
+      /* 아랫여울구: 장터, 샛강과 갈대 */
+      for(let r=0;r<2;r++)for(let k=0;k<4;k++){const x=-.5+k*.04,y=.035+r*.036;L([[x,y],[x+.024,y],[x+.024,y+.02],[x,y+.02]],true,"thin");}
+      for(let k=0;k<7;k++)star([-.52+R()*.2,-.06+R()*.16],.8+R()*.4,k%2?"var(--z-hot)":"var(--z-goldhot)",1+R()*1.4);
+      L([[-.5,sy(-.5)],[-.52,-.33],[-.56,-.4],[-.555,-.455]],false,"water",{w:.012});for(let k=0;k<6;k++){const x=-.61+k*.022,y=-.44-R()*.04;L([[x,y],[x+.004,y-.032]],false,"thin",{mv:[.007,0,2.6+R()*1.5,-R()*3]});}
+      /* 하구구(서): 삼각주, 부두, 바다와 만나는 물빛 */
+      {const dn=t=>-.26*((-.72-t)/.28),ds=t=>.2*((-.72-t)/.28),a=seg(-1,-.72,dn,8),b=seg(-1,-.72,ds,8);L(a,false,"water",{w:.02});L(b,false,"water",{w:.016});L(a,false,"flowlt",{flow:[.06,.1,2.8,.007]});L(b,false,"flowlt",{flow:[.06,.1,3.2,.006,-1]});
+        [-.9,-.88,-.84,-.82].forEach(t=>L([[t,sy(t)+dn(t)],[t,sy(t)+dn(t)-.035]],false));glow([-1,sy(-1)],.09,"var(--z-ice)",6,".15;.45;.15");
+        mote([-.72,sy(-.72)],.011,"var(--z-ice)",[-.28,sy(-1)+dn(-1)-sy(-.72)],13,"0;1;1;0");mote([-.72,sy(-.72)],.011,"var(--z-ice)",[-.28,sy(-1)+ds(-1)-sy(-.72)],16,"0;1;1;0");}
+      [.8,.45,-.28].forEach(t0=>mote([t0,sy(t0)],.011,"var(--z-ice)",[-.2,sy(t0-.2)-sy(t0)],11+R()*4,"0;1;1;0"));
+      /* 강 밑을 지나는 암흑룡의 그림자 */
+      mote([.18,sy(.18)],.045,"var(--z-cur)",[-.68,sy(-.5)-sy(.18)],36,"0;.5;.5;0");break;}
+    case "hexgear":{const v=[];for(let i=0;i<6;i++)v.push(pol(i*60-90,1));
+      for(let i=0;i<6;i++){const a=v[i],b=v[(i+1)%6];for(let k=0;k<6;k++){const t=k/6,j=k?(R()-.5)*.09:0;const nx=-(b[1]-a[1]),ny=b[0]-a[0];o.out.push([a[0]+(b[0]-a[0])*t+nx*j,a[1]+(b[1]-a[1])*t+ny*j]);}}
+      [[-.3,-.3],[.3,-.3],[-.3,.3],[.3,.3]].forEach(([cx,cy],gi)=>{const g=[];for(let i=0;i<8;i++){const a=i*45+(gi%2?22.5:0)+(gi>1?22.5:0);g.push(pol(a-13,.2),pol(a-8,.27),pol(a+8,.27),pol(a+13,.2));}
+        const dir=(gi===0||gi===3)?1:-1;L(g.map(p=>[p[0]+cx,p[1]+cy]),true,"",{spin:[[cx,cy],16,dir]});L(circ(cx,cy,.08,16),true,"thin");L([[cx-.14,cy],[cx+.14,cy]],false,"thin",{spin:[[cx,cy],16,dir]});L([[cx,cy-.14],[cx,cy+.14]],false,"thin",{spin:[[cx,cy],16,dir]});});
+      for(let i=0;i<8;i++)mote([(R()-.5)*1.2,(R()-.5)*1.2],.02,"var(--z-hot)",[(R()-.5)*.1,-.12],2+R()*2,"0;1;0");break;}
+    case "arcane":{o.out=circ(0,0,1,72);L(circ(0,0,.76,60),true);L(circ(0,0,.44,48),true,"thin",{pulse:[4,".3;1;.3"]});
+      const h=[];for(let k=0;k<7;k++)h.push(pol(k*3*360/7-90,.76));L(h,true,"",{spin:[[0,0],70,1]});
+      const h2=[];for(let k=0;k<7;k++)h2.push(pol(k*2*360/7-90,.44));L(h2,true,"thin",{spin:[[0,0],45,-1]});
+      for(let i=0;i<14;i++){const a=i*360/14;L([pol(a,.86),pol(a,.95)],false,"",{spin:[[0,0],110,-1]});}
+      glow([0,0],.22,"var(--tc)",3.5,".15;.6;.15");o.dots.push([0,0,.05]);for(let k=0;k<7;k++)star(pol(k*360/7-90,.76),1.2,"var(--z-goldhot)",2.4);for(let i=0;i<8;i++)mote(pol(R()*360,.2+R()*.6),.018,"var(--tc)",[0,-.14],3+R()*3,"0;.9;0");break;}
+    case "keystone":{const base=[[-.82,-.88],[.82,-.88],[.5,.95],[-.5,.95]];
+      for(let e=0;e<4;e++){const a=base[e],b=base[(e+1)%4],dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy),nx=dy/len,ny=-dx/len,n=e===2?7:6;
+        for(let k=0;k<n;k++){const t=k/n,t2=(k+.5)/n;o.out.push([a[0]+dx*t,a[1]+dy*t]);
+          if(e===2){const arch=.2*Math.sin(Math.PI*t2);o.out.push([a[0]+dx*t2-nx*arch,a[1]+dy*t2-ny*arch]);}
+          else{const sp=.07+R()*.17;o.out.push([a[0]+dx*t2+nx*sp+(R()-.5)*.05,a[1]+dy*t2+ny*sp]);}}}
+      const c=[(R()-.5)*.15,(R()-.5)*.15],ends=[[-.7,-.6],[.1,-.88],[.72,-.3],[.4,.6],[-.5,.5]];
+      ends.forEach((q,i)=>{const mid=[(c[0]+q[0])/2+(R()-.5)*.18,(c[1]+q[1])/2+(R()-.5)*.18];L([c,mid,q],false,"crack",{pulse:[2.2+R()*2.5,".25;1;.25",-R()*4]});const n2=ends[(i+1)%5],sc=[(c[0]+q[0]+n2[0])/3,(c[1]+q[1]+n2[1])/3];
+        o.dots.push([sc[0],sc[1],.035,{tw:1.2+R()*2.6}]);glow(sc,.09,"var(--z-lava)",1.5+R()*3,"0;.7;0;0");});
+      glow(c,.12,"var(--z-lava)",2.6,".2;.8;.2");break;}
+    case "blossom":{const rf=th=>{const d=((th+90)%72+72)%72,dt=Math.min(d,72-d);let r=.5+.5*Math.pow(Math.abs(Math.cos(2.5*(th+90)*D)),.55);return r*(1-.16*Math.exp(-Math.pow(dt/5.5,2)));};
+      for(let i=0;i<150;i++){const th=i/150*360;o.out.push(pol(th,rf(th)));}
+      const rim=[];for(let i=0;i<150;i++){const th=i/150*360;rim.push(pol(th,rf(th)*.93));}L(rim,true,"thin");
+      /* 구역: 가운데 축제 마당 + 꽃잎 다섯(부족령) */
+      o.reg=[];for(let i=0;i<5;i++){const a=-90+72*i,w=[];for(let k=0;k<=8;k++)w.push(pol(a-36+k*9,.25));w.push(pol(a+36,3),pol(a,3.4),pol(a-36,3));w.f=i%2?.08:.02;o.reg.push(w);}
+      {const c=circ(0,0,.25,36);c.f=.12;o.reg.push(c);}
+      /* 가운데: 축제 마당, 등불 줄, 불꽃 */
+      L(circ(0,0,.25,36),true,"",{pulse:[3,".5;1;.5"]});L(circ(0,0,.17,28),true,"thin");
+      for(let k=0;k<20;k++){const p=pol(k*18,.21);o.dots.push([p[0],p[1],.011,{tw:1+R()*1.8}]);}
+      [[-.1,-.1],[.11,-.07],[0,.1],[-.08,.06],[.09,.09]].forEach((p,i)=>o.fx.push({k:"ring",p,r:.035,dur:2.2+i*.4,begin:-i*.8,stroke:["var(--z-hot)","var(--tc)","var(--z-goldhot)"][i%3]}));
+      glow([0,0],.24,"url(#zgGold)",2.5,".25;.8;.25");
+      /* 꽃잎마다: 잎맥(벚꽃길), 부족의 표지 */
+      for(let i=0;i<5;i++){const a=-90+72*i;L([pol(a,.25),pol(a,.93)],false,"thin");
+        [.45,.62,.78].forEach((u,k)=>{[-1,1].forEach(sd=>L([pol(a,u),pol(a+sd*(15-k*3),u+.17)],false,"thin"));});
+        for(let k=0;k<5;k++){const u=.32+k*.12,p=pol(a+(k%2?2.6:-2.6),u);o.dots.push([p[0],p[1],.014,{tw:1.8+R()*2.4}]);}
+        L([pol(a-36,.25),pol(a-36,rf(a-36)*.98)],false,"dash");}
+      /* 여우령(북): 도리이와 여우불 */
+      {const [x,y]=pol(-90,.82);L([[x-.04,y+.045],[x-.04,y-.03]],false);L([[x+.04,y+.045],[x+.04,y-.03]],false);L([[x-.062,y-.028],[x+.062,y-.028]],false);L([[x-.075,y-.05],[x-.04,y-.058],[x+.04,y-.058],[x+.075,y-.05]],false);
+        [[-.1,.02],[.1,0],[0,-.1],[-.07,-.07],[.08,-.08]].forEach((d,k)=>{glow([x+d[0],y+d[1]],.016,"var(--z-ice)",1.6+R()*1.6,".1;1;.1");mote([x+d[0],y+d[1]+.03],.008,"var(--z-ice)",[(R()-.5)*.03,-.09],3+R()*2,"0;1;0");});}
+      /* 늑대령(북동): 초승달과 울음, 무리의 순찰 */
+      {const [x,y]=pol(-18,.8),m=[];for(let k=0;k<=12;k++){const t=(-100+k*200/12)*D;m.push([x+Math.cos(t)*.055,y+Math.sin(t)*.055]);}for(let k=12;k>=0;k--){const t=(-100+k*200/12)*D;m.push([x+.022+Math.cos(t)*.04,y+Math.sin(t)*.045]);}L(m,true,"",{pulse:[4,".5;1;.5"]});
+        o.fx.push({k:"ring",p:[x,y],r:.06,dur:5,begin:0,stroke:"var(--z-ice)"},{k:"ring",p:[x,y],r:.06,dur:5,begin:-2.5,stroke:"var(--z-ice)"});
+        for(let k=0;k<4;k++){const a0=-40+k*4,p0=pol(a0,.62),p1=pol(a0+34,.62);mote(p0,.01,"var(--tc)",[p1[0]-p0[0],p1[1]-p0[1]],9,"0;1;1;0");o.fx[o.fx.length-1].begin=-k*.5;}}
+      /* 범령(남동): 발톱 자국, 사냥터 과녁 */
+      {const [x,y]=pol(54,.82);for(let k=-1;k<=1;k++)L([[x-.045+k*.03,y-.05],[x-.02+k*.03,y],[x-.035+k*.03,y+.05]],false,"crack",{pulse:[3,".4;1;.4",-k*.5]});
+        const q=[.3,.44];L(circ(q[0]+.07,q[1]-.07,.035,16),true,"thin");L(circ(q[0]+.07,q[1]-.07,.018,12),true,"thin");glow([q[0]+.07,q[1]-.07],.012,"var(--z-lava)",2,".2;1;.2");}
+      /* 사슴령(남서): 뿔, 나루의 못 */
+      {const [x,y]=pol(126,.84);[-1,1].forEach(sd=>{L([[x+sd*.01,y+.04],[x+sd*.03,y-.01],[x+sd*.045,y-.06]],false);L([[x+sd*.03,y-.01],[x+sd*.065,y-.02]],false);L([[x+sd*.038,y-.035],[x+sd*.07,y-.055]],false);});
+        const q=[-.42,.64];L(circ(q[0],q[1],.05,18),true,"water",{w:.012});o.bands.push({outer:circ(q[0],q[1],.012,8),inner:null});o.fx.push({k:"ring",p:q,r:.03,dur:4,begin:0},{k:"ring",p:q,r:.03,dur:4,begin:-2});L([[-.3,.52],[-.36,.58],[q[0]+.035,q[1]-.035]],false,"thin");}
+      /* 새령(서): 둥지와 날아가는 새 떼 */
+      {const [x,y]=pol(198,.8);L(circ(x,y,.04,16),true);L(circ(x,y,.022,12),true,"thin");
+        for(let k=0;k<5;k++){const bx=x+.1+(R()-.5)*.2,by=y-.12+(R()-.5)*.16,w=.016+R()*.008;L([[bx-w,by-w*.6],[bx,by],[bx+w,by-w*.6]],false,"",{mv:[.16+R()*.1,-.06-R()*.05,7+R()*5,-R()*8]});}}
+      /* 오리온 자리: 어깨(베텔)는 붉게, 발(리겔)은 푸르게, 허리 삼태성은 축제 마당 위 */
+      const s=[[-.26,-.5],[.3,-.56],[-.12,-.03],[0,0],[.12,.03],[-.3,.52],[.3,.44]];[[0,1],[0,2],[1,4],[2,3],[3,4],[2,5],[4,6],[5,6]].forEach(([a,b])=>L([s[a],s[b]],false,"dash"));s.forEach(q=>o.dots.push([q[0],q[1],.03,{tw:1.5+R()*2.5}]));
+      glow(s[0],.045,"var(--z-lava)",3.4,".08;.4;.08");glow(s[6],.045,"var(--z-ice)",2.6,".15;.6;.15");[s[0],s[1],s[5],s[6]].forEach(q=>star(q,1.5,"var(--z-goldhot)",2+R()*2));
+      for(let i=0;i<18;i++)o.fx.push({k:"petal",p:[(R()-.5)*1.5,-.8+R()*1.2],s:.7+R()*.8,mv:[.12+R()*.2,.3+R()*.25],dur:6+R()*6,begin:-R()*12});
+      break;}
+    case "shamrock":{const fn=th=>(.42+.58*Math.pow(Math.abs(Math.cos(1.5*(th+90)*D)),.55))*(1+.03*Math.abs(Math.sin(21*th*D)));
+      const inn=[];for(let i=0;i<168;i++){const th=i/168*360;o.out.push(pol(th,fn(th)));inn.push(pol(th,fn(th)*.86));}L(inn,true,"lace");L(inn,true,"shim",{flow:[.05,.11,3.2,.014]});
+      for(let i=0;i<3;i++){const p=pol(i*120-90,.58);L(circ(p[0],p[1],.2,28),true,"",{pulse:[4,".45;1;.45",-i*1.3]});L(circ(p[0],p[1],.1,20),true,"thin");glow(p,.2,"var(--tc)",4,".05;.35;.05");for(let k=0;k<3;k++)star([p[0]+(R()-.5)*.3,p[1]+(R()-.5)*.3],1,"var(--z-goldhot)");}L(circ(0,0,.12,20),true);break;}
+    case "gem":{const ov=[],tv=[];for(let i=0;i<8;i++){ov.push(pol(i*45+22.5,1));tv.push(pol(i*45,.5));}o.out=ov;L(tv,true,"",{pulse:[3.2,".5;1;.5"]});
+      for(let i=0;i<8;i++){L([tv[i],ov[i]],false,"glint",{pulse:[3.2,".15;1;.15;.15",-i*.4]});L([tv[i],ov[(i+7)%8]],false,"glint",{pulse:[3.2,".15;1;.15;.15",-i*.4-.2]});}
+      const st=[];for(let i=0;i<8;i++)st.push(pol(i*45+22.5,.28));L(st,true,"thin");for(let i=0;i<10;i++)star(pol(R()*360,.15+R()*.75),1+R(),"var(--z-hot)");
+      for(let i=0;i<2;i++)o.fx.push({k:"ring",p:[0,0],r:.5,dur:5,begin:-i*2.5});break;}
+    case "snowflake":{for(let i=0;i<6;i++){const a=i*60-90;o.out.push(pol(a-30,.5),pol(a-13,.6),pol(a-9,.88),pol(a,1),pol(a+9,.88),pol(a+13,.6));}
+      for(let i=0;i<6;i++){const a=i*60-90;L([pol(a,.18),pol(a,.94)],false,"",{pulse:[5,".45;1;.45",-i*.8]});L([pol(a,.6),pol(a-9,.8)],false,"thin");L([pol(a,.6),pol(a+9,.8)],false,"thin");}
+      const h1=[],h2=[];for(let i=0;i<6;i++){h1.push(pol(i*60-90,.18));h2.push(pol(i*60-60,.46));}L(h1,true);L(h2,true,"thin");glow([0,0],.15,"var(--z-lava)",2.8,".15;.75;.15");
+      for(let i=0;i<26;i++)mote([(R()-.5)*1.6,-.9+R()*1.4],.014+R()*.012,"#fff",[.04+R()*.05,.3+R()*.2],5+R()*5,"0;1;1;0");break;}
+    default:{const hs=[];for(let k=2;k<=7;k++)hs.push([k,(R()*2-1)*.16/Math.pow(k,.7),R()*6.28]);
+      for(let i=0;i<72;i++){const t=i/72*2*Math.PI;let m=1;hs.forEach(h=>m+=h[1]*Math.sin(h[0]*t+h[2]));o.out.push([Math.cos(t)*m,Math.sin(t)*m]);}}
+  }
+  return o;}
+let terrSig="",worldVer=0;
+function terrSignature(){return worldVer+"|"+(layers.terr!==false)+"|"+(layers.nfx!==false)+"|"+(layers.fxmove!==false)+"|"+(layers.border!==false)+"|"+(layers.region!==false)+"|"+Object.values(M).filter(m=>m.kind==="nation"||m.kind==="small"||m.kind==="region").map(m=>[m.id,m.x,m.y,m.tsh,m.tr,m.trot,m.tasp,m.tcol,m.expect,m.tb,m.of].join(",")).join(";");}
+const borderPoly={};
+function inPoly(x,y,poly){let c=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const a=poly[i],b=poly[j];if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])c=!c;}return c;}
+function nationAt(x,y,bigOnly){let hit=null,best=1e18;Object.keys(borderPoly).forEach(id=>{const m=M[id];if(!m||(bigOnly&&m.kind!=="nation"))return;const t=terrOf(m);if(bigOnly&&t&&(t.sh==="sun"||t.sh==="nebula"))return;if(inPoly(x,y,borderPoly[id])){const d=Math.hypot(m.x-x,m.y-y)+(m.kind==="nation"?1e6:0);if(d<best){best=d;hit=id;}}});return hit;}
+function clipHalf(poly,a,b){const nx=b[0]-a[0],ny=b[1]-a[1],k=(b[0]*b[0]+b[1]*b[1]-a[0]*a[0]-a[1]*a[1])/2,f=p=>p[0]*nx+p[1]*ny-k,out=[];
+  for(let i=0;i<poly.length;i++){const p=poly[i],q=poly[(i+1)%poly.length],fp=f(p),fq=f(q);if(fp<=0)out.push(p);if((fp<0&&fq>0)||(fp>0&&fq<0)){const t=fp/(fp-fq);out.push([p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t]);}}return out;}
+function drawRegions(G){if(layers.region===false)return;const by={};Object.values(M).forEach(m=>{if(m.kind==="region"&&m.of&&borderPoly[m.of])(by[m.of]=by[m.of]||[]).push(m);});
+  Object.keys(by).forEach(id=>{const rs=by[id],par=M[id],t=terrOf(par);if(!t||rs.length<2)return;const cid=continentAt(par.x,par.y)||par.expect;
+    const g=el("g",{"pointer-events":"none",style:`--tc:${t.col}`},G);if(cid&&C[cid]&&!inLand(cid,borderPoly[id]))g.setAttribute("clip-path",`url(#clip-${cid})`);
+    const S=terrShape(t.sh,t.seed);if(S.reg){const a=t.rot*Math.PI/180,ca=Math.cos(a),sa=Math.sin(a),sx=t.r*Math.sqrt(t.asp),sy=t.r/Math.sqrt(t.asp),pd=pts=>"M"+pts.map(q=>q[0].toFixed(1)+","+q[1].toFixed(1)).join("L")+"Z";
+      const cp=el("clipPath",{id:"clipb-"+id},g);el("path",{d:pd(borderPoly[id])},cp);const g2=el("g",{"clip-path":`url(#clipb-${id})`},g);
+      S.reg.forEach((poly,i)=>el("path",{d:pd(poly.map(p=>{const x=p[0]*sx,y=p[1]*sy;return [par.x+x*ca-y*sa,par.y+x*sa+y*ca];})),class:"terr-region","fill-opacity":poly.f!=null?poly.f:(i%2?.07:0),"vector-effect":"non-scaling-stroke"},g2));return;}
+    rs.forEach((r,i)=>{let poly=borderPoly[id];for(const o of rs){if(o===r)continue;poly=clipHalf(poly,[r.x,r.y],[o.x,o.y]);if(poly.length<3)break;}
+      if(poly.length>=3)el("path",{d:"M"+poly.map(q=>q[0].toFixed(1)+","+q[1].toFixed(1)).join("L")+"Z",class:"terr-region","fill-opacity":i%2?.07:0,"vector-effect":"non-scaling-stroke"},g);});});}
+function drawBorders(G,list){Object.keys(borderPoly).forEach(k=>delete borderPoly[k]);const show=layers.border!==false;const NB=180,bin=(dx,dy)=>((Math.round(Math.atan2(dy,dx)/(2*Math.PI)*NB)%NB)+NB)%NB;
+  const info=list.map(({m,t})=>{const S=terrShape(t.sh,t.seed);const cid=continentAt(m.x,m.y)||(S.whole&&m.expect&&C[m.expect]?m.expect:null);
+    if(S.whole)return {m,t,cid,whole:true};
+    const a=t.rot*Math.PI/180,ca=Math.cos(a),sa=Math.sin(a),sx=t.r*Math.sqrt(t.asp),sy=t.r/Math.sqrt(t.asp);
+    const pts=S.out.map(p=>{const x=p[0]*sx,y=p[1]*sy;return [x*ca-y*sa,x*sa+y*ca];}),rho=new Array(NB).fill(0);
+    for(let i=0;i<pts.length;i++){const p=pts[i],q=pts[(i+1)%pts.length];for(let k=0;k<8;k++){const x=p[0]+(q[0]-p[0])*k/8,y=p[1]+(q[1]-p[1])*k/8,b=bin(x,y);rho[b]=Math.max(rho[b],Math.hypot(x,y));}}
+    for(let pass=0;pass<NB;pass++){let ch=false;for(let b=0;b<NB;b++)if(!rho[b]){const l=rho[(b+NB-1)%NB],r=rho[(b+1)%NB];if(l||r){rho[b]=Math.max(l,r);ch=true;}}if(!ch)break;}
+    const sm=rho.map((v,b)=>{let s2=0;for(let k=-4;k<=4;k++)s2+=rho[(b+k+NB)%NB];return Math.max(s2/9,v*.92);});
+    return {m,t,cid,rho:sm,k:m.tb||1.3};});
+  info.forEach(n=>{const g=el("g",{"pointer-events":"none",style:`--tc:${n.t.col}`},G);if(n.cid)g.setAttribute("clip-path",`url(#clip-${n.cid})`);
+    if(n.whole){if(n.cid&&geo[n.cid]){borderPoly[n.m.id]=geo[n.cid].pts;if(show)el("path",{d:geo[n.cid].d,class:"terr-border coast","vector-effect":"non-scaling-stroke"},g);}return;}
+    const others=info.filter(o=>o!==n&&!o.whole&&o.cid===n.cid),pts=[];
+    for(let b=0;b<NB;b++){const th=b/NB*2*Math.PI,ux=Math.cos(th),uy=Math.sin(th),r0=n.rho[b];let s=.05;
+      for(;s<=n.k;s+=.02){const px=n.m.x+ux*r0*s,py=n.m.y+uy*r0*s;let lose=false;
+        for(const o of others){const dx=px-o.m.x,dy=py-o.m.y,d=Math.hypot(dx,dy)/o.rho[bin(dx,dy)];if(d<s&&d<=o.k){lose=true;break;}}
+        if(lose)break;}
+      s=Math.min(s,n.k);pts.push([n.m.x+ux*r0*s,n.m.y+uy*r0*s]);}
+    const sp=pts.map((p,i)=>{const a=pts[(i+NB-1)%NB],c=pts[(i+1)%NB];return [(a[0]+2*p[0]+c[0])/4,(a[1]+2*p[1]+c[1])/4];});
+    borderPoly[n.m.id]=sp;if(n.cid&&inLand(n.cid,sp))g.removeAttribute("clip-path");if(show)el("path",{d:smooth(sp),class:"terr-border","vector-effect":"non-scaling-stroke"},g);});
+  drawRegions(G);}
+function inLand(cid,pts){for(let i=0;i<pts.length;i++)if(continentAt(pts[i][0],pts[i][1])!==cid)return false;return true;}
+function drawTerritories(){const G=$("gTerr");G.replaceChildren();if(layers.terr===false)return;
+  const fxOn=layers.nfx!==false,still=NOANIM||layers.fxmove===false||!fxOn,F=v=>(+v).toFixed(1);
+  const A=(p,attr,values,dur,begin)=>{if(!still)el("animate",{attributeName:attr,values,dur:dur+"s",begin:(begin||0)+"s",repeatCount:"indefinite"},p);};
+  const AT=(p,type,values,dur,begin)=>{if(!still)el("animateTransform",{attributeName:"transform",type,values,dur:dur+"s",begin:(begin||0)+"s",repeatCount:"indefinite"},p);};
+  const list=Object.values(M).map(m=>({m,t:terrOf(m)})).filter(o=>o.t).sort((a,b)=>b.t.r-a.t.r);
+  drawBorders(G,list);
+  list.forEach(({m,t})=>{
+    const S=terrShape(t.sh,t.seed);const cid=continentAt(m.x,m.y)||(S.whole&&m.expect&&C[m.expect]?m.expect:null);
+    const a=t.rot*Math.PI/180,ca=Math.cos(a),sa=Math.sin(a),sx=t.r*Math.sqrt(t.asp),sy=t.r/Math.sqrt(t.asp);
+    const tv=p=>{const x=p[0]*sx,y=p[1]*sy;return [x*ca-y*sa,x*sa+y*ca];},tf=p=>{const q=tv(p);return [m.x+q[0],m.y+q[1]];};
+    const P=(pts,closed)=>"M"+pts.map(p=>{const q=tf(p);return F(q[0])+","+F(q[1]);}).join("L")+(closed?"Z":"");
+    const g=el("g",{"pointer-events":"none",style:`--tc:${t.col}`},G);if(cid&&(S.whole||!inLand(cid,S.out.map(p=>tf([p[0]*1.45,p[1]*1.45])))))g.setAttribute("clip-path",`url(#clip-${cid})`);
+    if(S.whole){if(cid&&geo[cid])el("path",{d:geo[cid].d,class:"terr-fill whole","vector-effect":"non-scaling-stroke"},g);}
+    else el("path",{d:P(S.out,true),class:"terr-fill","vector-effect":"non-scaling-stroke"},g);
+    S.bands.forEach(b=>el("path",{d:P(b.outer,true)+(b.inner?P(b.inner,true):""),"fill-rule":"evenodd",class:"terr-band"},g));
+    if(fxOn)S.fx.filter(x=>x.k==="glow").forEach(x=>{const q=tf(x.p);const c=el("circle",{cx:F(q[0]),cy:F(q[1]),r:F(x.r*t.r),fill:x.fill,opacity:still?.5:0},g);A(c,"opacity",x.op,x.dur,-Math.random()*x.dur);});
+    S.lines.forEach(l=>{if(l.flow){if(!fxOn)return;const [da,db,dur,w,bg]=l.flow;const e=el("path",{d:P(l.pts,l.closed),class:"terr-line "+l.cls,"stroke-width":F(w*t.r),"stroke-dasharray":`${F(da*t.r)} ${F(db*t.r)}`},g);A(e,"stroke-dashoffset",`0;${F(-(da+db)*t.r)}`,dur,bg||0);return;}
+      const e=el("path",l.w?{d:P(l.pts,l.closed),class:"terr-line "+l.cls,style:"stroke-width:"+F(l.w*t.r)+"px"}:{d:P(l.pts,l.closed),class:"terr-line "+l.cls,"vector-effect":"non-scaling-stroke"},g);
+      if(l.spin){const c=tf(l.spin[0]);AT(e,"rotate",`0 ${F(c[0])} ${F(c[1])};${360*l.spin[2]} ${F(c[0])} ${F(c[1])}`,l.spin[1]);}
+      else if(l.mv){const d=tv([l.mv[0],l.mv[1]]);AT(e,"translate",`0 0;${F(d[0])} ${F(d[1])};0 0`,l.mv[2],l.mv[3]||0);}
+      if(l.pulse)A(e,"opacity",l.pulse[1],l.pulse[0],l.pulse[2]||0);});
+    S.dots.forEach(d=>{const q=tf(d);const c=el("circle",{cx:F(q[0]),cy:F(q[1]),r:F((d[2]||.03)*t.r),class:"terr-dot fxs"},g);if(d[3]&&d[3].tw&&fxOn)A(c,"opacity",".15;1;.15",d[3].tw,-Math.random()*4);});
+    if(fxOn)S.fx.forEach(x=>{const q=tf(x.p);
+      if(x.k==="star"){const k=t.r*x.s;const e=el("path",{d:`M0,-.035 L.008,-.008 L.035,0 L.008,.008 L0,.035 L-.008,.008 L-.035,0 L-.008,-.008Z`,transform:`translate(${F(q[0])} ${F(q[1])}) scale(${F(k)})`,fill:x.fill,opacity:still?.85:0},g);A(e,"opacity","0;1;0",x.dur,x.begin);}
+      else if(x.k==="dot"){const w=el("g",{class:x.r>.03?"":"fxs"},g);const e=el("circle",{cx:F(q[0]),cy:F(q[1]),r:F(x.r*t.r),fill:x.fill,opacity:still?.6:0},w);const d=tv(x.mv);AT(w,"translate",`0 0;${F(d[0])} ${F(d[1])}`,x.dur,x.begin);A(e,"opacity",x.op,x.dur,x.begin);}
+      else if(x.k==="petal"){const w=el("g",{},g);const e=el("path",{d:"M0,-.03 C.022,-.02 .022,.015 0,.03 C-.022,.015 -.022,-.02 0,-.03Z",transform:`translate(${F(q[0])} ${F(q[1])}) scale(${F(t.r*x.s)}) rotate(${(x.s*200)%360})`,fill:"var(--tc)",opacity:still?.7:0},w);const d=tv(x.mv);AT(w,"translate",`0 0;${F(d[0])} ${F(d[1])}`,x.dur,x.begin);A(e,"opacity","0;.95;.8;0",x.dur,x.begin);}
+      else if(x.k==="ring"){if(still)return;const w=el("g",{transform:`translate(${F(q[0])} ${F(q[1])})`},g),w2=el("g",{},w);const e=el("circle",{r:F(x.r*t.r),fill:"none",stroke:x.stroke||"var(--z-curhi)","stroke-width":F(.012*t.r),opacity:0},w2);AT(w2,"scale",".2;1.6",x.dur,x.begin);A(e,"opacity",".8;0",x.dur,x.begin);}
+    });
+  });}
+
+/* ---------- 자연 지형: 산지, 숲, 강 ---------- */
+const NATT=[["hill","산지"],["forest","숲"],["river","강"],["peak","큰 산"],["range","큰 산맥"],["ice","얼음 기둥 지대"],["frozen","언 강"]];const NATR={hill:150,forest:170,river:170,peak:230,range:600,ice:170,frozen:170};
+let natSig="";
+function natSignature(){return worldVer+"|"+(layers.nature!==false)+"|"+(layers.fxmove!==false)+"|"+Object.values(M).filter(m=>m.kind==="nature").map(m=>[m.id,m.x,m.y,m.tt,m.zr,m.zrot].join(",")).join(";");}
+function drawNature(){const G=$("gNat"),GH=$("gNatHi");G.replaceChildren();GH.replaceChildren();if(layers.nature===false)return;const F=v=>(+v).toFixed(1),still=NOANIM||layers.fxmove===false;
+  Object.values(M).filter(m=>m.kind==="nature").sort((a,b)=>a.y-b.y).forEach(m=>{const cid=continentAt(m.x,m.y);if(!cid)return;
+    const R=rng(hashId(m.id)),tt=m.tt||"forest",r=m.zr||NATR[tt]||170,big=tt==="peak"||tt==="range",g=el("g",{"pointer-events":"none"},big?GH:G);
+    {let inl=tt==="hill"||tt==="forest"||tt==="ice"||tt==="peak";if(inl){const ex=tt==="peak"?r*1.1:r*1.4,ey=r*.95+60;for(let k=0;k<8&&inl;k++){const a=k*Math.PI/4;if(continentAt(m.x+Math.cos(a)*ex,m.y+Math.sin(a)*ey)!==cid)inl=false;}}if(!inl)g.setAttribute("clip-path",`url(#clip-${cid})`);}
+    if(tt==="peak"){const sn=m.snow!=null?m.snow:(cid==="hwansang"||cid==="bit"?1:.55),ms=[];
+      for(let k=0;k<4;k++){const sd=k%2?1:-1,fw=r*(.42+R()*.2);ms.push({x:m.x+sd*r*(.42+R()*.3),y:m.y+(R()-.3)*r*.14,w:fw,h:fw*(.8+R()*.25),snow:sn*.6});}
+      ms.push({x:m.x,y:m.y+r*.06,w:r,h:r*(.92+R()*.12),snow:sn});ms.sort((a,b)=>a.y-b.y).forEach(q=>mountain(g,q,R));return;}
+    if(tt==="range"){const a=(m.zrot||0)*Math.PI/180,ux=Math.cos(a),uy=Math.sin(a),ms=[],step=95;
+      for(let d=-r;d<=r;d+=step*(.8+R()*.4)){const k=1-Math.pow(Math.abs(d)/r,2)*.45,w=(170+R()*90)*k,o=(R()-.5)*70;ms.push({x:m.x+ux*d-uy*o,y:m.y+uy*d+ux*o,w,h:w*(.85+R()*.3),snow:.8});
+        for(let f=0;f<2;f++){if(R()<.75){const sd=f?1:-1,fo=sd*(95+R()*70),fw=(80+R()*50)*k;ms.push({x:m.x+ux*(d+(R()-.5)*60)-uy*fo,y:m.y+uy*(d+(R()-.5)*60)+ux*fo,w:fw,h:fw*(.75+R()*.25),snow:.45});}}}
+      ms.sort((p,q)=>p.y-q.y).forEach(q=>mountain(g,q,R));return;}
+    if(tt==="ice"){const ph=R()*6,bl=[];for(let k=0;k<28;k++){const t=k/28*6.283,q=1+.14*Math.sin(3*t+ph)+.09*Math.sin(5*t+ph*1.7);bl.push([m.x+Math.cos(t)*r*1.2*q,m.y+Math.sin(t)*r*.72*q]);}
+      el("path",{d:smooth(bl),class:"ic-bed"},g);const n=Math.round(r*r/1100),ps=[],sc=clamp(r/170,.7,1.5);
+      for(let i=0;i<n*8&&ps.length<n;i++){const a=R()*6.283,d=Math.sqrt(R())*r*.95,x=m.x+Math.cos(a)*d*1.15,y=m.y+Math.sin(a)*d*.68;if(ps.every(p=>Math.hypot(p[0]-x,(p[1]-y)*1.4)>20*sc))ps.push([x,y]);}
+      ps.sort((a,b)=>a[1]-b[1]).forEach(p=>{const x=p[0],y=p[1],w=(11+R()*9)*sc,h=(26+R()*30)*sc,lean=(R()-.5)*w*.9,mid=x+lean*.5+w*.12;
+        el("path",{d:`M${F(x-w/2)},${F(y)}L${F(x-w*.3+lean*.7)},${F(y-h*.8)}L${F(x+lean)},${F(y-h)}L${F(mid)},${F(y)}Z`,class:"ic-l"},g);
+        el("path",{d:`M${F(x+lean)},${F(y-h)}L${F(x+w*.4+lean*.6)},${F(y-h*.7)}L${F(x+w/2)},${F(y)}L${F(mid)},${F(y)}Z`,class:"ic-d"},g);
+        if(!still&&R()<.25){const st=el("circle",{cx:F(x+lean),cy:F(y-h),r:F(2.2*sc),class:"ic-g",opacity:0},g);el("animate",{attributeName:"opacity",values:"0;1;0",dur:(2+R()*3).toFixed(1)+"s",begin:(-R()*4).toFixed(1)+"s",repeatCount:"indefinite"},st);}});return;}
+    if(tt==="hill"){const n=Math.round(5+r/40),ps=[];
+      for(let i=0;i<n*8&&ps.length<n;i++){const a=R()*6.283,d=Math.sqrt(R())*r,x=m.x+Math.cos(a)*d*1.25,y=m.y+Math.sin(a)*d*.7;if(ps.every(p=>Math.hypot(p[0]-x,(p[1]-y)*1.6)>r*.3))ps.push([x,y,1-d/r*.5]);}
+      ps.sort((a,b)=>a[1]-b[1]).forEach(p=>{const w=(58+R()*36)*p[2]*(r/150),h=w*(.62+R()*.25),x=p[0],y=p[1],px=x+(R()-.5)*w*.2,rb=x+w*(.05+R()*.14);
+        el("path",{d:`M${F(x-w/2)},${F(y)}L${F(px)},${F(y-h)}L${F(rb)},${F(y)}Z`,class:"hl-l"},g);el("path",{d:`M${F(px)},${F(y-h)}L${F(x+w/2)},${F(y)}L${F(rb)},${F(y)}Z`,class:"hl-d"},g);
+        el("path",{d:`M${F(x-w/2)},${F(y)}L${F(px)},${F(y-h)}L${F(x+w/2)},${F(y)}`,class:"hl-o","vector-effect":"non-scaling-stroke"},g);});}
+    else if(tt==="forest"){const ph=R()*6,bl=[];for(let k=0;k<28;k++){const t=k/28*6.283,q=1+.14*Math.sin(3*t+ph)+.09*Math.sin(5*t+ph*1.7);bl.push([m.x+Math.cos(t)*r*1.2*q,m.y+Math.sin(t)*r*.72*q]);}
+      el("path",{d:smooth(bl),class:"fr-bed"},g);const n=Math.round(r*r/820),ps=[],sc=clamp(r/170,.7,1.5);
+      for(let i=0;i<n*8&&ps.length<n;i++){const a=R()*6.283,d=Math.sqrt(R())*r*.95,x=m.x+Math.cos(a)*d*1.15,y=m.y+Math.sin(a)*d*.68;if(ps.every(p=>Math.hypot(p[0]-x,(p[1]-y)*1.4)>17*sc))ps.push([x,y]);}
+      ps.sort((a,b)=>a[1]-b[1]).forEach(p=>{const x=p[0],y=p[1];
+        if(R()<.6){const w=(15+R()*7)*sc,h=(26+R()*9)*sc;el("path",{d:`M${F(x-w/2)},${F(y)}L${F(x)},${F(y-h)}L${F(x+w/2)},${F(y)}Z`,class:"tr-c"},g);el("path",{d:`M${F(x)},${F(y-h)}L${F(x+w/2)},${F(y)}L${F(x+w*.08)},${F(y)}Z`,class:"tr-cd"},g);}
+        else{const rr=(8.5+R()*3.5)*sc;el("path",{d:`M${F(x)},${F(y)}V${F(y-rr*.9)}`,class:"tr-t","stroke-width":F(2.4*sc)},g);el("circle",{cx:F(x),cy:F(y-rr*1.5),r:F(rr),class:"tr-r"},g);el("path",{d:`M${F(x)},${F(y-rr*2.5)}A${F(rr)},${F(rr)} 0 0 1 ${F(x)},${F(y-rr*.5)}A${F(rr*.55)},${F(rr)} 0 0 0 ${F(x)},${F(y-rr*2.5)}Z`,class:"tr-rd"},g);}});}
+    else{let ang=null,len=0;const out=(a,d)=>continentAt(m.x+Math.cos(a)*d,m.y+Math.sin(a)*d)!==cid;
+      if(m.zrot){ang=m.zrot*Math.PI/180;}else{let best=1e9;for(let k=0;k<36;k++){const a=k/36*6.283;for(let d=60;d<best;d+=40){if(out(a,d)){best=d;ang=a;break;}}}if(ang==null)ang=0;}
+      for(len=60;len<4000&&!out(ang,len);len+=30);len+=90;
+      const n=Math.max(8,Math.ceil(len/40)),ux=Math.cos(ang),uy=Math.sin(ang),amp=(30+R()*22)*clamp(len/600,.5,1.3),wl=300+R()*140,ph=R()*6.283,pts=[];
+      for(let i=0;i<=n;i++){const t=i/n,d=len*t,o=Math.sin(d/wl*6.283+ph)*amp*Math.min(1,t*3.5)+Math.sin(d/wl*2.7+ph*2)*amp*.25*Math.min(1,t*3.5);pts.push([m.x+ux*d-uy*o,m.y+uy*d+ux*o]);}
+      const dOf=(a,b)=>{const q=pts.slice(a,b+1);let d="M"+F(q[0][0])+","+F(q[0][1]);for(let i=1;i<q.length-1;i++)d+="Q"+F(q[i][0])+","+F(q[i][1])+" "+F((q[i][0]+q[i+1][0])/2)+","+F((q[i][1]+q[i+1][1])/2);const e=q[q.length-1];return d+"L"+F(e[0])+","+F(e[1]);},w0=clamp((m.zr||170)/170,.5,2.5);
+      const c1=Math.round(n*.33),c2=Math.round(n*.66);const fz=tt==="frozen";[[0,c1,6],[c1,c2,10],[c2,n,15]].forEach(s=>{if(fz)el("path",{d:dOf(s[0],s[1]),class:"nat-fzo","stroke-width":F((s[2]+4)*w0)},g);});[[0,c1,6],[c1,c2,10],[c2,n,15]].forEach(s=>el("path",{d:dOf(s[0],s[1]),class:fz?"nat-fz":"nat-river","stroke-width":F(s[2]*w0)},g));
+      if(fz){el("circle",{cx:F(m.x),cy:F(m.y),r:F(9*w0),class:"nat-fzs"},g);el("path",{d:dOf(0,n),class:"nat-fzc","stroke-width":F(1.4*w0),"stroke-dasharray":"14 22 5 30"},g);return;}
+      el("circle",{cx:F(m.x),cy:F(m.y),r:F(9*w0),class:"nat-spring"},g);
+      const fl=el("path",{d:dOf(0,n),class:"nat-flow","stroke-width":F(2.2*w0),"stroke-dasharray":"26 46"},g);if(!still)el("animate",{attributeName:"stroke-dashoffset",values:"0;-72",dur:"3.2s",repeatCount:"indefinite"},fl);}
+  });}
+/* ---------- 던전 분위기 효과 ---------- */
+const ZCOL={scorch:["#3B2A26","#150B08"],lava:["#E8501C","#FF7A3C"],hot:["#FFC24A","#FFE08A"],smoke:["#6B6460","#8C8580"],gold:["#D9A21B","#FFD76A"],goldhot:["#FFF2B8","#FFF8D8"],golddk:["#8A6410","#B98F2A"],
+  ice:["#F2FAFF","#B9DDF2"],icedeep:["#1E5E86","#0C3048"],iceline:["#7FB4D4","#5E9CC0"],grave:["#39433D","#0D1310"],stone:["#8E9A96","#7B8985"],stonedk:["#4E5A56","#3A4541"],wisp:["#39C58A","#7CF0BC"],
+  pond:["#15101F","#05030A"],fog:["#4A3B6B","#8E7BC4"],foglt:["#9A8BC6","#C3B5EE"],pit:["#1B1420","#040207"],ring:["#8A4A6A","#E594B6"],aura:["#992C40","#EE8698"],moon:["#C9B24A","#FFF3BF"],cur:["#0C2530","#01060A"],curhi:["#2F7386","#4FA3B5"]};
+(function(){const L=Object.keys(ZCOL).map(k=>`--z-${k}:${ZCOL[k][0]}`).join(";"),D=Object.keys(ZCOL).map(k=>`--z-${k}:${ZCOL[k][1]}`).join(";");
+  const st=document.createElement("style");st.textContent=`:root{${L}}@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){${D}}}:root[data-theme="dark"]{${D}}`;document.head.appendChild(st);
+  const defs=$("defs"),mk=(id,col,stops)=>{const g=el("radialGradient",{id,cx:"50%",cy:"50%",r:"50%"},defs);stops.forEach(([o,a])=>el("stop",{offset:o,style:`stop-color:var(--z-${col});stop-opacity:${a}`},g));};
+  mk("zgScorch","scorch",[[0,.9],[.6,.6],[1,0]]);mk("zgGold","gold",[[0,.75],[.45,.3],[1,0]]);mk("zgGrave","grave",[[0,.8],[.65,.5],[1,0]]);mk("zgFog","fog",[[0,.7],[.6,.4],[1,0]]);mk("zgAura","aura",[[0,.5],[1,0]]);mk("zgMist","ice",[[0,.6],[1,0]]);mk("zgCur","cur",[[0,.6],[.6,.35],[1,0]]);})();
+const NOANIM=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+function zoneOf(m){if(m.kind==="capital"){const par=m.of&&M[m.of]?terrOf(M[m.of]):null;return {type:"capital",r:m.zr||75,seed:hashId(m.id),col:par?par.col:"var(--accent)"};}
+  if(m.kind==="dungeon"&&m.fx!=="on"){if(m.fx==="off"||!{S:1,SS:1,SSS:1,M:1}[m.grade])return null;return {type:"aura",r:m.zr||130,seed:hashId(m.id)};}
+  if(m.kind==="apex"){if(m.fx==="off")return null;}else if(m.kind==="dungeon"){if(m.fx!=="on")return null;}else return null;
+  return {type:iconKey(m),r:m.zr||(m.kind==="apex"?380:200),seed:hashId(m.id)};}
+let zoneSig="";
+function zoneSignature(){return worldVer+"|"+(layers.fx!==false)+"|"+(layers.fxmove!==false)+"|"+Object.values(M).filter(m=>m.kind==="apex"||m.kind==="dungeon"||m.kind==="capital").map(m=>[m.id,m.kind,m.x,m.y,m.icon,m.tower,m.fx,m.zr,m.grade,m.of].join(",")).join(";");}
+function drawZones(){const G=$("gZone");G.replaceChildren();if(layers.fx===false)return;
+  const still=NOANIM||layers.fxmove===false,f=v=>(+v).toFixed(3);
+  const A=(p,attr,values,dur,begin)=>{if(!still)el("animate",{attributeName:attr,values,dur:dur+"s",begin:(begin||0)+"s",repeatCount:"indefinite"},p);};
+  const AT=(p,type,values,dur,begin,add)=>{if(!still)el("animateTransform",{attributeName:"transform",type,values,dur:dur+"s",begin:(begin||0)+"s",repeatCount:"indefinite",additive:add||"replace"},p);};
+  const V=n=>`var(--z-${n})`;
+  const STAR="M0,-.035 L.008,-.008 L.035,0 L.008,.008 L0,.035 L-.008,.008 L-.035,0 L-.008,-.008Z";
+  Object.values(M).forEach(m=>{const z=zoneOf(m);if(!z)return;const R=rng(z.seed),cid=continentAt(m.x,m.y);
+    const wrap=el("g",{"pointer-events":"none"},G);
+    const g=el("g",{transform:`translate(${m.x} ${m.y}) scale(${z.r})`},wrap);
+    const rp=(rmin,rmax)=>{const a=R()*6.283,r=rmin+R()*(rmax-rmin);return [Math.cos(a)*r,Math.sin(a)*r];};
+    const clipLand=()=>{if(cid)wrap.setAttribute("clip-path",`url(#clip-${cid})`);};
+    switch(z.type){
+    case "volcano":{clipLand();el("circle",{r:1,fill:"url(#zgScorch)"},g);
+      for(let i=0;i<7;i++){const a0=i*51.4+R()*22;let d="";for(let k=0;k<=6;k++){const r=.07+k*(.72+R()*.2)/6,a=(a0+(k?(R()-.5)*26:0))*Math.PI/180;d+=(k?"L":"M")+f(Math.cos(a)*r)+","+f(Math.sin(a)*r);}
+        const gl=el("path",{d,fill:"none",stroke:V("lava"),"stroke-width":.05,"stroke-linecap":"round","stroke-linejoin":"round",opacity:.35},g);A(gl,"opacity",".18;.6;.18",2.2+R()*2,-R()*3);
+        el("path",{d,fill:"none",stroke:V("hot"),"stroke-width":.014,"stroke-linecap":"round","stroke-linejoin":"round"},g);}
+      for(let i=0;i<4;i++){const p=rp(.3,.7);const e=el("ellipse",{cx:f(p[0]),cy:f(p[1]),rx:.07+R()*.04,ry:.035+R()*.02,fill:V("lava")},g);A(e,"opacity",".6;1;.6",2+R()*2,-R()*2);el("ellipse",{cx:f(p[0]),cy:f(p[1]),rx:.03,ry:.014,fill:V("hot")},g);}
+      for(let i=0;i<4;i++){const p=rp(.25,.75);const c=el("g",{transform:`translate(${f(p[0])} ${f(p[1])}) scale(${f(.8+R()*.7)})`},g);
+        el("path",{d:"M-.1,.05 L-.03,-.07 L.03,-.07 L.1,.05Z",fill:V("scorch"),stroke:V("smoke"),"stroke-width":.006},c);el("ellipse",{cx:0,cy:-.07,rx:.03,ry:.012,fill:V("hot")},c);
+        const s=el("circle",{cx:0,cy:-.1,r:.05,fill:V("smoke"),opacity:0},c);AT(s,"translate","0 0;.05 -.28",5+R()*3,-R()*5);A(s,"opacity","0;.45;0",5+R()*3,-R()*5);if(still)s.setAttribute("opacity",.3);}
+      for(let i=0;i<14;i++){const p=rp(.05,.8);const e=el("circle",{cx:f(p[0]),cy:f(p[1]),r:.011+R()*.008,fill:V("hot"),opacity:still?.9:0},g);const du=2.6+R()*3,b=-R()*5;AT(e,"translate",`0 0;${f((R()-.5)*.12)} ${f(-.2-R()*.25)}`,du,b);A(e,"opacity","0;1;0",du,b);}
+      break;}
+    case "altar":{const gl=el("circle",{r:1,fill:"url(#zgGold)"},g);A(gl,"opacity",".65;1;.65",4.5);
+      const rg=el("g",{},g);for(let i=0;i<12;i++){const L=i%2?.62:.96;el("path",{d:`M0,0 L.035,${-L} L-.035,${-L}Z`,transform:`rotate(${i*30})`,fill:V("gold"),opacity:.26},rg);}AT(rg,"rotate","0 0 0;360 0 0",90);
+      [[.24,"golddk"],[.17,"gold"],[.1,"goldhot"]].forEach(([h,c])=>el("rect",{x:-h,y:-h,width:2*h,height:2*h,rx:.012,fill:V(c),stroke:V("golddk"),"stroke-width":.008},g));
+      const orb=el("circle",{r:.045,fill:V("goldhot"),stroke:V("gold"),"stroke-width":.01},g);A(orb,"r",".038;.058;.038",2.4);
+      for(let i=0;i<14;i++){const p=rp(.3,.92);const s=el("path",{d:STAR,transform:`translate(${f(p[0])} ${f(p[1])}) scale(${f(.7+R()*.9)})`,fill:V("goldhot"),stroke:V("gold"),"stroke-width":.004,opacity:still?.9:0},g);A(s,"opacity","0;1;0",1.8+R()*2.4,-R()*4);}
+      break;}
+    case "iceberg":{const fl=[];for(let i=0;i<16;i++){const a=i/16*6.283,r=.78+R()*.2;fl.push(f(Math.cos(a)*r)+","+f(Math.sin(a)*r*.8));}
+      el("path",{d:"M"+fl.join("L")+"Z",fill:V("ice"),"fill-opacity":.88,stroke:V("iceline"),"stroke-width":.012,"stroke-linejoin":"round"},g);
+      const cl=[];for(let k=0;k<=9;k++){const t=k/9;cl.push([-.88+1.76*t,-.22+.5*t+(k&&k<9?(R()-.5)*.2:0),.015+.085*Math.sin(Math.PI*t)*(.6+R()*.6)]);}
+      const up=cl.map(p=>f(p[0])+","+f(p[1]-p[2])),lo=cl.slice().reverse().map(p=>f(p[0])+","+f(p[1]+p[2]));
+      el("path",{d:"M"+up.concat(lo).join("L")+"Z",fill:V("icedeep"),stroke:V("iceline"),"stroke-width":.008,"stroke-linejoin":"round"},g);
+      el("path",{d:"M"+cl.map(p=>f(p[0])+","+f(p[1])).join("L"),fill:"none",stroke:V("pond"),"stroke-width":.012,opacity:.6},g);
+      for(let i=1;i<9;i+=1){if(R()<.3)continue;const p=cl[i],dir=i%2?1:-1,x2=p[0]+(R()-.5)*.25,y2=p[1]+dir*(.18+R()*.25),xm=(p[0]+x2)/2+(R()-.5)*.08,ym=(p[1]+y2)/2;
+        el("path",{d:`M${f(p[0])},${f(p[1]+dir*p[2])} L${f(xm)},${f(ym)} L${f(x2)},${f(y2)}`,fill:"none",stroke:V("icedeep"),"stroke-width":.01,"stroke-linecap":"round"},g);}
+      for(let i=0;i<7;i++){const p=rp(.2,.7),sc=.5+R()*.8;el("path",{d:"M-.05,.04 L0,-.07 L.03,-.02 L.06,.04Z",transform:`translate(${f(p[0])} ${f(p[1]*.8)}) scale(${f(sc)})`,fill:V("ice"),stroke:V("iceline"),"stroke-width":.008,"stroke-linejoin":"round"},g);}
+      for(let i=0;i<3;i++){const y=-.4+i*.4;const e=el("ellipse",{cx:0,cy:f(y),rx:.6,ry:.11,fill:"url(#zgMist)",opacity:.7},g);AT(e,"translate","-.3 0;.3 0;-.3 0",14+i*5,-i*4);}
+      for(let i=0;i<8;i++){const p=rp(.1,.8);const s=el("path",{d:STAR,transform:`translate(${f(p[0])} ${f(p[1]*.8)}) scale(${f(.6+R()*.7)})`,fill:"#fff",stroke:V("iceline"),"stroke-width":.004,opacity:still?.9:0},g);A(s,"opacity","0;1;0",2+R()*3,-R()*4);}
+      break;}
+    case "grave":{clipLand();el("circle",{r:1,fill:"url(#zgGrave)"},g);
+      for(let row=0;row<5;row++){const y=-.5+row*.24;for(let x=-.7;x<=.71;x+=.2){const px=x+(R()-.5)*.06+(row%2?.1:0),py=y+(R()-.5)*.04;if(Math.hypot(px,py)>.78||Math.hypot(px,py)<.12)continue;
+          const t=el("g",{transform:`translate(${f(px)} ${f(py)}) rotate(${f((R()-.5)*14)})`},g);el("ellipse",{cx:.01,cy:.052,rx:.05,ry:.014,fill:V("grave"),opacity:.7},t);
+          if(R()<.62)el("path",{d:"M-.035,.05 V-.02 A.035,.035 0 0 1 .035,-.02 V.05Z",fill:V("stone"),stroke:V("stonedk"),"stroke-width":.007},t);
+          else el("path",{d:"M-.009,.05 V-.065 H.009 V.05Z M-.032,-.04 H.032 V-.022 H-.032Z",fill:V("stone"),stroke:V("stonedk"),"stroke-width":.006},t);}}
+      [[-.62,-.55],[.66,.42]].forEach(([x,y])=>el("path",{d:"M0,.1 V-.06 M0,-.02 L-.06,-.1 M0,-.04 L.05,-.12 M-.03,-.06 L-.07,-.05 M.025,-.08 L.07,-.08",transform:`translate(${x} ${y})`,fill:"none",stroke:V("stonedk"),"stroke-width":.014,"stroke-linecap":"round"},g));
+      for(let i=0;i<2;i++){const e=el("ellipse",{cx:0,cy:f(-.2+i*.45),rx:.65,ry:.1,fill:V("stone"),opacity:.16},g);AT(e,"translate","-.25 0;.25 0;-.25 0",18+i*6,-i*7);}
+      for(let i=0;i<8;i++){const p=rp(.1,.75);const w=el("g",{transform:`translate(${f(p[0])} ${f(p[1])})`},g),w2=el("g",{},w);
+        el("circle",{r:.05,fill:V("wisp"),opacity:.22},w2);el("circle",{r:.02,fill:V("wisp")},w2);const du=5+R()*4,b=-R()*8;AT(w2,"translate","0 0;.03 -.08;-.03 -.15;0 0",du,b);A(w2,"opacity",".15;1;.5;.15",du,b);}
+      break;}
+    case "pond":{clipLand();el("circle",{r:1,fill:"url(#zgFog)"},g);
+      const pd=[];for(let i=0;i<24;i++){const a=i/24*6.283,mm=1+.1*Math.sin(3*a+z.seed)+.06*Math.sin(5*a+1);pd.push(f(Math.cos(a)*.54*mm)+","+f(Math.sin(a)*.4*mm));}
+      el("path",{d:"M"+pd.join("L")+"Z",fill:V("pond"),stroke:V("fog"),"stroke-width":.014,"stroke-linejoin":"round"},g);
+      for(let i=0;i<2;i++){const r=el("ellipse",{rx:.45,ry:.32,fill:"none",stroke:V("foglt"),"stroke-width":.01,opacity:still?.4:0},g);AT(r,"scale",".15;1",6,-i*3);A(r,"opacity",".8;0",6,-i*3);if(still)r.setAttribute("transform",`scale(${.5+i*.3})`);}
+      const wg=el("g",{},g);el("path",{d:"M-.11,0 C-.07,-.055 .04,-.05 .08,-.012 L.125,-.045 L.115,0 L.125,.045 L.08,.012 C.04,.05 -.07,.055 -.11,0Z",transform:"translate(0 -.2) rotate(180)",fill:V("foglt"),opacity:.5},wg);AT(wg,"rotate","0 0 0;360 0 0",38);
+      for(let i=0;i<7;i++){const p=rp(0,.3);const bb=el("circle",{cx:f(p[0]),cy:f(p[1]*.7),r:.012+R()*.008,fill:"none",stroke:V("foglt"),"stroke-width":.005,opacity:still?.7:0},g);const du=2.5+R()*2,b=-R()*4;AT(bb,"translate","0 0;0 -.09",du,b);A(bb,"opacity","0;.9;0",du,b);}
+      const fg=el("g",{},g);for(let i=0;i<7;i++){const a=i/7*6.283+R(),r=.62+R()*.2;el("circle",{cx:f(Math.cos(a)*r),cy:f(Math.sin(a)*r),r:.17+R()*.1,fill:V("fog"),opacity:.26},fg);}AT(fg,"rotate","0 0 0;-360 0 0",75);
+      const fg2=el("g",{},g);for(let i=0;i<4;i++){const a=i/4*6.283+R(),r=.3+R()*.2;el("circle",{cx:f(Math.cos(a)*r),cy:f(Math.sin(a)*r),r:.12+R()*.06,fill:V("pond"),opacity:.3},fg2);}AT(fg2,"rotate","0 0 0;360 0 0",50);
+      break;}
+    case "tower":{clipLand();[[1,.2],[.82,.32],[.65,.45],[.5,.58],[.36,.72],[.24,.86],[.13,1]].forEach(([r,o],i)=>el("circle",{cx:0,cy:f(i*.018),r,fill:V("pit"),"fill-opacity":o,stroke:V("ring"),"stroke-width":.008,"stroke-opacity":.7},g));
+      for(let i=0;i<24;i++){const a=i*15*Math.PI/180,k=i%6;const r1=[.82,.65,.5,.36,.24,.13][k],r0=[1,.82,.65,.5,.36,.24][k];el("line",{x1:f(Math.cos(a)*r0),y1:f(Math.sin(a)*r0+k*.018),x2:f(Math.cos(a)*r1),y2:f(Math.sin(a)*r1+(k+1)*.018),stroke:V("ring"),"stroke-width":.006,opacity:.5},g);}
+      let sp="";for(let i=0;i<=120;i++){const t=i/120,a=t*3.2*6.283,r=.95-.85*t;sp+=(i?"L":"M")+f(Math.cos(a)*r)+","+f(Math.sin(a)*r);}
+      const sg=el("g",{},g);el("path",{d:sp,fill:"none",stroke:V("ring"),"stroke-width":.014,"stroke-dasharray":".05 .035","stroke-linecap":"round",opacity:.85},sg);AT(sg,"rotate","0 0 0;360 0 0",80);
+      for(let i=0;i<3;i++){const c=el("circle",{r:1,fill:"none",stroke:V("ring"),"stroke-width":.02,opacity:still?0:0},g);AT(c,"scale","1;.08",6,-i*2);A(c,"opacity","0;.85;0",6,-i*2);}
+      break;}
+    case "capital":{wrap.setAttribute("style",`--tc:${z.col}`);const c=el("circle",{r:1,fill:"var(--tc)",opacity:.22},g);A(c,"opacity",".08;.38;.08",3.4,-R()*3);
+      const r2=el("circle",{r:.6,fill:"none",stroke:"var(--tc)","stroke-width":.07,opacity:still?.5:0},g);const b0=-R()*3.4;A(r2,"r",".3;1.25",3.4,b0);A(r2,"opacity",".85;0",3.4,b0);break;}
+    default:{const c=el("circle",{r:1,fill:"url(#zgAura)"},g);A(c,"opacity",".45;1;.45",3.5,-R()*3);}
+    }
+  });}
+
+/* ---------- 바다 효과 ---------- */
+const SEAFX=[["frost","유빙과 서리"],["tide","달빛 조수"],["blackcurrent","검은 해류"],["ring","대륙을 감싸 도는 해류"],["gate","얼음 관문"],["split","두 빛깔 물길"],["swell","너울"],["bergs","떠다니는 빙산"]];
+const DEF_SEA={"sea-seori":"frost","sea-wolheun":"tide","sea-heukjo":"blackcurrent","sea-hwanryu":"ring","sea-bingmun":"gate","sea-galrim":"split","sea-n":"bergs","sea-s":"bergs","sea-e":"swell","sea-w":"swell"};
+const SEA_R={frost:650,tide:600,blackcurrent:650,ring:260,gate:420,split:380,swell:520,bergs:520};
+function seaOf(m){if(m.kind!=="sea")return null;const t=m.sfx||DEF_SEA[m.id]||"";if(!t||t==="none")return null;return {type:t,r:m.zr||SEA_R[t]||500,rot:m.zrot||0,seed:hashId(m.id)};}
+let seaSig="";
+function seaSignature(){return worldVer+"|"+(layers.seafx!==false)+"|"+(layers.fxmove!==false)+"|"+Object.values(M).filter(m=>m.kind==="sea").map(m=>[m.id,m.x,m.y,m.sfx,m.zr,m.zrot,m.rc].join(",")).join(";");}
+function drawSea(){const G=$("gSea");G.replaceChildren();if(layers.seafx===false)return;
+  const still=NOANIM||layers.fxmove===false,f=v=>(+v).toFixed(3),V=n=>`var(--z-${n})`;
+  const A=(p,attr,values,dur,begin)=>{if(!still)el("animate",{attributeName:attr,values,dur:dur+"s",begin:(begin||0)+"s",repeatCount:"indefinite"},p);};
+  const AT=(p,type,values,dur,begin)=>{if(!still)el("animateTransform",{attributeName:"transform",type,values,dur:dur+"s",begin:(begin||0)+"s",repeatCount:"indefinite"},p);};
+  const STAR="M0,-.035 L.008,-.008 L.035,0 L.008,.008 L0,.035 L-.008,.008 L-.035,0 L-.008,-.008Z";
+  Object.values(M).forEach(m=>{const z=seaOf(m);if(!z)return;const R=rng(z.seed);
+    if(z.type==="ring"){let best=C[m.rc||(m.id==="sea-hwanryu"?"janjae":"")]||null,bd=1e9;if(!best)CL().forEach(c=>{const d=Math.hypot(c.cx-m.x,c.cy-m.y)-Math.max(c.rx,c.ry);if(d<bd){bd=d;best=c;}});if(!best)return;
+      const g=el("g",{transform:`translate(${best.cx} ${best.cy}) rotate(${best.rot})`,"pointer-events":"none"},G);
+      for(let i=0;i<3;i++){const k=z.r*(.55+.4*i),rx=best.rx+k,ry=best.ry+k,per=2*Math.PI*Math.sqrt((rx*rx+ry*ry)/2),n=Math.round(per/260),u=per/n;
+        const e=el("ellipse",{rx:f(rx),ry:f(ry),fill:"none",stroke:V("curhi"),"stroke-width":18-i*4,"stroke-linecap":"round","stroke-dasharray":`${f(u*.55)} ${f(u*.45)}`,opacity:.5-.1*i},g);A(e,"stroke-dashoffset",`0;${f(-u)}`,5+i*2.5);}
+      return;}
+    const g=el("g",{transform:`translate(${m.x} ${m.y}) rotate(${z.rot}) scale(${z.r})`,"pointer-events":"none"},G);
+    const floe=(x,y,s,par)=>{const pts=[];const n=6+Math.floor(R()*3);for(let i=0;i<n;i++){const a=i/n*6.283,r=s*(.7+R()*.5);pts.push(f(x+Math.cos(a)*r)+","+f(y+Math.sin(a)*r*.7));}
+      const w=el("g",{},par||g);el("path",{d:"M"+pts.join("L")+"Z",fill:V("ice"),"fill-opacity":.9,stroke:V("iceline"),"stroke-width":.008,"stroke-linejoin":"round"},w);return w;};
+    const wave=(x,y,s)=>{const w=el("g",{transform:`translate(${f(x)} ${f(y)}) scale(${f(s)})`},g),w2=el("g",{},w);el("path",{d:"M-.12,0 q.06,-.05 .12,0 t.12,0",fill:"none",stroke:"var(--wave)","stroke-width":.016,"stroke-linecap":"round"},w2);AT(w2,"translate","0 0;.07 0;0 0",5+R()*4,-R()*6);A(w2,"opacity",".35;1;.35",5+R()*4,-R()*6);};
+    const berg=(x,y,s)=>{const w=el("g",{transform:`translate(${f(x)} ${f(y)}) scale(${f(s)})`},g),w2=el("g",{},w);
+      el("path",{d:"M-.11,.05 L-.045,-.12 L.01,-.05 L.05,-.17 L.13,.05Z",fill:V("ice"),stroke:V("iceline"),"stroke-width":.008,"stroke-linejoin":"round"},w2);el("path",{d:"M.01,-.05 L.05,-.17 L.13,.05 L.035,.05Z",fill:V("icedeep"),opacity:.3},w2);
+      el("path",{d:"M-.15,.06 q.05,-.03 .1,0 t.1,0 t.1,0",fill:"none",stroke:"var(--wave)","stroke-width":.012,"stroke-linecap":"round"},w);AT(w2,"translate","0 0;0 .018;0 0",4+R()*3,-R()*4);};
+    switch(z.type){
+    case "frost":{for(let i=0;i<3;i++){const e=el("ellipse",{cx:0,cy:f(-.25+i*.25),rx:.75,ry:.15,fill:"url(#zgMist)",opacity:.75},g);AT(e,"translate","-.2 0;.2 0;-.2 0",16+i*5,-i*5);}
+      for(let i=0;i<16;i++){const w=floe((R()-.5)*1.8,(R()-.5)*.8,.06+R()*.1);AT(w,"translate",`0 0;${f(.03+R()*.05)} ${f((R()-.5)*.03)};0 0`,9+R()*8,-R()*9);}
+      for(let i=0;i<9;i++){const s=el("path",{d:STAR,transform:`translate(${f((R()-.5)*1.8)} ${f((R()-.5)*.8)}) scale(${f(.6+R()*.7)})`,fill:"#fff",stroke:V("iceline"),"stroke-width":.004,opacity:still?.9:0},g);A(s,"opacity","0;1;0",2+R()*3,-R()*4);}break;}
+    case "tide":{for(let i=0;i<5;i++){const w=el("g",{},g);el("ellipse",{rx:f(.26+i*.17),ry:f((.26+i*.17)*.45),fill:"none",stroke:V("moon"),"stroke-width":.018,opacity:.8},w);AT(w,"scale","1;1.12;1",7,-i*1.3);A(w,"opacity",".25;.85;.25",7,-i*1.3);}
+      const mo=el("path",{d:"M0,-.12 A.12,.12 0 1 0 0,.12 A.09,.09 0 1 1 0,-.12Z",transform:"translate(-.42 0) rotate(-25) scale(1.7)",fill:V("moon"),stroke:V("goldhot"),"stroke-width":.006,opacity:.95},g);A(mo,"opacity",".6;1;.6",5);
+      for(let i=0;i<9;i++){const y=-.16+i*.04,w=.03+i*.012;const l=el("line",{x1:f(-.18-w),y1:f(y),x2:f(-.18+w*2),y2:f(y),stroke:V("moon"),"stroke-width":.012,"stroke-linecap":"round",opacity:.7},g);A(l,"opacity",".15;.9;.15",1.6+R()*1.6,-R()*3);}break;}
+    case "blackcurrent":{el("circle",{r:1,fill:"url(#zgCur)"},g);
+      for(let i=0;i<7;i++){const x=-.6+i*.2+(R()-.5)*.08,d=`M${f(x)},-.92 C${f(x+.28)},-.4 ${f(x-.28)},.3 ${f(x+.06)},.92`,du=3+R()*2.5;
+        const a=el("path",{d,fill:"none",stroke:V("cur"),"stroke-width":.034,"stroke-linecap":"round","stroke-dasharray":".25 .12",opacity:.6},g);A(a,"stroke-dashoffset","0;-.37",du);
+        const b=el("path",{d,fill:"none",stroke:V("curhi"),"stroke-width":.008,"stroke-linecap":"round","stroke-dasharray":".12 .25",opacity:.8},g);A(b,"stroke-dashoffset","0;-.37",du);}break;}
+    case "gate":{el("ellipse",{rx:.9,ry:.5,fill:"url(#zgMist)",opacity:.8},g);
+      [-1,1].forEach(sd=>{const w=el("g",{transform:`translate(${.45*sd} 0) scale(${sd} 1)`},g);el("path",{d:"M-.14,.38 L-.05,-.62 L.03,-.25 L.09,-.5 L.17,.38Z",fill:V("ice"),stroke:V("iceline"),"stroke-width":.01,"stroke-linejoin":"round"},w);
+        el("path",{d:"M.03,-.25 L.09,-.5 L.17,.38 L.05,.38Z",fill:V("icedeep"),opacity:.32},w);el("path",{d:"M-.2,.4 q.06,-.04 .12,0 t.12,0 t.12,0",fill:"none",stroke:"var(--wave)","stroke-width":.014},w);});
+      for(let i=0;i<9;i++){const t=i/8,x=-.4+.8*t,y=-.62-.16*Math.sin(Math.PI*t);const s=el("path",{d:STAR,transform:`translate(${f(x)} ${f(y)}) scale(${f(.8+R()*.6)})`,fill:"#fff",stroke:V("iceline"),"stroke-width":.004,opacity:still?.9:0},g);A(s,"opacity","0;1;0",2+R()*2,-i*.3);}
+      for(let i=0;i<5;i++){const w=floe((R()-.5)*.4,0,.035+R()*.04);const du=10+R()*6,b=-R()*12;AT(w,"translate","0 -.5;0 .5",du,b);A(w,"opacity","0;1;1;0",du,b);if(still)w.setAttribute("transform",`translate(0 ${f((R()-.5)*.6)})`);}break;}
+    case "split":{el("path",{d:"M-1,0 A1,1 0 0 1 1,0Z",fill:V("stone"),opacity:.2},g);for(let i=1;i<6;i++){const y=-i*.15,w=Math.sqrt(1-y*y)*.85;el("line",{x1:f(-w),y1:f(y),x2:f(w),y2:f(y),stroke:V("stone"),"stroke-width":.008,opacity:.5},g);}
+      const lo=el("path",{d:"M-1,0 A1,1 0 0 0 1,0Z",fill:V("fog"),opacity:.3},g);A(lo,"opacity",".18;.42;.18",4.5);
+      for(let i=0;i<6;i++){const x=(R()-.5)*1.4,y=.12+R()*.6;if(Math.hypot(x,y)>.9)continue;const c=el("circle",{cx:f(x),cy:f(y),r:.05+R()*.05,fill:V("foglt"),opacity:.35},g);A(c,"opacity",".1;.6;.1",3+R()*3,-R()*4);}
+      const ln=el("line",{x1:-1,y1:0,x2:1,y2:0,stroke:V("ice"),"stroke-width":.022,"stroke-linecap":"round","stroke-dasharray":".09 .07"},g);A(ln,"stroke-dashoffset","0;-.16",2.4);break;}
+    case "bergs":{for(let i=0;i<5;i++)berg((R()-.5)*1.7,(R()-.5)*.5,.9+R()*.9);for(let i=0;i<5;i++)wave((R()-.5)*1.8,(R()-.5)*.6,.9+R()*.6);break;}
+    default:{for(let i=0;i<10;i++)wave((R()-.5)*1.7,(R()-.5)*1.5,.9+R()*.9);}
+    }
+  });}
+
+/* ---------- 설산 ---------- */
+function drawMountains(){
+  const hz=C.hwansang,G=$("gMount"),R=rng((hz.seed|0)*31+7),land=landEl.hwansang;
+  const a=hz.rot*Math.PI/180,ca=Math.cos(a),sa=Math.sin(a);
+  const toW2=(u,v)=>[hz.cx+u*hz.rx*ca-v*hz.ry*sa,hz.cy+u*hz.rx*sa+v*hz.ry*ca];
+  const inside=(x,y)=>{try{return land.isPointInFill(new DOMPoint(x,y));}catch(e){return inEll(hz,x,y)<=1;}};
+  const fits=(m)=>inEll(hz,m.x,m.y)<.86&&inside(m.x-m.w/2,m.y)&&inside(m.x+m.w/2,m.y)&&inside(m.x,m.y-m.h*.5);
+  const list=[];const unit=Math.min(hz.rx,hz.ry*2.2)/600;
+  const spines=[[-.42,.9],[.02,1],[.44,.75]];
+  spines.forEach(([v0,amp],si)=>{let u=-.9+R()*.08,v=v0+(R()-.5)*.1,dv=(R()-.5)*.3;
+    while(u<.9){dv=clamp(dv+(R()-.5)*.35,-.5,.5);v=clamp(v+dv*.05,-.75,.75);
+      const core=Math.max(0,1-Math.abs(u)*.85)*amp;const sz=(.55+core*.75)*(.85+R()*.3);
+      const [x,y]=toW2(u,v);const m={x,y,w:58*sz*unit*(.85+R()*.35),h:62*sz*unit*(.8+R()*.4),snow:1};
+      if(fits(m))list.push(m);
+      const nf=R()<.7?(R()<.4?2:1):0;
+      for(let f=0;f<nf;f++){const fv=v+(R()<.5?-1:1)*(.1+R()*.14),fu=u+(R()-.5)*.05;const [fx,fy]=toW2(fu,fv);const fs=sz*(.4+R()*.22);
+        const fm={x:fx,y:fy,w:58*fs*unit*(1+R()*.3),h:52*fs*unit,snow:.75};if(fits(fm))list.push(fm);}
+      u+=Math.max(.025,m.w/(2*hz.rx)*.62);}
+  });
+  list.sort((p,q)=>p.y-q.y).forEach(m=>mountain(G,m,R));
+}
+function mountain(G,m,R){
+  const {x,y,w,h}=m,f=v=>v.toFixed(1);
+  const pk=[x+(R()-.5)*w*.22,y-h],bL=[x-w/2,y],bR=[x+w/2,y],rb=[x+w*(.04+R()*.16),y];
+  const s=.32+R()*.16*m.snow+(1-m.snow)*.18;
+  const ts=[0,s*.5+R()*.06,s,s+(1-s)*.5,1];
+  const along=(A,B,t,j)=>{const dx=B[0]-A[0],dy=B[1]-A[1],L=Math.hypot(dx,dy)||1;return [A[0]+dx*t-dy/L*j,A[1]+dy*t+dx/L*j];};
+  const jL=ts.map((t,i)=>i===0||i===4?0:(R()-.5)*w*.12),jR=ts.map((t,i)=>i===0||i===4?0:(R()-.5)*w*.12),jG=ts.map((t,i)=>i===0||i===4?0:(R()-.5)*w*.08);
+  const Lp=ts.map((t,i)=>along(pk,bL,t,jL[i])),Rp=ts.map((t,i)=>along(pk,bR,t,jR[i])),Gp=ts.map((t,i)=>along(pk,rb,t,jG[i]));
+  const P=pts=>"M"+pts.map(q=>f(q[0])+","+f(q[1])).join(" L")+"Z";
+  const g=el("g",{"pointer-events":"none"},G);
+  el("ellipse",{cx:x+w*.12,cy:y+h*.04,rx:w*.58,ry:h*.1,class:"mk-sh"},g);
+  const sil=[bL,Lp[3],Lp[2],Lp[1],pk,Rp[1],Rp[2],Rp[3],bR];
+  el("path",{d:P(sil),class:"mk-dk"},g);
+  el("path",{d:P([pk,Lp[1],Lp[2],Lp[3],bL,rb,Gp[3],Gp[2],Gp[1]]),class:"mk-lt"},g);
+  const drip=(A,B,n,dir)=>{const out=[];for(let i=1;i<=n;i++){const t=i/(n+1);out.push([A[0]+(B[0]-A[0])*t+(R()-.5)*w*.04,A[1]+(B[1]-A[1])*t+(i%2?h*(.06+R()*.1):-h*.02)]);}return dir?out:out.reverse();};
+  el("path",{d:P([pk,Gp[1],Gp[2],...drip(Gp[2],Rp[2],2,true),Rp[2],Rp[1]]),class:"mk-ss"},g);
+  el("path",{d:P([pk,Lp[1],Lp[2],...drip(Lp[2],Gp[2],2,true),Gp[2],Gp[1]]),class:"mk-sl"},g);
+  el("path",{d:"M"+[Gp[2],Gp[3],rb].map(q=>f(q[0])+","+f(q[1])).join(" L"),class:"mk-rg"},g);
+  const hd=[];for(let i=0;i<3;i++){const t=.62+i*.13;const a=along(Rp[2],bR,(t-s)/(1-s)*.9,0),b=along(Gp[2],rb,(t-s)/(1-s)*.9,0);
+    const sx=a[0]+(b[0]-a[0])*.25,sy=a[1]+(b[1]-a[1])*.25,ex=a[0]+(b[0]-a[0])*.6,ey=a[1]+(b[1]-a[1])*.6+h*.05;hd.push(`M${f(sx)},${f(sy)} L${f(ex)},${f(ey)}`);}
+  el("path",{d:hd.join(" "),class:"mk-ht"},g);
+  el("path",{d:"M"+sil.map(q=>f(q[0])+","+f(q[1])).join(" L"),class:"mk-ol"},g);
+}
+
+/* ---------- 보기 변환 ---------- */
+let sr={width:800,height:600};
+function stageRect(){return sr;}
+const toS=(x,y)=>({x:x*view.k+view.tx,y:y*view.k+view.ty});
+const toW=p=>({x:(p.x-view.tx)/view.k,y:(p.y-view.ty)/view.k});
+function fit(){k0=Math.min(sr.width/W,sr.height/H)*.97;view.k=k0;view.tx=(sr.width-W*k0)/2;view.ty=(sr.height-H*k0)/2;apply();}
+function apply(soft){$("zoomPct").textContent=Math.round(view.k/k0*100)+"%";updMini();busy();schedule(false,!!soft&&!!cv);}
+function zoomAt(sx,sy,f,soft){const nk=clamp(view.k*f,k0*.6,k0*ZMAX),r=nk/view.k;view.tx=sx-(sx-view.tx)*r;view.ty=sy-(sy-view.ty)*r;view.k=nk;apply(soft);}
+function centerOn(x,y,z,soft){if(z)view.k=clamp(z*k0,k0*.6,k0*ZMAX);view.tx=sr.width/2-x*view.k;view.ty=sr.height/2-y*view.k;apply(soft);}
+let firstSize=true;
+new ResizeObserver(()=>{const r={width:stage.clientWidth,height:stage.clientHeight};if(r.width<10||r.height<10)return;
+  const c=toW({x:sr.width/2,y:sr.height/2}),z=view.k/k0;sr={width:r.width,height:r.height};
+  if(firstSize){firstSize=false;fit();return;}
+  k0=Math.min(sr.width/W,sr.height/H)*.97;view.k=z*k0;view.tx=sr.width/2-c.x*view.k;view.ty=sr.height/2-c.y*view.k;apply();}).observe(stage);
+
+/* ---------- 겹침을 피하는 글자 배치 ---------- */
+const mctx=document.createElement("canvas").getContext("2d");
+function tw(t,size,weight,fam,ls){mctx.font=`${weight} ${size}px ${fam}`;return mctx.measureText(t).width+(ls?ls*(t.length-1):0);}
+let boxes=[];
+function hits(b){for(const o of boxes){if(b.x<o.x+o.w&&b.x+b.w>o.x&&b.y<o.y+o.h&&b.y+b.h>o.y)return true;}return false;}
+const pad=(b,p)=>({x:b.x-p,y:b.y-p,w:b.w+2*p,h:b.h+2*p});
+
+let raf=0,rafWorld=false,needFull=true,cv=null,trail=0;
+/* 지도를 끌거나 굴리는 동안은 이미 그린 그림을 통째로 옮기기만 하고(다시 그리지 않음), 멈추면 한 번 선명하게 다시 그린다 */
+function commitView(){$("world").setAttribute("transform",`translate(${view.tx.toFixed(2)} ${view.ty.toFixed(2)}) scale(${view.k.toFixed(5)})`);svg.style.transform="";cv={k:view.k,tx:view.tx,ty:view.ty};stage.classList.remove("soft");}
+function schedule(world,viewOnly){if(world)rafWorld=true;if(!viewOnly)needFull=true;if(raf)return;raf=requestAnimationFrame(()=>{raf=0;
+  if(rafWorld){rafWorld=false;needFull=true;renderWorld();}
+  if(needFull||!cv){needFull=false;clearTimeout(trail);commitView();renderOv();cull();}
+  else if(view.k!==cv.k||view.tx!==cv.tx||view.ty!==cv.ty){const q=view.k/cv.k;stage.classList.add("soft");svg.style.transform=`translate(${(view.tx-q*cv.tx).toFixed(2)}px,${(view.ty-q*cv.ty).toFixed(2)}px) scale(${q.toFixed(5)})`;clearTimeout(trail);trail=setTimeout(()=>schedule(),170);}});}
+/* 화면 밖 그림 숨기기 · 멀리서 잔 장식 숨기기 */
+const CULLG=["gSea","gNat","gTerr","gMount","gNatHi","gZone"],cbox=new WeakMap();
+function cull(){const z=view.k/k0;stage.classList.toggle("lod-far",z<1.3);
+  const mx=sr.width*.4/view.k+60,my=sr.height*.4/view.k+60,x0=-view.tx/view.k-mx,y0=-view.ty/view.k-my,x1=(sr.width-view.tx)/view.k+mx,y1=(sr.height-view.ty)/view.k+my;
+  for(const id of CULLG){const G=$(id);for(let c=G.firstElementChild;c;c=c.nextElementSibling){let b=cbox.get(c);
+    if(!b){if(c.tagName==="clipPath"||c.tagName==="defs"){cbox.set(c,b={skip:1});}else{let r;try{r=c.getBBox();}catch(e){r=null;}b=r&&(r.width||r.height)?{x0:r.x,y0:r.y,x1:r.x+r.width,y1:r.y+r.height,v:true}:{skip:1};cbox.set(c,b);}}
+    if(b.skip)continue;const v=!(b.x1<x0||b.x0>x1||b.y1<y0||b.y0>y1);if(v!==b.v){b.v=v;c.style.display=v?"":"none";}}}}
+/* 효과 시계: 초당 20장으로 낮추고, 지도를 움직이는 동안은 멈춘다 */
+let animT=0,animLast=0,busyUntil=0,animCost=16,animGap=50,animMark=0;function busy(ms){busyUntil=Math.max(busyUntil,performance.now()+(ms||260));}
+try{svg.pauseAnimations();}catch(e){}
+(function tick(now){requestAnimationFrame(tick);
+  if(animMark){animCost=animCost*.7+Math.min(400,now-animMark)*.3;animMark=0;animGap=clamp(animCost*3,50,500);}
+  if(document.hidden||now<busyUntil||raf){animLast=now;return;}const dt=now-animLast;if(dt<animGap)return;animT+=Math.min(dt,600)/1000;animLast=now;try{svg.setCurrentTime(animT);}catch(e){}animMark=performance.now();})(0);
+
+function markerAt(m){return KIND[m.kind]&&KIND[m.kind].land?continentAt(m.x,m.y):null;}
+function warnOf(m){if(!m.expect)return null;const at=continentAt(m.x,m.y);return at===m.expect?null:at;}
+
+function renderOv(){
+  const z=view.k/k0,s=uiScale*(nameGrow?Math.min(z,MARKCAP):1);
+  const subOn=layers.grid&&SUB*view.k>=26;stage.classList.toggle("subgrid",subOn);
+  ["ovRuler","ovCont","ovLab","ovIcon","ovHandle"].forEach(id=>$(id).replaceChildren());
+  {const cw=toW({x:sr.width/2,y:sr.height/2});$("where").textContent=(cw.x<0||cw.y<0||cw.x>W||cw.y>H)?"지도 밖":"화면 가운데 · "+(subOn?cellFine(cw.x,cw.y):cellOf(cw.x,cw.y));}
+  boxes=[];
+  {const sg=terrSignature();if(sg!==terrSig){terrSig=sg;drawTerritories();}const zs=zoneSignature();if(zs!==zoneSig){zoneSig=zs;drawZones();}const ss2=seaSignature();if(ss2!==seaSig){seaSig=ss2;drawSea();}const ns2=natSignature();if(ns2!==natSig){natSig=ns2;drawNature();}}
+  const VW=sr.width,VH=sr.height;
+  $("compass").setAttribute("transform",`translate(40 ${VH-46})`);
+  // 격자 좌표
+  if(layers.grid){const gr=$("ovRuler"),cp=CELL*view.k,step=cp<22?2:1;
+    const lab=(x,y,txt,cls)=>{const t=el("text",{x,y,class:"ruler"+(cls||"")},gr);t.textContent=txt;};
+    for(let i=0;i<20;i+=step){const a=i*CELL*view.k+view.tx,b=a+cp;if(b<0||a>VW)continue;const x=clamp((a+b)/2,Math.max(a,0)+14,Math.min(b,VW)-14);if(x<14||x>VW-14)continue;lab(x,12,String.fromCharCode(65+i));}
+    for(let j=0;j<16;j+=step){const a=j*CELL*view.k+view.ty,b=a+cp;if(b<0||a>VH)continue;const y=clamp((a+b)/2,Math.max(a,0)+24,Math.min(b,VH)-12);if(y<24||y>VH-10)continue;lab(11,y,String(j+1));}
+    if(subOn){const sp=SUB*view.k;const x0=Math.max(0,Math.floor(-view.tx/sp)),x1=Math.min(W/SUB-1,Math.ceil((VW-view.tx)/sp));
+      for(let i=x0;i<=x1;i++){const x=(i+.5)*sp+view.tx;if(x<30||x>VW-30)continue;lab(x,27,String(i%10+1)," sub");}
+      const y0=Math.max(0,Math.floor(-view.ty/sp)),y1=Math.min(H/SUB-1,Math.ceil((VH-view.ty)/sp));
+      for(let j=y0;j<=y1;j++){const y=(j+.5)*sp+view.ty;if(y<40||y>VH-20)continue;lab(28,y,String(j%10+1)," sub");}}}
+  // 대륙 이름
+  const cedit=mode==="edit"&&contEdit&&canEdit;
+  CL().forEach(c=>{const p=toS(c.cx+(c.lx||0),c.cy+c.ly);const tc=T("cont"),td=T("contSub");const fs=Math.max(1,(nameGrow?20*Math.min(z,NAMECAP):20)*tc.sz*(c.lsz||1));
+    if(p.x<-300||p.x>VW+300||p.y<-200||p.y>VH+200)return;
+    const g=el("g",{"data-cid":c.id,style:cedit?"cursor:move":"cursor:pointer"},$("ovCont"));
+    if(cedit){g.setAttribute("data-ch","label");g.setAttribute("data-hcid",c.id);el("title",{},g).textContent=`${c.name} 대륙 이름 옮기기`;}
+    const t=el("text",{x:p.x,y:p.y,class:"c-name halo","font-size":fs,style:`font-family:${tc.fam};font-weight:${tc.wt===700?800:400}`},g);t.textContent=c.name;
+    const ds=Math.max(1,fs*.42*td.sz);const t2=el("text",{x:p.x,y:p.y+fs*.42+ds*.9,class:"c-dir halo","font-size":ds,style:tstyle(td)},g);t2.textContent=c.dir;
+    let bottom=p.y+fs*.42+ds*1.3;
+    const w=tw(c.name,fs,tc.wt===700?800:400,tc.fam,fs*.04);
+    if(z>=1.6&&fs>=10){const ss=Math.max(1,Math.min(12.5*s,fs*.5)*td.sz);const t3=el("text",{x:p.x,y:bottom+ss*1.1,class:"c-sub halo","font-size":ss,style:tstyle(td)},g);t3.textContent=c.sub;bottom+=ss*1.5;
+      const w3=tw(c.sub,ss,td.wt,td.fam);boxes.push({x:p.x-w3/2,y:bottom-ss*1.6,w:w3,h:ss*1.6});}
+    boxes.push({x:p.x-w/2,y:p.y-fs*.85,w,h:fs*1.05});boxes.push({x:p.x-ds,y:p.y+fs*.2,w:ds*2,h:ds*1.4});
+  });
+  // 표식
+  const items=Object.values(M).filter(m=>KIND[m.kind]&&layers[m.kind]!==false);
+  const vis=items.map(m=>({m,p:toS(m.x,m.y)})).filter(o=>o.p.x>-160&&o.p.x<VW+160&&o.p.y>-80&&o.p.y<VH+80);
+  const isSel=m=>sel&&sel.t==="m"&&sel.id===m.id;
+  vis.sort((a,b)=>(isSel(b.m)-isSel(a.m))||(KIND[b.m.kind].pri-KIND[a.m.kind].pri)||(a.m.id<b.m.id?-1:1));
+  const LG=$("ovLab"),IG=$("ovIcon");
+  const pending=[];
+  // 1) 큰 나라 알약과 점 아이콘: 항상 그림
+  const ZT={small:1.5,capital:1.3,region:1.3,city:1.8,village:2.6,dungeon:1.8,ruin:1.8,place:1.3,nature:1.4},LT={shelter:1.2,dungeon:2.3,ruin:2.3,nature:1.7,place:1.3,capital:1.3,city:1.8,village:2.6};
+  const DETAIL={nature:1,capital:1,city:1,village:1,dungeon:1,ruin:1,place:1,region:1,small:1},showAll=layers.all===true;
+  const sd=uiScale*(nameGrow?clamp(.75+.25*z,1,1.9):1),fade=zt=>showAll||!zt?1:clamp((z-zt)/(zt*.12),0,1);
+  for(const o of vis){const m=o.m,p=o.p;o.al=isSel(m)?1:fade(ZT[m.kind]);o.s=DETAIL[m.kind]?sd:s;
+    if(m.kind==="small"&&o.al<=0){o.dot=true;o.al=1;}
+    if(o.al<=0)continue;curAlpha=o.al;
+    if(m.kind==="nation"){const g=grp(IG,m);const b=pill(g,p.x,p.y,m.name,false,s*(m.tsz||1));boxes.push(pad(b,2));deco(g,m,p,b);}
+    else if(m.kind==="sea"||m.kind==="small"||m.kind==="region"){pending.push(o);}
+    else{const g=grp(IG,m);const r=icon(g,m,p,o.s);const b={x:p.x-r,y:p.y-r,w:2*r,h:2*r};boxes.push(b);deco(g,m,p,b);pending.push(Object.assign(o,{r,g}));}
+  }
+  // 2) 바다, 작은 나라, 점 표식의 이름: 자리가 있을 때만
+  for(const o of pending){const m=o.m,p=o.p,selected=isSel(m);curAlpha=o.al;
+    if(m.kind==="region"){const tk=T("region"),fs=11.5*o.s*tk.sz*(m.tsz||1),ls=fs*.08,w=tw(m.name,fs,tk.wt,tk.fam,ls),b={x:p.x-w/2,y:p.y-fs*.65,w,h:fs*1.3};
+      if(!selected&&hits(b))continue;boxes.push(b);const g=grp(LG,m);const par=m.of&&M[m.of]?terrOf(M[m.of]):null;
+      el("rect",{x:b.x-4,y:b.y-2,width:b.w+8,height:b.h+4,class:"hitpad"},g);
+      const t=el("text",{x:p.x,y:p.y,class:"lab region","font-size":fs,style:tstyle(tk)+(par?`;--tc:${par.col}`:"")},g);t.textContent=m.name;
+      if(selected)el("rect",{x:b.x-5,y:b.y-3,width:b.w+10,height:b.h+6,rx:4,class:"selring"},g);continue;}
+    if(m.kind==="sea"){const outer=m.tier==="outer";const tk=T(outer?"seaOuter":"seaInner");const fs=(outer?15:13)*s*tk.sz*(m.tsz||1);const ls=fs*(outer?.4:.18);
+      const w=tw(m.name,fs,tk.wt,tk.fam,ls);const b={x:p.x-w/2,y:p.y-fs*.65,w,h:fs*1.3};
+      if(!selected&&hits(b))continue;boxes.push(b);const g=grp(LG,m);
+      el("rect",{x:b.x-4,y:b.y-2,width:b.w+8,height:b.h+4,class:"hitpad"},g);
+      const t=el("text",{x:p.x+ls/2,y:p.y,class:"sea "+(outer?"outer":"inner"),"font-size":fs,"letter-spacing":ls,style:tstyle(tk)},g);t.textContent=m.name;
+      if(selected)el("rect",{x:b.x-5,y:b.y-3,width:b.w+10,height:b.h+6,rx:4,class:"selring"},g);
+      continue;}
+    if(m.kind==="small"){const g=grp(IG,m);const ps=o.s*(m.tsz||1),pz=pillSize(m.name,true,ps),w=pz.w,h=pz.h;const b={x:p.x-w/2,y:p.y-h/2,w,h};
+      if(selected||(!o.dot&&!hits(pad(b,2)))){pill(g,p.x,p.y,m.name,true,ps);boxes.push(pad(b,2));deco(g,m,p,b);}
+      else{const r=3*uiScale;el("circle",{cx:p.x,cy:p.y,r:12,class:"hitpad"},g);el("rect",{x:p.x-r,y:p.y-r,width:2*r,height:2*r,rx:1.2,class:"dot"},g);deco(g,m,p,{x:p.x-r,y:p.y-r,w:2*r,h:2*r});}
+      continue;}
+    {const la=selected?1:fade(LT[m.kind]);if(la<=0)continue;curAlpha=Math.min(o.al,la);}
+    let txt=m.name||"(이름 없음)";if(m.kind==="dungeon"&&m.grade)txt+=" · "+m.grade;
+    const cls=m.kind,tk=T(m.kind),fs=({apex:13,shelter:13,capital:12,city:11,village:10,dungeon:10.5,nature:10.5}[m.kind]||12)*o.s*tk.sz*(m.tsz||1),wt=tk.wt;
+    const w=tw(txt,fs,wt,tk.fam),h=fs*1.35,r=o.r,gap=5*s;
+    const cand=[{x:p.x+r+gap,y:p.y-h/2,a:"start"},{x:p.x-r-gap-w,y:p.y-h/2,a:"end"},{x:p.x-w/2,y:p.y+r+gap*.6,a:"middle"},{x:p.x-w/2,y:p.y-r-gap*.6-h,a:"middle"}];
+    let pick=null;for(const c of cand){const b={x:c.x,y:c.y,w,h};if(!hits(b)){pick=c;break;}}
+    if(!pick){if(!selected)continue;pick=cand[0];}
+    const b={x:pick.x,y:pick.y,w,h};boxes.push(b);
+    const g=grp(LG,m);
+    const tx=pick.a==="start"?b.x:pick.a==="end"?b.x+w:b.x+w/2;
+    const t=el("text",{x:tx,y:b.y+h/2,class:"lab "+cls,"font-size":fs,"text-anchor":pick.a,style:tstyle(tk)},g);t.textContent=txt;
+  }
+  // 대륙 편집 손잡이
+  if(mode==="edit"&&contEdit&&canEdit){const HG=$("ovHandle");
+    CL().forEach(c=>{const a=c.rot*Math.PI/180;const cp=toS(c.cx,c.cy),xp=toS(c.cx+c.rx*Math.cos(a),c.cy+c.rx*Math.sin(a)),yp=toS(c.cx-c.ry*Math.sin(a),c.cy+c.ry*Math.cos(a));
+      el("line",{x1:cp.x,y1:cp.y,x2:xp.x,y2:xp.y,class:"handle-axis"},HG);el("line",{x1:cp.x,y1:cp.y,x2:yp.x,y2:yp.y,class:"handle-axis"},HG);
+      const g=el("g",{"data-ch":"move","data-hcid":c.id},HG);el("title",{},g).textContent=`${c.name} 대륙 옮기기`;
+      el("circle",{cx:cp.x,cy:cp.y,r:13,class:"handle"},g);
+      el("path",{d:`M${cp.x-7},${cp.y}H${cp.x+7}M${cp.x},${cp.y-7}V${cp.y+7}`,class:"handle-x"},g);
+      [["rx",xp,"가로 크기"],["ry",yp,"세로 크기"]].forEach(([k,q,lb])=>{const h=el("g",{"data-ch":k,"data-hcid":c.id},HG);el("title",{},h).textContent=`${c.name} ${lb}`;
+        el("rect",{x:q.x-7,y:q.y-7,width:14,height:14,rx:2,class:"handle"},h);});
+    });}
+}
+let curAlpha=1;
+function grp(parent,m){const g=el("g",{"data-mid":m.id},parent);if(curAlpha<1)g.setAttribute("opacity",curAlpha.toFixed(2));
+  const at=markerAt(m);el("title",{},g).textContent=`${m.name||"(이름 없음)"} · ${KIND[m.kind].label}${m.kind==="dungeon"&&m.grade?" "+m.grade+"등급":""}\n격자 ${cellOf(m.x,m.y)}${KIND[m.kind].land?" · "+(at?CN(at)+" 대륙":"바다 위"):""}${m.note?"\n"+m.note:""}`;
+  return g;}
+function pillSize(txt,small,s){const t=T(small?"small":"nation");const fs=(small?12:13.5)*s*t.sz;return {t,fs,h:fs*(small?1.75:1.85),w:tw(txt,fs,t.wt,t.fam)+(small?16:22)*s};}
+function pill(g,cx,cy,txt,small,s){const pz=pillSize(txt,small,s),fs=pz.fs,h=pz.h,w=pz.w;
+  const gg=el("g",{class:"pill"+(small?" small":"")},g);el("rect",{x:cx-w/2,y:cy-h/2,width:w,height:h,rx:h/2},gg);
+  const t=el("text",{x:cx,y:cy+.5,"font-size":fs,style:tstyle(pz.t)},gg);t.textContent=txt;return {x:cx-w/2,y:cy-h/2,w,h};}
+function icon(g,m,p,s){const x=p.x,y=p.y;
+  el("circle",{cx:x,cy:y,r:14*Math.max(1,s),class:"hitpad"},g);
+  const ik=(m.kind==="apex"||m.kind==="dungeon")?iconKey(m):null;
+  if(m.kind==="apex"&&ik!=="diamond"){const R=15*s,col=ICONS[ik].c;
+    el("circle",{cx:x,cy:y,r:R+1.5,class:"bdg-halo"},g);el("circle",{cx:x,cy:y,r:R,class:"bdg",fill:`var(${col})`},g);
+    glyph(el("g",{transform:`translate(${x} ${y}) scale(${(s*.95).toFixed(3)})`},g),ik,col);
+    if(m.rank){const cx=x+R*.74,cy=y+R*.74,rr=6.6*s;el("circle",{cx,cy,r:rr,class:"chip-r"},g);const t=el("text",{x:cx,y:cy+.5,class:"chip-t","font-size":9.5*s},g);t.textContent=m.rank;}
+    return R+2;}
+  if(m.kind==="apex"){const r=12*s;el("path",{class:"ic-apex",d:`M${x},${y-r} L${x+r},${y} L${x},${y+r} L${x-r},${y}Z`},g);
+    const t=el("text",{x,y:y+.5,class:"ic-apex-n","font-size":11*s},g);t.textContent=m.rank||"";return 13*s;}
+  if(m.kind==="dungeon"&&ik!=="diamond"){const R=7.5*s,col=ICONS[ik].c;
+    el("circle",{cx:x,cy:y,r:R+1,class:"bdg-halo"},g);el("circle",{cx:x,cy:y,r:R,class:"bdg sm",fill:`var(${col})`},g);
+    glyph(el("g",{transform:`translate(${x} ${y}) scale(${(s*.46).toFixed(3)})`},g),ik,col);return R+1;}
+  if(m.kind==="dungeon"){const r=5.5*s;el("path",{class:"ic-dungeon",d:`M${x},${y-r} L${x+r},${y} L${x},${y+r} L${x-r},${y}Z`},g);return r;}
+  if(m.kind==="ruin"){const r=3.6*s;el("rect",{x:x-r,y:y-r,width:2*r,height:2*r,rx:1.5,class:"ic-ruin"},g);
+    el("path",{d:`M${x-r*.45},${y-r*.55}V${y+r*.55}M${x+r*.45},${y-r*.55}V${y+r*.55}`,stroke:"var(--halo)","stroke-width":.9*s},g);return r+1;}
+  if(m.kind==="shelter"){const r=11*s;el("circle",{cx:x,cy:y,r,class:"ic-shelter"+(m.king?"":" noking")},g);
+    if(m.king)el("path",{class:"ic-crown",d:`M${x-6*s},${y+3.5*s} L${x-6*s},${y-2.5*s} L${x-3*s},${y+.5*s} L${x},${y-4.5*s} L${x+3*s},${y+.5*s} L${x+6*s},${y-2.5*s} L${x+6*s},${y+3.5*s}Z`},g);
+    else el("circle",{cx:x,cy:y,r:2.6*s,fill:"var(--demon)"},g);return r;}
+  if(m.kind==="capital"){const r=4.8*s;el("circle",{cx:x,cy:y,r,class:"ic-cap"},g);let d="";for(let i=0;i<10;i++){const a=(i*36-90)*Math.PI/180,rr=(i%2?1.35:3.1)*s;d+=(i?"L":"M")+(x+Math.cos(a)*rr).toFixed(2)+","+(y+Math.sin(a)*rr).toFixed(2);}el("path",{d:d+"Z",class:"ic-cap-s"},g);return r;}
+  if(m.kind==="city"){const r=3.3*s;el("rect",{x:x-r,y:y-r,width:2*r,height:2*r,rx:1.2,class:"ic-city"},g);el("rect",{x:x-r*.35,y:y-r*.35,width:r*.7,height:r*.7,fill:"var(--ink)"},g);return r+1;}
+  if(m.kind==="nature"){const tt=m.tt||"forest",r=(tt==="peak"||tt==="range"?4:3)*s;if(tt==="river"||tt==="frozen")el("circle",{cx:x,cy:y,r:r*.8,class:"ic-nature "+tt},g);else el("path",{d:`M${x-r},${y+r*.75}L${x},${y-r}L${x+r},${y+r*.75}Z`,class:"ic-nature "+tt},g);return r+1;}
+  if(m.kind==="village"){const r=2.4*s;el("circle",{cx:x,cy:y,r,class:"ic-vil"},g);return r+1;}
+  const r=5.5*s;el("circle",{cx:x,cy:y,r,class:"ic-place"},g);el("circle",{cx:x,cy:y,r:1.8*s,fill:"var(--ink)"},g);return r;}
+function deco(g,m,p,b){
+  if(sel&&sel.t==="m"&&sel.id===m.id){
+    if(m.kind==="nation"||(m.kind==="small"&&b.w>14))el("rect",{x:b.x-4,y:b.y-4,width:b.w+8,height:b.h+8,rx:(b.h+8)/2,class:"selring"},g);
+    else el("circle",{cx:p.x,cy:p.y,r:Math.max(b.w,b.h)/2+6,class:"selring"},g);}
+  if(warnOf(m)!==null){const wg=el("g",{class:"warnb"},g);const x=b.x+b.w,y=b.y;el("circle",{cx:x,cy:y,r:7.5},wg);const t=el("text",{x,y:y+.5},wg);t.textContent="!";}
+}
+
+/* ---------- 저장 ---------- */
+let db=null, localMode=false;
+const LKEY="fp-map-data-v1";
+const pendingW=new Map(), busyW=new Set();
+function setSave(state,msg){const c=$("saveState");c.className="chip "+(state==="ok"?"ok":state==="busy"?"busy":state==="err"?"err":"");c.textContent=msg;}
+function idleMsg(){if(localMode)setSave("", "이 브라우저에만 저장");else if(!canEdit)setSave("","읽기 전용");else setSave("ok","저장됨");}
+function writeDoc(path,data){
+  if(localMode){saveLocal();return;}
+  if(!db||!canEdit)return;
+  pendingW.set(path,data);pump(path);}
+async function pump(path){if(busyW.has(path))return;busyW.add(path);setSave("busy","저장 중");
+  try{while(pendingW.has(path)){const d=pendingW.get(path);pendingW.delete(path);const ref=db.doc(path);
+      try{if(d===null)await ref.delete();else await ref.set(d);}
+      catch(e){if(e&&e.code==="unavailable"){await new Promise(r=>setTimeout(r,400+Math.random()*600));if(d===null)await ref.delete();else await ref.set(d);}else throw e;}}
+    busyW.delete(path);if(!busyW.size&&!pendingW.size)idleMsg();}
+  catch(e){busyW.delete(path);pendingW.delete(path);
+    if(e&&e.code==="invalid_argument"){canEdit=false;setMode("view");refreshEditUI();setSave("","읽기 전용");}
+    else if(e&&e.code==="quota_exceeded")setSave("err","저장 공간이 가득 찼습니다. 표식을 몇 개 지운 뒤 다시 해 주세요");
+    else setSave("err","저장하지 못했습니다. 잠시 뒤 다시 옮겨 주세요");}}
+const held=id=>pendingW.has("markers/"+id)||busyW.has("markers/"+id)||dragging===id||(burst&&burst.id===id);
+const mdata=m=>{const o=Object.assign({},m);delete o.id;o.sc=SC;return o;};
+const gdata=c=>{const o={sc:SC};GEOM.forEach(k=>o[k]=c[k]);return o;};
+function saveM(id){const m=M[id];writeDoc("markers/"+id,m?mdata(m):null);}
+function saveC(id){writeDoc("continents/"+id,gdata(C[id]));}
+let lt=0;function saveLocal(){clearTimeout(lt);lt=setTimeout(()=>{try{const cg={};CL().forEach(c=>cg[c.id]=gdata(c));localStorage.setItem(LKEY,JSON.stringify({M,C:cg}));}catch(e){}},300);}
+
+async function initStore(){
+  let user=null;
+  try{if(window.claude&&typeof window.claude.use==="function"){[db,user]=await Promise.all([window.claude.use("db"),window.claude.use("user")]);}}catch(e){db=null;}
+  if(!db){startLocal();return;}
+  let cw=null;try{cw=user?await user.can("data.write"):null;}catch(e){}
+  canEdit=cw!==false;refreshEditUI();
+  db.collection("markers").onSnapshot(snap=>{
+    const next={};snap.docs.forEach(d=>{const v=d.data();if(v&&KIND[v.kind])next[d.id]=Object.assign({id:d.id},upM(v));});
+    Object.keys(M).forEach(id=>{if(held(id))next[id]=M[id];});
+    Object.keys(next).forEach(id=>{if(held(id)&&!M[id])delete next[id];});
+    M=next;loaded=true;if(!snap.metadata.fromCache)definitive=true;
+    if(!busyW.size&&!pendingW.size)idleMsg();
+    afterData();
+  },err=>{setSave("err","지도 데이터를 불러오지 못했습니다. 새로고침해 주세요");});
+  db.collection("continents").onSnapshot(snap=>{let ch=false;
+    snap.docs.forEach(d=>{let v=d.data();if(!C[d.id]||!v)return;v=upC(v);if(pendingW.has("continents/"+d.id)||busyW.has("continents/"+d.id)||(cdrag&&cdrag===d.id)||(burst&&burst.c===d.id))return;
+      GEOM.forEach(k=>{if(typeof v[k]==="number"&&C[d.id][k]!==v[k]){C[d.id][k]=v[k];ch=true;}});});
+    if(ch){schedule(true);afterData();}
+  },()=>{});
+  db.doc("settings/text").onSnapshot(d=>{if(pendingW.has("settings/text")||busyW.has("settings/text")||typoT)return;
+    const v=d.exists?d.data():null;typo=typoDefaults();if(v&&v.typo)mergeTypo(v.typo);renderTypo(true);schedule();},()=>{});
+}
+function mergeTypo(src){Object.keys(typo).forEach(k=>{if(src[k]&&typeof src[k]==="object"){const x=src[k];
+  if(typeof x.f==="string")typo[k].f=x.f;if(typeof x.sz==="number")typo[k].sz=clamp(x.sz,.1,3);if(typeof x.b==="boolean")typo[k].b=x.b;}});}
+let typoT=0;
+function saveTypo(){clearTimeout(typoT);typoT=setTimeout(()=>{typoT=0;
+  if(localMode){try{localStorage.setItem("fp-map-typo-v1",JSON.stringify(typo));}catch(e){}return;}
+  writeDoc("settings/text",{typo:clone(typo)});},500);}
+function renderTypo(keepFocus){const P=$("pane-txt");if(!P)return;
+  const a=document.activeElement;if(keepFocus&&a&&P.contains(a))return;
+  const dis=canEdit?"":" disabled";
+  let h=`<p class="muted">글자 종류마다 글꼴, 크기, 굵기를 정합니다. 지도에 바로 반영되고 저장됩니다. 표식 하나만 키우려면 그 표식을 누르고 선택 탭의 <b>글자 크기</b>를, 대륙 하나의 이름만 바꾸려면 그 대륙의 <b>이름 크기</b>를 쓰세요.</p>`;
+  if(!canEdit)h+=`<p class="muted">이 지도는 읽기 전용이라 글자 설정을 바꿀 수 없습니다.</p>`;
+  TCAT.forEach(([k,lb,,,,sample])=>{const t=typo[k],ts=T(k);
+    h+=`<div class="tcard"><div class="thead"><b>${lb}</b><span class="tprev" id="tp-${k}" style="${tstyle(ts)}">${esc(sample)}</span></div>
+    <div class="trow"><select id="tf-${k}" aria-label="${lb} 글꼴"${dis}>${FONTS.map(f=>`<option value="${esc(f[0])}"${f[0]===t.f?" selected":""}>${esc(f[1])}</option>`).join("")}</select>
+    <label class="chk"><input type="checkbox" id="tb-${k}"${t.b?" checked":""}${dis}> 굵게</label></div>
+    <input type="range" id="ts-${k}" min="0.1" max="3" step="0.05" value="${t.sz}" aria-label="${lb} 크기"${dis}>
+    <div class="rangev"><span>10%</span><b id="tv-${k}">${Math.round(t.sz*100)}%</b><span>300%</span></div></div>`;});
+  h+=`<div class="btns"><button type="button" class="btn danger" id="ty-reset"${dis}>모두 기본값으로</button></div>`;
+  P.innerHTML=h;
+  const upd=k=>{const ts=T(k);const pv=$("tp-"+k);pv.style.fontFamily=ts.fam;pv.style.fontWeight=ts.wt;$("tv-"+k).textContent=Math.round(typo[k].sz*100)+"%";schedule();saveTypo();};
+  TCAT.forEach(([k])=>{$("tf-"+k).onchange=e=>{typo[k].f=e.target.value;upd(k);};$("tb-"+k).onchange=e=>{typo[k].b=e.target.checked;upd(k);};
+    $("ts-"+k).addEventListener("input",e=>{typo[k].sz=Number(e.target.value);upd(k);});});
+  let arm=false;$("ty-reset").onclick=e=>{const b=e.currentTarget;if(!arm){arm=true;b.classList.add("armed");b.textContent="한 번 더 누르면 기본값으로";setTimeout(()=>{arm=false;b.classList.remove("armed");b.textContent="모두 기본값으로";},3000);return;}
+    typo=typoDefaults();renderTypo();schedule();saveTypo();};
+}
+function startLocal(){localMode=true;canEdit=true;
+  try{const t=JSON.parse(localStorage.getItem("fp-map-typo-v1")||"null");if(t)mergeTypo(t);}catch(e){}renderTypo();
+  let data=null;try{data=JSON.parse(localStorage.getItem(LKEY)||"null");}catch(e){}
+  if(!(data&&data.M)&&window.FP_DATA)data=window.FP_DATA; /* 깃허브용: 이 브라우저에서 고친 적이 없으면 data.js의 배치를 쓴다 */
+  if(data&&data.M){M={};Object.keys(data.M).forEach(id=>M[id]=Object.assign({id},upM(data.M[id])));if(data.C)Object.keys(data.C).forEach(id=>{if(C[id])Object.assign(C[id],upC(data.C[id]));});}
+  else{M={};DEFAULT_M.forEach(m=>M[m.id]=clone(m));}
+  loaded=true;definitive=true;refreshEditUI();idleMsg();schedule(true);afterData();}
+
+/* ---------- 변경과 되돌리기 ---------- */
+let cdrag=null;
+function commit(changes){changes=changes.filter(c=>JSON.stringify(c.before)!==JSON.stringify(c.after));if(!changes.length)return;
+  undoS.push(changes);if(undoS.length>200)undoS.shift();redoS.length=0;changes.forEach(c=>persist(c,"after"));updUndo();}
+function persist(c,w){const v=c[w];
+  if(c.t==="m"){if(v)M[c.id]=Object.assign({id:c.id},clone(v));else delete M[c.id];saveM(c.id);}
+  else{Object.assign(C[c.id],v);saveC(c.id);}}
+function undo(){const ch=undoS.pop();if(!ch)return;ch.slice().reverse().forEach(c=>persist(c,"before"));redoS.push(ch);updUndo();schedule(true);afterData(true);}
+function redo(){const ch=redoS.pop();if(!ch)return;ch.forEach(c=>persist(c,"after"));undoS.push(ch);updUndo();schedule(true);afterData(true);}
+function updUndo(){$("bUndo").disabled=!undoS.length||!canEdit;$("bRedo").disabled=!redoS.length||!canEdit;}
+let burst=null;
+function burstStart(t,id){if(burst&&(burst.t!==t||burst[t==="m"?"id":"c"]!==id))burstEnd();
+  if(!burst)burst=t==="m"?{t,id,before:clone(M[id])}:{t,c:id,before:gdata(C[id])};
+  clearTimeout(burst.timer);burst.timer=setTimeout(burstEnd,700);}
+function burstEnd(){if(!burst)return;const b=burst;burst=null;clearTimeout(b.timer);
+  if(b.t==="m"){if(!M[b.id])return;commit([{t:"m",id:b.id,before:b.before,after:clone(M[b.id])}]);}
+  else commit([{t:"c",id:b.c,before:b.before,after:gdata(C[b.c])}]);}
+
+/* ---------- 조작 ---------- */
+const ptrs=new Map();let drag=null,pinch=null;
+function lp(e){const r=stage.getBoundingClientRect();return {x:e.clientX-r.left-stage.clientLeft,y:e.clientY-r.top-stage.clientTop};}
+svg.addEventListener("pointerdown",e=>{
+  if(e.pointerType==="mouse"&&e.button!==0)return;
+  const p=lp(e);ptrs.set(e.pointerId,p);try{svg.setPointerCapture(e.pointerId);}catch(_){}
+  if(ptrs.size===2){const [a,b]=[...ptrs.values()];pinch={d:Math.hypot(a.x-b.x,a.y-b.y)||1,k:view.k,w:toW({x:(a.x+b.x)/2,y:(a.y+b.y)/2})};
+    if(drag&&drag.type==="marker"&&drag.moved){M[drag.id]=Object.assign({id:drag.id},drag.before);dragging=null;}
+    drag=null;return;}
+  const tm=e.target.closest("[data-mid]"),th=e.target.closest("[data-ch]"),tc=e.target.closest("[data-cid]");
+  let type="pan";const editing=mode==="edit"&&canEdit&&!placing;
+  if(editing&&th)type="handle";else if(editing&&tm)type="marker";
+  drag={type,id:tm&&tm.dataset.mid,cid:tc&&tc.dataset.cid,sx:p.x,sy:p.y,tx:view.tx,ty:view.ty,moved:false};
+  if(type==="marker"&&M[drag.id]){drag.kids=M[drag.id].kind==="nation"||M[drag.id].kind==="small"?Object.values(M).filter(c=>c.of===drag.id&&CHILD[c.kind]).map(c=>({id:c.id,before:mdata(c)})):[];drag.before=mdata(M[drag.id]);const w=toW(p);drag.off={x:M[drag.id].x-w.x,y:M[drag.id].y-w.y};}
+  else if(type==="marker")drag.type="pan";
+  if(type==="handle"){const cid=th.dataset.hcid;drag.ch=th.dataset.ch;drag.hc=cid;drag.cbefore=gdata(C[cid]);
+    drag.inside=[];if(drag.ch==="move"&&moveWith)Object.values(M).forEach(m=>{if(KIND[m.kind].land&&continentAt(m.x,m.y)===cid)drag.inside.push({id:m.id,before:mdata(m)});});}
+  e.preventDefault();
+});
+svg.addEventListener("pointermove",e=>{
+  if(!ptrs.has(e.pointerId))return;const p=lp(e);ptrs.set(e.pointerId,p);
+  if(pinch&&ptrs.size>=2){const [a,b]=[...ptrs.values()];const d=Math.hypot(a.x-b.x,a.y-b.y)||1;const mid={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
+    view.k=clamp(pinch.k*d/pinch.d,k0*.6,k0*ZMAX);view.tx=mid.x-pinch.w.x*view.k;view.ty=mid.y-pinch.w.y*view.k;apply(true);return;}
+  if(!drag)return;const dx=p.x-drag.sx,dy=p.y-drag.sy;
+  if(!drag.moved){if(Math.hypot(dx,dy)<4)return;drag.moved=true;if(drag.type==="pan")stage.classList.add("panning");}
+  if(drag.type==="pan"){view.tx=drag.tx+dx;view.ty=drag.ty+dy;apply(true);return;}
+  if(drag.type==="marker"){const m=M[drag.id];if(!m)return;dragging=drag.id;const w=toW(p);
+    m.x=Math.round(clamp(w.x+drag.off.x,0,W));m.y=Math.round(clamp(w.y+drag.off.y,0,H));
+    {const ddx=m.x-drag.before.x,ddy=m.y-drag.before.y;(drag.kids||[]).forEach(k=>{const c=M[k.id];if(c){c.x=clamp(k.before.x+ddx,0,W);c.y=clamp(k.before.y+ddy,0,H);}});}
+    if(!(sel&&sel.t==="m"&&sel.id===m.id))select({t:"m",id:m.id},true);
+    busy();schedule();liveInspector();return;}
+  if(drag.type==="handle"){const c=C[drag.hc],b=drag.cbefore;cdrag=drag.hc;
+    if(drag.ch==="move"){const ddx=Math.round(dx/view.k),ddy=Math.round(dy/view.k);c.cx=b.cx+ddx;c.cy=b.cy+ddy;
+      drag.inside.forEach(o=>{const m=M[o.id];if(m){m.x=clamp(o.before.x+ddx,0,W);m.y=clamp(o.before.y+ddy,0,H);}});}
+    else if(drag.ch==="label"){c.lx=Math.round((b.lx||0)+dx/view.k);c.ly=Math.round(b.ly+dy/view.k);}
+    else{const w=toW(p),a=c.rot*Math.PI/180,vx=w.x-c.cx,vy=w.y-c.cy;
+      if(drag.ch==="rx")c.rx=Math.round(clamp(vx*Math.cos(a)+vy*Math.sin(a),50*SC,900*SC));
+      else c.ry=Math.round(clamp(-vx*Math.sin(a)+vy*Math.cos(a),50*SC,700*SC));}
+    if(!(sel&&sel.t==="c"&&sel.id===c.id))select({t:"c",id:c.id},true);
+    busy();if(drag.ch==="label")schedule();else schedule(true);liveInspector();}
+});
+function endPtr(e){
+  if(!ptrs.has(e.pointerId))return;const p=lp(e);ptrs.delete(e.pointerId);
+  if(pinch){if(ptrs.size<2)pinch=null;drag=null;return;}
+  stage.classList.remove("panning");
+  const d=drag;drag=null;if(!d)return;if(d.type==="pan"&&d.moved)schedule();
+  if(e.type==="pointercancel"){dragging=null;cdrag=null;return;}
+  if(!d.moved){
+    if(placing){addAt(toW(p));return;}
+    if(d.id)select({t:"m",id:d.id});else if(d.cid)select({t:"c",id:d.cid});else select(null);
+    return;}
+  if(d.type==="marker"&&M[d.id]){dragging=null;const ch=[{t:"m",id:d.id,before:d.before,after:mdata(M[d.id])}];(d.kids||[]).forEach(k=>{if(M[k.id])ch.push({t:"m",id:k.id,before:k.before,after:mdata(M[k.id])});});commit(ch);afterData();}
+  if(d.type==="handle"){cdrag=null;const ch=[{t:"c",id:d.hc,before:d.cbefore,after:gdata(C[d.hc])}];
+    (d.inside||[]).forEach(o=>{if(M[o.id])ch.push({t:"m",id:o.id,before:o.before,after:mdata(M[o.id])});});commit(ch);afterData();}
+  dragging=null;
+}
+svg.addEventListener("pointerup",endPtr);svg.addEventListener("pointercancel",endPtr);
+svg.addEventListener("wheel",e=>{e.preventDefault();const p=lp(e);const dy=e.deltaMode===1?e.deltaY*16:e.deltaY;zoomAt(p.x,p.y,Math.exp(-dy*.0016),true);},{passive:false});
+svg.addEventListener("dblclick",e=>{if(e.target.closest("[data-mid],[data-ch]"))return;const p=lp(e);zoomAt(p.x,p.y,1.7);});
+$("zIn").onclick=()=>zoomAt(sr.width/2,sr.height/2,1.4);
+$("zOut").onclick=()=>zoomAt(sr.width/2,sr.height/2,1/1.4);
+$("zFit").onclick=fit;
+// 미니맵
+(function(){const ms=$("miniSvg");let down=false;
+  const go=e=>{const r=ms.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*W,y=(e.clientY-r.top)/r.height*H;centerOn(x,y,0,true);};
+  ms.addEventListener("pointerdown",e=>{down=true;try{ms.setPointerCapture(e.pointerId);}catch(_){}go(e);});
+  ms.addEventListener("pointermove",e=>{if(down)go(e);});
+  ms.addEventListener("pointerup",()=>down=false);ms.addEventListener("pointercancel",()=>down=false);
+  $("miniT").onclick=()=>{const m=$("mini");m.classList.toggle("closed");$("miniT").textContent=m.classList.contains("closed")?"펴기":"접기";savePref();};
+  if($("mini").classList.contains("closed"))$("miniT").textContent="펴기";})();
+// 전체 화면
+if(document.fullscreenEnabled&&stage.requestFullscreen){const b=$("bFull");b.hidden=false;
+  b.onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await stage.requestFullscreen();}catch(e){}};
+  document.addEventListener("fullscreenchange",()=>{b.textContent=document.fullscreenElement?"전체 화면 끝내기":"전체 화면";});}
+
+/* ---------- 모드와 추가 ---------- */
+function setMode(m){mode=m;if(m!=="edit"){placing=null;}
+  stage.classList.toggle("edit",m==="edit");stage.classList.toggle("placing",!!placing);
+  $("mView").classList.toggle("on",m==="view");$("mView").setAttribute("aria-pressed",m==="view");
+  $("mEdit").classList.toggle("on",m==="edit");$("mEdit").setAttribute("aria-pressed",m==="edit");
+  $("tbAdd").hidden=m!=="edit";$("contEditWrap").hidden=m!=="edit";
+  document.querySelectorAll("#tbAdd [data-k]").forEach(b=>b.classList.toggle("on",placing===b.dataset.k));
+  hint();schedule();if(sel)renderInspector();}
+function refreshEditUI(){renderTypo(true);$("mEdit").disabled=!canEdit;$("mEdit").title=canEdit?"표식을 끌어 옮기고 새로 추가합니다 (E)":"이 지도를 고칠 권한이 없습니다";
+  $("resetWrap").hidden=!canEdit;updUndo();if(!canEdit&&mode==="edit")setMode("view");}
+$("mView").onclick=()=>setMode("view");$("mEdit").onclick=()=>{if(canEdit)setMode("edit");};
+$("contEdit").onchange=e=>{contEdit=e.target.checked;hint();schedule();};
+const tbAdd=$("tbAdd");
+KORDER.forEach(k=>{const b=document.createElement("button");b.type="button";b.className="btn addk";b.dataset.k=k;
+  b.innerHTML=`<i class="glyph g-${k}"></i>${KIND[k].label}`;b.onclick=()=>{placing=placing===k?null:k;setMode("edit");};tbAdd.appendChild(b);});
+function hint(){const h=$("hint");
+  if(placing)h.textContent=`지도를 눌러 '${KIND[placing].label}'을(를) 놓을 자리를 정하세요 · Esc 취소`;
+  else if(mode==="edit"&&contEdit)h.textContent="가운데 손잡이로 대륙을 옮기고 네모 손잡이로 크기를 바꿉니다 · 대륙 이름은 끌어서 옮깁니다";
+  else if(mode==="edit")h.textContent="표식을 끌어 옮기세요 · 방향키로 미세 조정 · Ctrl+Z 되돌리기";
+  else h.textContent="드래그로 이동 · 휠이나 두 손가락으로 확대 · 표식을 누르면 정보";}
+function newId(){return "m-"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function addAt(w){const k=placing;placing=null;setMode("edit");
+  const m={id:newId(),kind:k,name:"새 "+KIND[k].label,x:Math.round(clamp(w.x,0,W)),y:Math.round(clamp(w.y,0,H)),note:""};
+  if(k==="dungeon")m.grade="E";if(k==="sea")m.tier="inner";if(CHILD[k]){const o=nationAt(m.x,m.y);if(o)m.of=o;}if(k==="small"){m.tsh="blob";m.tr=180;m.tb=1.15;}
+  commit([{t:"m",id:m.id,before:null,after:mdata(m)}]);
+  select({t:"m",id:m.id});afterData();
+  setTimeout(()=>{const f=$("f-name");if(f){f.focus();f.select();}},30);}
+
+/* ---------- 선택과 패널 ---------- */
+function showTab(name){["sel","list","chk","txt","leg"].forEach(n=>{$("tab-"+n).setAttribute("aria-selected",n===name);$("pane-"+n).hidden=n!==name;});}
+["sel","list","chk","txt","leg"].forEach(n=>$("tab-"+n).onclick=()=>showTab(n));
+function select(s,quiet){burstEnd();sel=s;delArm=false;
+  if(s&&s.t==="m"&&!M[s.id])sel=null;
+  CL().forEach(c=>{const p=landEl[c.id];if(p)p.classList.toggle("selc",!!(sel&&sel.t==="c"&&sel.id===c.id));});
+  renderInspector();if(!quiet)showTab("sel");schedule();renderList();}
+function opt(v,l,cur){return `<option value="${esc(v)}"${String(cur)===String(v)?" selected":""}>${esc(l)}</option>`;}
+function renderInspector(){
+  const P=$("pane-sel");const dis=(mode==="edit"&&canEdit)?"":" disabled";
+  if(!sel){P.innerHTML=`<div class="empty"><b>선택한 것이 없습니다</b><span>지도에서 표식이나 대륙을 누르면 여기에 정보가 나옵니다.</span><span>${canEdit?"<b>편집</b>으로 바꾸면 표식을 끌어 옮기거나 새로 추가할 수 있어요.":"이 지도는 읽기 전용으로 열려 있습니다."}</span></div>`+summaryCard();return;}
+  if(sel.t==="m"){const m=M[sel.id];if(!m){sel=null;return renderInspector();}
+    const at=markerAt(m),w=warnOf(m);const lockNote=mode!=="edit"&&canEdit?`<p class="muted">고치려면 위쪽의 <b>편집</b>을 누르세요.</p>`:"";
+    let h=`<div><span class="kchip"><i class="glyph g-${m.kind}"></i>${KIND[m.kind].label}</span><h2 id="ihName">${esc(m.name||"(이름 없음)")}</h2></div>
+    <dl class="facts"><dt>격자</dt><dd id="iCell">${cellFine(m.x,m.y)}</dd>
+    ${KIND[m.kind].land?`<dt>지금 위치</dt><dd id="iAt">${at?esc(CN(at))+" 대륙":"바다 위"}</dd>`:""}
+    ${m.expect?`<dt>설정상 대륙</dt><dd>${esc(CN(m.expect))}${w!==null?` <span class="warnline" id="iWarn">· 어긋남</span>`:""}</dd>`:""}
+    ${m.proj?`<dt>투영체</dt><dd>${esc(m.proj)}</dd>`:""}</dl>${lockNote}
+    <div class="field"><label for="f-name">이름</label><input type="text" id="f-name" value="${esc(m.name)}"${dis}></div>
+    <div class="field"><label for="f-kind">종류</label><select id="f-kind"${dis}>${KORDER.map(k=>opt(k,KIND[k].label,m.kind)).join("")}</select></div>`;
+    if(m.kind==="nation")h+=`<div class="row2"><div class="field"><label for="f-proj">투영체</label><input type="text" id="f-proj" value="${esc(m.proj||"")}"${dis}></div>
+      <div class="field"><label for="f-expect">소속 대륙</label><select id="f-expect"${dis}>${opt("","정하지 않음",m.expect||"")}${CL().map(c=>opt(c.id,c.name+" ("+c.dir+")",m.expect||"")).join("")}</select></div></div>`;
+    if(m.kind==="apex")h+=`<div class="row2"><div class="field"><label for="f-rank">위험 순위</label><input type="number" id="f-rank" min="1" max="9" value="${esc(m.rank||"")}"${dis}></div>
+      <div class="field"><label for="f-expect">소속 대륙</label><select id="f-expect"${dis}>${opt("","정하지 않음",m.expect||"")}${CL().map(c=>opt(c.id,c.name+" ("+c.dir+")",m.expect||"")).join("")}</select></div></div>
+      <div class="field"><label for="f-icon">아이콘</label><select id="f-icon"${dis}>${Object.keys(ICONS).map(k=>opt(k,ICONS[k].label,iconKey(m))).join("")}</select></div>`;
+    if(m.kind==="small")h+=`<div class="field"><label for="f-proj">허가해 준 투영체 · 종주국</label><input type="text" id="f-proj" value="${esc(m.proj||"")}"${dis}></div>`;
+    if(m.kind==="dungeon")h+=`<div class="row2"><div class="field"><label for="f-grade">던전 등급</label><select id="f-grade"${dis}>${opt("","미정",m.grade||"")}${GRADES.map(g=>opt(g,g,m.grade||"")).join("")}</select></div>
+      <div class="field"><label for="f-icon">아이콘</label><select id="f-icon"${dis}>${Object.keys(ICONS).map(k=>opt(k,ICONS[k].label,iconKey(m))).join("")}</select></div></div>`;
+    if(m.kind==="shelter")h+=`<label class="chk"><input type="checkbox" id="f-king"${m.king?" checked":""}${dis}> 그레이트 데몬(왕)이 있음</label>
+      <label class="chk"><input type="checkbox" id="f-good"${m.good?" checked":""}${dis}> 착한 악마 세력</label>`;
+    if(m.kind==="sea")h+=`<div class="field"><label for="f-tier">구분</label><select id="f-tier"${dis}>${opt("inner","내해 · 해협",m.tier)}${opt("outer","바깥 바다",m.tier)}</select></div>`;
+    if(m.kind==="nation"||m.kind==="small"){const d=TERR[m.id]||{},t=terrOf(m)||{r:d.r||300,rot:0,asp:1};
+      h+=`<div class="field"><label for="f-tsh">영토 모양</label><select id="f-tsh"${dis}>${opt("",d.sh?"나라 콘셉트 기본값":"표시 안 함",m.tsh||"")}${d.sh?opt("none","표시 안 함",m.tsh||""):""}${TSHAPES.map(x=>opt(x[0],x[1],m.tsh||"")).join("")}</select></div>
+      <div class="field"><label for="f-tr">영토 크기</label><input type="range" id="f-tr" min="100" max="3000" step="10" value="${t.r}"${dis}><div class="rangev"><span>100</span><b id="f-tr-v">${t.r}</b><span>3000</span></div></div>
+      <div class="row2"><div class="field"><label for="f-trot">영토 방향 (도)</label><input type="range" id="f-trot" min="-180" max="180" step="1" value="${t.rot}"${dis}><div class="rangev"><span>-180</span><b id="f-trot-v">${t.rot}</b><span>180</span></div></div>
+      <div class="field"><label for="f-tasp">가로세로 비</label><input type="range" id="f-tasp" min="0.5" max="2" step="0.05" value="${t.asp}"${dis}><div class="rangev"><span>좁게</span><b id="f-tasp-v">${t.asp}</b><span>넓게</span></div></div></div>
+      <div class="field"><label for="f-tb">국경까지의 여유 (영토 모양의 몇 배까지 나라 땅인가)</label><input type="range" id="f-tb" min="1" max="2.5" step="0.05" value="${m.tb||1.3}"${dis}><div class="rangev"><span>딱 맞게</span><b id="f-tb-v">${m.tb||1.3}</b><span>넓게</span></div></div>
+      <div class="field"><label for="f-tcol">영토 색</label><div class="btns"><input type="color" id="f-tcol" value="${/^#[0-9a-f]{6}$/i.test(m.tcol||"")?m.tcol:(d.c?NCOL[d.c][0]:"#5B3F87")}" style="width:56px;height:32px;padding:2px"${dis}><button type="button" class="btn" id="f-tcol-x"${dis}>기본 색으로</button></div></div>`;}
+    if(m.kind==="apex"||m.kind==="dungeon"){const zz=zoneOf(m);
+      h+=`<label class="chk"><input type="checkbox" id="f-fx"${zz?" checked":""}${dis}> 분위기 효과 표시 (아이콘 종류에 맞춰 그림)</label>
+      <div class="field"><label for="f-zr">분위기 범위</label><input type="range" id="f-zr" min="80" max="1500" step="10" value="${m.zr||(m.kind==="apex"?380:200)}"${dis}><div class="rangev"><span>80</span><b id="f-zr-v">${m.zr||(m.kind==="apex"?380:200)}</b><span>1500</span></div></div>`;}
+    if(CHILD[m.kind]||m.kind==="small"){const ns=Object.values(M).filter(x=>x.kind==="nation"||(x.kind==="small"&&CHILD[m.kind])).sort((a,b)=>String(a.name).localeCompare(String(b.name),"ko"));
+      h+=`<div class="field"><label for="f-of">${m.kind==="small"?"허가해 준 큰 나라 (종주국)":"소속 나라"}</label><select id="f-of"${dis}>${opt("","정하지 않음",m.of||"")}${ns.map(x=>opt(x.id,x.name,m.of||"")).join("")}</select></div>`;}
+    if(m.kind==="nature"){const tt=m.tt||"forest",zr=m.zr||NATR[tt]||170,isR=tt==="river"||tt==="frozen",dirOn=isR||tt==="range";
+      h+=`<div class="field"><label for="f-tt">지형 종류</label><select id="f-tt"${dis}>${NATT.map(x=>opt(x[0],x[1],tt)).join("")}</select></div>
+      <div class="field"><label for="f-zr">${isR?"강의 굵기":tt==="range"?"산맥 길이의 절반":tt==="peak"?"산의 크기":"넓이"}</label><input type="range" id="f-zr" min="60" max="${tt==="range"?1600:600}" step="10" value="${zr}"${dis}><div class="rangev"><span>60</span><b id="f-zr-v">${zr}</b><span>${tt==="range"?1600:600}</span></div></div>
+      ${dirOn?`<div class="field"><label for="f-zrot">${isR?"흐르는 방향 (도 · 0이면 가장 가까운 바다로)":"산맥이 뻗는 방향 (도)"}</label><input type="range" id="f-zrot" min="-180" max="180" step="1" value="${m.zrot||0}"${dis}><div class="rangev"><span>-180</span><b id="f-zrot-v">${m.zrot||0}</b><span>180</span></div></div>`:""}`;}
+    if(m.kind==="sea"){const d=DEF_SEA[m.id],zz=seaOf(m)||{r:500,rot:0};
+      h+=`<div class="field"><label for="f-sfx">바다 효과</label><select id="f-sfx"${dis}>${opt("",d?"이 바다의 기본 효과":"효과 없음",m.sfx||"")}${d?opt("none","효과 없음",m.sfx||""):""}${SEAFX.map(x=>opt(x[0],x[1],m.sfx||"")).join("")}</select></div>
+      ${(m.sfx||d)==="ring"?`<div class="field"><label for="f-rc">감싸는 대륙</label><select id="f-rc"${dis}>${opt("",m.id==="sea-hwanryu"?"잔재 (설정 기본)":"가장 가까운 대륙",m.rc||"")}${CL().map(c=>opt(c.id,c.name,m.rc||"")).join("")}</select></div>`:""}
+      <div class="row2"><div class="field"><label for="f-zr">효과 범위</label><input type="range" id="f-zr" min="100" max="2500" step="10" value="${zz.r}"${dis}><div class="rangev"><span>100</span><b id="f-zr-v">${zz.r}</b><span>2500</span></div></div>
+      <div class="field"><label for="f-zrot">효과 방향 (도)</label><input type="range" id="f-zrot" min="-180" max="180" step="1" value="${zz.rot}"${dis}><div class="rangev"><span>-180</span><b id="f-zrot-v">${zz.rot}</b><span>180</span></div></div></div>`;}
+    h+=`<div class="field"><label for="f-tsz">글자 크기 (이 표식만)</label><input type="range" id="f-tsz" min="0.1" max="3" step="0.05" value="${m.tsz||1}"${dis}><div class="rangev"><span>10%</span><b id="f-tsz-v">${Math.round((m.tsz||1)*100)}%</b><span>300%</span></div></div>`;
+    h+=`<div class="field"><label for="f-note">메모</label><textarea id="f-note"${dis}>${esc(m.note||"")}</textarea></div>
+    <div class="row2"><div class="field"><label for="f-x">가로 (0~${W})</label><input type="number" id="f-x" min="0" max="${W}" value="${m.x}"${dis}></div>
+    <div class="field"><label for="f-y">세로 (0~${H})</label><input type="number" id="f-y" min="0" max="${H}" value="${m.y}"${dis}></div></div>
+    <div class="btns"><button type="button" class="btn" id="b-focus">여기로 확대</button>${mode==="edit"&&canEdit?`<button type="button" class="btn danger" id="b-del">삭제</button>`:""}</div>`;
+    P.innerHTML=h;
+    const upd=(k,v)=>{burstStart("m",m.id);if(v===""||v==null)delete m[k];else m[k]=v;if(k==="name")$("ihName").textContent=v||"(이름 없음)";schedule();if(k==="kind"||k==="tt"){burstEnd();renderInspector();}};
+    const bind=(id,k,fn)=>{const e=$(id);if(!e)return;e.addEventListener(e.type==="checkbox"||e.tagName==="SELECT"?"change":"input",()=>upd(k,fn?fn(e):e.value));};
+    bind("f-name","name");bind("f-kind","kind");bind("f-proj","proj");bind("f-expect","expect");bind("f-note","note");bind("f-grade","grade");bind("f-tier","tier");
+    bind("f-rank","rank",e=>e.value?Number(e.value):"");bind("f-icon","icon");bind("f-fx","fx",e=>e.checked?(m.kind==="apex"?"":"on"):"off");bind("f-zr","zr",e=>{const v=Number(e.value);$("f-zr-v").textContent=v;return v;});bind("f-tsh","tsh");bind("f-sfx","sfx");bind("f-tt","tt");bind("f-of","of");bind("f-rc","rc");bind("f-zrot","zrot",e=>{const v=Number(e.value);$("f-zrot-v").textContent=v;return v;});bind("f-tcol","tcol");
+    [["f-tr","tr"],["f-trot","trot"],["f-tasp","tasp"],["f-tb","tb"]].forEach(([id,k])=>bind(id,k,e=>{const v=Number(e.value);$(id+"-v").textContent=v;return v;}));
+    {const bx=$("f-tcol-x");if(bx)bx.onclick=()=>{upd("tcol","");renderInspector();};}
+    bind("f-tsz","tsz",e=>{const v=Number(e.value);$("f-tsz-v").textContent=Math.round(v*100)+"%";return Math.abs(v-1)<.001?"":v;});bind("f-king","king",e=>e.checked||"");bind("f-good","good",e=>e.checked||"");
+    bind("f-x","x",e=>clamp(Math.round(Number(e.value)||0),0,W));bind("f-y","y",e=>clamp(Math.round(Number(e.value)||0),0,H));
+    $("f-x")&&$("f-x").addEventListener("change",liveInspector);$("f-y")&&$("f-y").addEventListener("change",liveInspector);
+    $("b-focus").onclick=()=>centerOn(m.x,m.y,Math.max(2.2,view.k/k0));
+    const bd=$("b-del");if(bd)bd.onclick=()=>armDelete();
+    return;}
+  // 대륙
+  const c=C[sel.id];const areaRank=CL().slice().sort((a,b)=>geo[b.id].area-geo[a.id].area).findIndex(x=>x.id===c.id)+1;
+  const inside=Object.values(M).filter(m=>KIND[m.kind].land&&continentAt(m.x,m.y)===c.id);
+  const cnt=k=>inside.filter(m=>m.kind===k);
+  const ed=mode==="edit"&&canEdit;
+  const rng2=(id,lb,min,max,step,val,fmt)=>`<div class="field"><label for="${id}">${lb}</label><input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${val}"${ed?"":" disabled"}><div class="rangev"><span>${fmt?fmt(min):min}</span><b id="${id}-v">${fmt?fmt(val):val}</b><span>${fmt?fmt(max):max}</span></div></div>`;
+  let h=`<div><span class="kchip">대륙 · ${esc(c.dir)}</span><h2>${esc(c.name)}</h2><p class="muted">${esc(c.sub)}</p></div>
+  <dl class="facts"><dt>크기 순위</dt><dd>설정 ${c.size}위 · 지도 면적 <span id="iArea">${areaRank}위</span>${areaRank!==c.size?` <span class="warnline">· 어긋남</span>`:""}</dd>
+  <dt>마력 농도</dt><dd>${c.mana}위${c.mana===1?" (최고)":c.mana===6?" (최저)":""}</dd>
+  <dt>큰 나라</dt><dd>${cnt("nation").map(m=>esc(m.name)).join(", ")||"없음"}</dd>
+  <dt>작은 나라</dt><dd>${cnt("small").length}개</dd><dt>던전</dt><dd>최상위 ${cnt("apex").length} · 일반 ${cnt("dungeon").length}</dd><dt>유적</dt><dd>${cnt("ruin").length}개</dd></dl>`;
+  if(ed&&!contEdit)h+=`<p class="muted">지도 위에서 대륙이나 대륙 이름을 끌어 옮기려면 위쪽의 <b>대륙 모양 편집</b>을 켜세요. 아래 값으로도 바꿀 수 있습니다.</p>`;
+  if(!ed&&canEdit)h+=`<p class="muted">대륙 모양을 고치려면 <b>편집</b>으로 바꾸세요.</p>`;
+  h+=rng2("c-rx","가로 반지름",50*SC,900*SC,5*SC,c.rx)+rng2("c-ry","세로 반지름",50*SC,700*SC,5*SC,c.ry)+rng2("c-rot","기울기 (도)",-45,45,1,c.rot)
+   +rng2("c-amp","해안선 굴곡",0,.25,.01,c.amp,v=>Math.round(v*100))+rng2("c-lsz","이름 크기 (이 대륙만)",.1,2,.05,c.lsz||1,v=>Math.round(v*100)+"%")+rng2("c-lx","이름 위치 · 좌우",-400*SC,400*SC,2*SC,c.lx||0)+rng2("c-ly","이름 위치 · 위아래",-300*SC,300*SC,2*SC,c.ly);
+  h+=`<div class="field"><span class="lb">해안선 모양</span><div class="btns"><button type="button" class="btn" id="c-seed"${ed?"":" disabled"}>다른 모양으로</button><span class="muted" style="align-self:center">모양 번호 <b id="c-seed-v">${c.seed}</b></span></div></div>
+  <label class="chk"><input type="checkbox" id="c-with"${moveWith?" checked":""}> 대륙을 옮길 때 안의 표식도 함께 옮기기</label>
+  <div class="btns"><button type="button" class="btn" id="c-focus">이 대륙 보기</button></div>`;
+  P.innerHTML=h;
+  ["rx","ry","rot","amp","ly","lx","lsz"].forEach(k=>{const e=$("c-"+k);e.addEventListener("input",()=>{burstStart("c",c.id);c[k]=Number(e.value);
+    $("c-"+k+"-v").textContent=k==="amp"?Math.round(c[k]*100):k==="lsz"?Math.round(c[k]*100)+"%":c[k];schedule(!["ly","lx","lsz"].includes(k));clearTimeout(e._t);e._t=setTimeout(liveInspector,120);});});
+  $("c-seed").onclick=()=>{const b=gdata(c);c.seed=(c.seed*7+13)%997+1;commit([{t:"c",id:c.id,before:b,after:gdata(c)}]);schedule(true);$("c-seed-v").textContent=c.seed;setTimeout(liveInspector,50);};
+  $("c-with").onchange=e=>{moveWith=e.target.checked;};
+  $("c-focus").onclick=()=>{const z=Math.min(sr.width/(c.rx*2.6),sr.height/(c.ry*2.6))/k0;centerOn(c.cx,c.cy,clamp(z,1,6));};
+}
+function liveInspector(){if(!sel)return;
+  if(sel.t==="m"){const m=M[sel.id];if(!m)return;const ce=$("iCell");if(ce)ce.textContent=cellFine(m.x,m.y);
+    const ia=$("iAt");if(ia){const at=markerAt(m);ia.textContent=at?CN(at)+" 대륙":"바다 위";}
+    const fx=$("f-x"),fy=$("f-y");if(fx&&document.activeElement!==fx)fx.value=m.x;if(fy&&document.activeElement!==fy)fy.value=m.y;
+    const wn=$("iWarn");if(m.expect&&(wn?warnOf(m)===null:warnOf(m)!==null))renderInspectorKeep();}
+  else{const c=C[sel.id];if(!geo[c.id])return;const ar=CL().slice().sort((a,b)=>geo[b.id].area-geo[a.id].area).findIndex(x=>x.id===c.id)+1;const ia=$("iArea");
+    if(ia&&ia.textContent!==ar+"위")renderInspectorKeep();}}
+function renderInspectorKeep(){const a=document.activeElement,id=a&&a.id;renderInspector();if(id&&$(id)){try{$(id).focus();}catch(e){}}}
+let delArm=false,delT=0;
+function armDelete(){if(!(sel&&sel.t==="m")||mode!=="edit"||!canEdit)return;const b=$("b-del");
+  if(!delArm){delArm=true;if(b){b.classList.add("armed");b.textContent="한 번 더 누르면 삭제";}clearTimeout(delT);delT=setTimeout(()=>{delArm=false;const bb=$("b-del");if(bb){bb.classList.remove("armed");bb.textContent="삭제";}},3000);return;}
+  delArm=false;const id=sel.id;burstEnd();commit([{t:"m",id,before:mdata(M[id]),after:null}]);select(null);afterData();}
+
+function summaryCard(){if(!loaded)return "";const n=Object.values(M);const c=k=>n.filter(m=>m.kind===k).length;
+  return `<dl class="facts"><dt>큰 나라</dt><dd>${c("nation")}</dd><dt>작은 나라</dt><dd>${c("small")}</dd><dt>최상위 던전</dt><dd>${c("apex")}</dd><dt>일반 던전</dt><dd>${c("dungeon")}</dd><dt>유적</dt><dd>${c("ruin")}</dd><dt>악마 대피소</dt><dd>${c("shelter")}</dd><dt>지명</dt><dd>${c("place")}</dd><dt>바다 이름</dt><dd>${c("sea")}</dd></dl>`;}
+
+/* ---------- 목록 ---------- */
+$("q").addEventListener("input",()=>renderList());
+function renderList(){
+  const B=$("listBody"),q=$("q").value.trim().toLowerCase();
+  if(!loaded){B.innerHTML=`<p class="muted">지도 데이터를 불러오는 중입니다.</p>`;return;}
+  const all=Object.values(M);
+  if(!all.length){B.innerHTML=definitive?`<div class="empty"><b>아직 표식이 없습니다</b><span>${canEdit?"확정 설정의 큰 나라, 최상위 던전, 악마 대피소, 바다 이름을 불러오거나, 편집 모드에서 하나씩 추가할 수 있어요.":"지도 주인이 표식을 추가하면 여기에 나옵니다."}</span>${canEdit?`<div class="btns"><button type="button" class="btn" id="bSeed">확정 배치 불러오기</button></div>`:""}</div>`:`<p class="muted">지도 데이터를 불러오는 중입니다.</p>`;
+    const bs=$("bSeed");if(bs)bs.onclick=()=>{commit(DEFAULT_M.map(m=>({t:"m",id:m.id,before:null,after:mdata(m)})));afterData();};return;}
+  const groups={};CL().forEach(c=>groups[c.id]=[]);groups._sea=[];
+  all.forEach(m=>{if(q&&!((m.name||"").toLowerCase().includes(q)||(m.note||"").toLowerCase().includes(q)||(m.proj||"").toLowerCase().includes(q)))return;
+    const at=markerAt(m);(at?groups[at]:groups._sea).push(m);});
+  const ko=k=>KORDER.indexOf(k);
+  let h="";
+  CL().concat([{id:"_sea",name:"바다",dir:"대피소 · 바다 이름 · 육지 밖"}]).forEach(c=>{const L=groups[c.id];if(!L.length&&q)return;
+    L.sort((a,b)=>ko(a.kind)-ko(b.kind)||(a.rank||0)-(b.rank||0)||String(a.name).localeCompare(String(b.name),"ko"));
+    h+=`<div class="group"><div class="ghead">${esc(c.name)} <small>${esc(c.dir)} · ${L.length}</small></div>`;
+    if(!L.length)h+=`<p class="muted" style="padding:2px 6px">표식 없음</p>`;
+    L.forEach(m=>{const w=warnOf(m);h+=`<button type="button" class="li${sel&&sel.t==="m"&&sel.id===m.id?" cur":""}" data-go="${esc(m.id)}"><i class="glyph g-${m.kind}"></i><span class="nm">${esc(m.name||"(이름 없음)")}<small>${KIND[m.kind].label}${m.kind==="dungeon"&&m.grade?" "+esc(m.grade):""}${m.kind==="apex"&&m.rank?" "+m.rank+"위":""}</small></span><span class="gc">${w!==null?"<b>어긋남</b> ":""}${cellOf(m.x,m.y)}</span></button>`;});
+    h+=`</div>`;});
+  if(!h)h=`<p class="muted">'${esc(q)}'에 맞는 표식이 없습니다.</p>`;
+  B.innerHTML=h;
+  B.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{const m=M[b.dataset.go];if(!m)return;select({t:"m",id:m.id});centerOn(m.x,m.y,Math.max(1.8,view.k/k0));});
+  $("sumOut").textContent=summaryText();
+}
+function summaryText(){const lines=["퍼스트 페러다이스 지도 배치 (큰 칸 A~T × 1~16, 작은 칸은 큰 칸을 10×10으로 나눈 가로·세로 번호. 예: K9-3·7)"];
+  const byC={};CL().forEach(c=>byC[c.id]=[]);const sea=[];
+  Object.values(M).forEach(m=>{const at=markerAt(m);(at?byC[at]:sea).push(m);});
+  const fmt=L=>KORDER.map(k=>{const xs=L.filter(m=>m.kind===k);if(!xs.length)return null;
+    return `  ${KIND[k].label}: `+xs.sort((a,b)=>(a.rank||0)-(b.rank||0)).map(m=>`${m.name}${m.kind==="dungeon"&&m.grade?" ["+m.grade+"]":""}${m.kind==="apex"&&m.rank?" [위험 "+m.rank+"위]":""} (${cellFine(m.x,m.y)})`).join(", ");}).filter(Boolean);
+  CL().forEach(c=>{lines.push(`${c.name} (${c.dir})`);const f=fmt(byC[c.id]);lines.push(...(f.length?f:["  —"]));});
+  lines.push("바다");const f=fmt(sea);lines.push(...(f.length?f:["  —"]));
+  return lines.join("\n");}
+$("bCopy").onclick=()=>{const txt=summaryText(),m=$("copyMsg");
+  const fb=()=>{const r=document.createRange();r.selectNodeContents($("sumOut"));const s=getSelection();s.removeAllRanges();s.addRange(r);m.textContent="복사가 막혀 있어 요약을 선택해 두었습니다. 직접 복사해 주세요.";};
+  try{navigator.clipboard.writeText(txt).then(()=>{m.textContent="복사했습니다.";},fb);}catch(e){fb();}};
+let resetArm=false;
+$("bReset").onclick=()=>{const b=$("bReset");if(!resetArm){resetArm=true;b.classList.add("armed");b.textContent="한 번 더 누르면 되돌립니다";setTimeout(()=>{resetArm=false;b.classList.remove("armed");b.textContent="처음 위치로 되돌리기";},3000);return;}
+  resetArm=false;b.classList.remove("armed");b.textContent="처음 위치로 되돌리기";
+  const ch=DEFAULT_M.map(d=>{const cur=M[d.id];const after=cur?Object.assign(mdata(cur),{x:d.x,y:d.y}):mdata(d);return {t:"m",id:d.id,before:cur?mdata(cur):null,after};});
+  DEFAULT_C.forEach(d=>ch.push({t:"c",id:d.id,before:gdata(C[d.id]),after:gdata(d)}));
+  commit(ch);schedule(true);afterData(true);};
+
+/* ---------- 검토 ---------- */
+function issues(){const out=[];
+  Object.values(M).forEach(m=>{const at=markerAt(m);
+    if(m.expect){const w=continentAt(m.x,m.y);if(w!==m.expect)out.push({sev:"high",sel:{t:"m",id:m.id},text:`<b>${esc(m.name)}</b>은(는) 설정상 ${esc(CN(m.expect))} 대륙인데 지금 ${w?esc(CN(w))+" 대륙":"바다"} 위에 있습니다.`});}
+    else if(KIND[m.kind].land&&!at&&m.kind!=="apex")out.push({sev:"mid",sel:{t:"m",id:m.id},text:`<b>${esc(m.name)}</b>(${KIND[m.kind].label})이 바다 위에 있습니다.`});
+    if(m.kind==="shelter"){const w=continentAt(m.x,m.y);if(w)out.push({sev:"high",sel:{t:"m",id:m.id},text:`악마 대피소 <b>${esc(m.name)}</b>은 해저 시설인데 ${esc(CN(w))} 대륙 위에 있습니다.`});}
+    if(m.kind==="sea"){const w=continentAt(m.x,m.y);if(w)out.push({sev:"mid",sel:{t:"m",id:m.id},text:`바다 이름 <b>${esc(m.name)}</b>이 ${esc(CN(w))} 대륙 위에 올라가 있습니다.`});}
+  });
+  const byArea=CL().slice().sort((a,b)=>geo[b.id].area-geo[a.id].area);
+  byArea.forEach((c,i)=>{if(c.size!==i+1)out.push({sev:"high",sel:{t:"c",id:c.id},text:`<b>${esc(c.name)}</b> 대륙의 크기 순위는 설정상 ${c.size}위인데 지도에서는 ${i+1}위입니다.`});});
+  const cs=CL();for(let i=0;i<cs.length;i++)for(let j=i+1;j<cs.length;j++){const a=cs[i],b=cs[j];const pa=geo[a.id].pts;let hit=false;
+    for(let t=0;t<pa.length;t+=4){try{if(landEl[b.id].isPointInFill(new DOMPoint(pa[t][0],pa[t][1]))){hit=true;break;}}catch(e){}}
+    if(hit)out.push({sev:"high",sel:{t:"c",id:a.id},text:`<b>${esc(a.name)}</b>와(과) <b>${esc(b.name)}</b> 대륙이 서로 겹칩니다. 사이에 바다가 있어야 합니다.`});}
+  {const T=Object.values(M).filter(m=>m.kind==="nation").map(m=>({m,t:terrOf(m)})).filter(o=>o.t&&o.t.sh!=="sun"&&o.t.sh!=="nebula");
+    for(let i=0;i<T.length;i++)for(let j=i+1;j<T.length;j++){const a=T[i],b=T[j];if(Math.hypot(a.m.x-b.m.x,a.m.y-b.m.y)<(a.t.r+b.t.r)*.78)out.push({sev:"mid",sel:{t:"m",id:b.m.id},text:`<b>${esc(a.m.name)}</b>와(과) <b>${esc(b.m.name)}</b>의 영토가 겹칩니다. 크기를 줄이거나 나라를 옮겨 보세요.`});}}
+  {const nsm=Object.values(M).filter(m=>m.kind==="small").length;if(nsm&&nsm!==20)out.push({sev:"high",sel:{t:"c",id:"gyeonggye"},text:`작은 나라는 설정상 <b>20개</b>인데 지도에는 <b>${nsm}개</b>가 있습니다.`});
+    Object.values(M).forEach(m=>{if(!CHILD[m.kind]||!m.of||!M[m.of])return;const bp=borderPoly[m.of];if(bp&&!inPoly(m.x,m.y,bp))out.push({sev:"mid",sel:{t:"m",id:m.id},text:`<b>${esc(m.name)}</b>(${KIND[m.kind].label})이 소속 나라 <b>${esc(M[m.of].name)}</b>의 국경 밖에 있습니다.`});});
+    Object.values(M).forEach(m=>{if(m.kind!=="small")return;const o=nationAt(m.x,m.y,true);if(o)out.push({sev:"mid",sel:{t:"m",id:m.id},text:`작은 나라 <b>${esc(m.name)}</b>이 큰 나라 <b>${esc(M[o].name)}</b>의 국경 안에 들어가 있습니다.`});});}
+  const L=Object.values(M);for(let i=0;i<L.length;i++)for(let j=i+1;j<L.length;j++){const a=L[i],b=L[j];if((a.kind==="region")!==(b.kind==="region")||a.kind==="nation"||b.kind==="nation")continue;if(Math.hypot(a.x-b.x,a.y-b.y)<14*SC)out.push({sev:"mid",sel:{t:"m",id:b.id},text:`<b>${esc(a.name)}</b>와(과) <b>${esc(b.name)}</b>이 거의 같은 자리에 겹쳐 있습니다.`});}
+  return out;}
+function renderChecks(){const P=$("pane-chk"),list=issues(),n=$("chkN");
+  n.textContent=list.length;n.classList.toggle("zero",!list.length);
+  if(!loaded){P.innerHTML=`<p class="muted">불러오는 중입니다.</p>`;return;}
+  let h=`<p class="muted">지도 배치가 확정 설정과 어긋나는 곳입니다. 누르면 그 위치로 갑니다.</p>`;
+  if(!list.length)h+=`<div class="empty"><b>어긋나는 곳이 없습니다</b><span>큰 나라와 최상위 던전이 모두 제 대륙에 있고, 대륙 크기 순위와 대피소 위치도 설정과 맞습니다.</span></div>`;
+  list.sort((a,b)=>(a.sev==="high"?0:1)-(b.sev==="high"?0:1)).forEach((x,i)=>{h+=`<button type="button" class="issue" data-i="${i}"><span class="sev ${x.sev}">${x.sev==="high"?"설정 위반":"확인"}</span><span>${x.text}</span></button>`;});
+  P.innerHTML=h;
+  P.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{const x=list[Number(b.dataset.i)];
+    if(x.sel.t==="m"&&M[x.sel.id]){select(x.sel);centerOn(M[x.sel.id].x,M[x.sel.id].y,Math.max(1.8,view.k/k0));}
+    else if(x.sel.t==="c"){select(x.sel);const c=C[x.sel.id];centerOn(c.cx,c.cy,Math.max(1.2,view.k/k0));}});
+}
+let adT=0;
+function afterData(now){clearTimeout(adT);const f=()=>{if(sel&&!(sel.t==="m"?M[sel.id]:C[sel.id]))sel=null;
+    const a=document.activeElement;const typing=a&&$("pane-sel").contains(a);
+    if(!typing)renderInspector();else liveInspector();renderList();renderChecks();schedule();};
+  if(now)f();else adT=setTimeout(f,60);}
+
+/* ---------- 레이어 ---------- */
+(function(){const L=$("layerList");
+  LAYERS.forEach(([k,lb])=>{const id="ly-"+k;const w=document.createElement("label");w.className="chk";w.innerHTML=`<input type="checkbox" id="${id}"${layers[k]?" checked":""}> ${lb}`;L.appendChild(w);
+    w.querySelector("input").onchange=e=>{layers[k]=e.target.checked;applyLayers();savePref();};});
+  $("bLayers").onclick=()=>{const p=$("layerPop");p.hidden=!p.hidden;$("bLayers").setAttribute("aria-expanded",!p.hidden);$("bLayers").classList.toggle("on",!p.hidden);};
+  document.querySelectorAll("#sizeSeg [data-s]").forEach(b=>b.onclick=()=>{uiScale=Number(b.dataset.s);applyLayers();savePref();});
+  const ng=$("nameGrow");ng.checked=nameGrow;ng.onchange=()=>{nameGrow=ng.checked;schedule();savePref();};})();
+function applyLayers(){stage.classList.toggle("hide-mana",!layers.mana);stage.classList.toggle("hide-terrain",!layers.terrain);stage.classList.toggle("hide-grid",!layers.grid);stage.classList.toggle("hide-terr",layers.terr===false);
+  document.querySelectorAll("#sizeSeg [data-s]").forEach(b=>b.classList.toggle("on",Number(b.dataset.s)===uiScale));schedule();}
+
+/* ---------- 키보드 ---------- */
+window.addEventListener("keydown",e=>{
+  const t=e.target;if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.tagName==="SELECT"||t.isContentEditable)){if(e.key==="Escape")t.blur();return;}
+  const mod=e.ctrlKey||e.metaKey;
+  if(mod&&(e.key==="z"||e.key==="Z")){e.preventDefault();burstEnd();if(e.shiftKey)redo();else undo();return;}
+  if(mod&&(e.key==="y"||e.key==="Y")){e.preventDefault();redo();return;}
+  if(mod)return;
+  if(e.key==="Escape"){if(placing){placing=null;setMode(mode);}else select(null);return;}
+  if(e.key==="e"||e.key==="E"){if(canEdit)setMode(mode==="edit"?"view":"edit");return;}
+  if(e.key==="+"||e.key==="="){zoomAt(sr.width/2,sr.height/2,1.4);return;}
+  if(e.key==="-"||e.key==="_"){zoomAt(sr.width/2,sr.height/2,1/1.4);return;}
+  if(e.key==="0"){fit();return;}
+  if(e.key==="Delete"||e.key==="Backspace"){if(sel&&sel.t==="m"&&mode==="edit"){e.preventDefault();armDelete();}return;}
+  const dir={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];
+  if(dir){e.preventDefault();
+    if(sel&&sel.t==="m"&&mode==="edit"&&canEdit&&M[sel.id]){const st=e.shiftKey?10:1,m=M[sel.id];burstStart("m",m.id);
+      m.x=clamp(m.x+dir[0]*st,0,W);m.y=clamp(m.y+dir[1]*st,0,H);schedule();liveInspector();}
+    else{view.tx-=dir[0]*80;view.ty-=dir[1]*80;apply();}}
+});
+
+(function(){const box=$("legIcons");if(!box)return;
+  const desc={volcano:"용의 협곡 · 심연 · 활화산과 용암",altar:"천상의 황금 제단 · 환상 · 산 위의 제단",iceberg:"갈라진 빙산의 협곡 · 빛 · 갈라진 빙산",grave:"죽은 자들의 무덤 · 경계 · 공동묘지",pond:"흑연의 연못 · 잔재 · 검은 연못의 유령 고래",tower:"바벨론 · 침묵 · 지하로 파고드는 역방향 타워"};
+  Object.keys(desc).forEach(k=>{const d=document.createElement("div");d.className="legi";
+    const sv=document.createElementNS(NS,"svg");sv.setAttribute("viewBox","-17 -17 34 34");
+    el("circle",{r:15,class:"bdg",fill:`var(${ICONS[k].c})`},sv);glyph(el("g",{},sv),k,ICONS[k].c);
+    const sp=document.createElement("span");sp.textContent=desc[k];d.append(sv,sp);box.appendChild(d);});})();
+try{window.__fp={M:()=>M,C,continentAt,borderPoly,terrOf,nationAt,inPoly,NCOL,W,H};}catch(e){}
+/* ---------- 시작 ---------- */
+renderStatic();renderWorld();applyLayers();setMode("view");refreshEditUI();renderInspector();renderList();renderChecks();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>schedule());
+initStore();
+})();
+</script>
+
+</body>
+</html>
