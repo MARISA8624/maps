@@ -108,7 +108,7 @@ h1{font-family:var(--display);font-weight:800;font-size:26px;line-height:1.15;ma
 .ic-bed{fill:var(--z-ice);opacity:.35} .ic-l{fill:var(--z-ice);stroke:var(--z-iceline);stroke-width:.6} .ic-d{fill:var(--z-iceline);stroke:var(--z-iceline);stroke-width:.6} .ic-g{fill:#fff}
 .nat-fzo{fill:none;stroke:var(--z-iceline);opacity:.8;stroke-linecap:round;stroke-linejoin:round} .nat-fz{fill:none;stroke:var(--z-ice);stroke-linecap:round;stroke-linejoin:round} .nat-fzc{fill:none;stroke:var(--z-iceline);stroke-linecap:round} .nat-fzs{fill:var(--z-ice);stroke:var(--z-iceline);stroke-width:2}
 .ic-nature.peak,.ic-nature.range{fill:var(--mount)} .ic-nature.ice,.ic-nature.frozen{fill:var(--z-iceline)}
-.lod-far .mk-ht,.lod-far .mk-rg,.lod-far .mk-sh,.lod-far .tr-rd,.lod-far .tr-t,.lod-far .tr-cd,.lod-far .hl-o,.lod-far .terr-line.wallj,.lod-far .fxs,.lod-far .terr-region{display:none}
+.lod-far .mk-ht,.lod-far .mk-rg,.lod-far .mk-sh,.lod-far .tr-rd,.lod-far .tr-t,.lod-far .tr-cd,.lod-far .hl-o,.lod-far .terr-line.wallj,.lod-far .fxs,.lod-far .flair,.lod-far .terr-region{display:none}
 .lab.nature{fill:var(--nat-lab);font-style:italic;font-weight:500} .ic-nature{fill:var(--tree-dk);stroke:var(--halo);stroke-width:1.2} .ic-nature.hill{fill:var(--hill-dk)} .ic-nature.river{fill:var(--sea-ink)}
 .g-nature{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid var(--tree-dk)}
 .mt-l{fill:var(--mount-lit)} .mt-d{fill:var(--mount)} .mt-s{fill:var(--snow)}
@@ -128,7 +128,19 @@ h1{font-family:var(--display);font-weight:800;font-size:26px;line-height:1.15;ma
 .terr-line.flowlt{stroke:var(--z-ice);opacity:.85;stroke-linecap:round}
 .terr-line.aurora{stroke:var(--z-wisp);stroke-width:14;stroke-linecap:round}
 .terr-line.crack{stroke:var(--z-lava);stroke-width:1.8}
+.terr-line.rune{stroke:var(--z-goldhot);stroke-width:1.9;opacity:1}
 .terr-line.glint{stroke:var(--z-hot);stroke-width:1.4}
+.terr-line.snowline{stroke:var(--z-iceline);stroke-dasharray:1 6;stroke-width:2.4;opacity:.85}
+.terr-line.furrow{stroke-dasharray:3 7}
+.terr-line.milky{stroke:#fff;opacity:.13;stroke-linecap:round}
+.fl{fill:none;stroke:var(--mt-line);stroke-width:1.7;opacity:.95;stroke-linecap:round;stroke-linejoin:round}
+.fl.thin{stroke-width:1.1;opacity:.75}.fl.dash{stroke-dasharray:5 4}.fl.dots{stroke-dasharray:1 7;stroke-width:1.6}
+.fl.gold{stroke:var(--n-hwansang)}.fl.ice{stroke:var(--z-iceline)}.fl.lite{stroke:var(--z-ice)}.fl.vio{stroke:#9A7AD0}.fl.grn{stroke:#4E7F4A;fill:#6FA468;fill-opacity:.55}
+.fl.f-gold{fill:var(--z-goldhot);fill-opacity:.6}.fl.f-ice{fill:var(--z-ice);fill-opacity:.6}.fl.f-icelo{fill:var(--z-ice);fill-opacity:.25}.fl.f-vio{fill:#C9A6F5;fill-opacity:.6}.fl.f-snow{fill:var(--snow);fill-opacity:.85}.fl.f-dark{fill:var(--mt-line);fill-opacity:.45;stroke:none}
+.fl.shade{stroke:var(--mt-line);opacity:.45}.fl.road{stroke-dasharray:7 6;opacity:.75}.fl.stake{stroke:var(--z-iceline);stroke-width:1.4}
+.terr-line.dragon{stroke:var(--z-cur);opacity:.5;stroke-linecap:round}
+.terr-line.wfl{stroke:#fff;fill:#fff;fill-opacity:.6;opacity:.95;stroke-width:1}
+.terr-line.wfl2{stroke:#fff;opacity:.85;stroke-linecap:round}
 .terr-dot{fill:var(--tc);opacity:.85}
 .hide-terr #gTerr{display:none}
 .mk-sh{fill:var(--mt-line);opacity:.16}
@@ -187,7 +199,7 @@ h1{font-family:var(--display);font-weight:800;font-size:26px;line-height:1.15;ma
 .ic-shelter{fill:var(--deep);stroke:var(--demon);stroke-width:1.8}
 .ic-shelter.noking{stroke-dasharray:4 2.5}
 .ic-crown{fill:var(--demon)}
-.ic-place{fill:var(--halo);stroke:var(--ink);stroke-width:2}
+.ic-place{fill:var(--halo);stroke:var(--ink);stroke-width:1.3}
 .hitpad{fill:transparent}
 .selring{fill:none;stroke:var(--focus);stroke-width:2.5}
 .warnb circle{fill:var(--danger);stroke:var(--halo);stroke-width:1.5}
@@ -714,29 +726,62 @@ function updMini(){const r=$("miniV");if(!r)return;const b=stageRect();const a=t
 const NCOL={hwansang:["#C98A12","#F0BE55"],bit:["#2F93B3","#7FD3EA"],pandemo:["#3F3A5C","#B3ABE0"],gigye:["#8A5A2B","#E0A66A"],essension:["#B23A48","#F08C98"],giv:["#2E63A6","#86B4F0"],reva:["#7A4FB0","#C9A6F5"],cruel:["#7A1F2B","#E06A7A"],gemu:["#C4527F","#F3A3C4"],repli:["#2E8B57","#7FD9A6"],antri:["#1E8A8A","#6FD6D0"],baekso:["#5E7F96","#B5D2E6"]};
 (function(){const L=Object.keys(NCOL).map(k=>`--n-${k}:${NCOL[k][0]}`).join(";"),D=Object.keys(NCOL).map(k=>`--n-${k}:${NCOL[k][1]}`).join(";");
   const st=document.createElement("style");st.textContent=`:root{${L}}@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){${D}}}:root[data-theme="dark"]{${D}}`;document.head.appendChild(st);})();
-const TSHAPES=[["sun","태양 · 대륙 전체에 햇살"],["nebula","성운 · 대륙 전체에 흩어진 구름"],["diamondwall","다이아몬드 장벽과 요새"],["starfort","별 모양 요새"],["gear","톱니바퀴"],["river","강줄기와 계단식 구획"],["hexgear","육각형과 네 개의 기어"],["arcane","마법진"],["keystone","쐐기돌과 가시"],["blossom","벚꽃과 별자리"],["shamrock","세잎 클로버와 레이스"],["gem","보석 세공"],["snowflake","눈 결정과 장갑판"],["blob","자연스러운 덩어리"]];
+const TSHAPES=[["sun","태양 · 설선과 과원"],["nebula","성운 · 고요벌과 은하평"],["diamondwall","다이아몬드 장벽과 요새"],["starfort","별 모양 요새"],["gear","톱니바퀴"],["river","강줄기와 계단식 구획"],["hexgear","육각 성벽과 네 개의 기어"],["arcane","마법진"],["keystone","쐐기돌과 다섯 조각"],["blossom","벚꽃과 별자리"],["shamrock","세잎 클로버와 레이스"],["gem","보석 세공과 운하"],["snowflake","눈 결정과 공창"],["blob","자연스러운 덩어리"]];
 const TERR={"n-hwansang":{sh:"sun",r:700,c:"hwansang"},"n-bit":{sh:"nebula",r:650,c:"bit"},"n-pandemo":{sh:"diamondwall",r:720,c:"pandemo"},"n-gigye":{sh:"gear",r:450,c:"gigye"},
   "n-essension":{sh:"river",r:600,c:"essension"},"n-giv":{sh:"hexgear",r:500,c:"giv"},"n-reva":{sh:"arcane",r:420,c:"reva"},"n-cruel":{sh:"keystone",r:480,c:"cruel"},
   "n-gemu":{sh:"blossom",r:520,c:"gemu"},"n-repli":{sh:"shamrock",r:375,c:"repli"},"n-antri":{sh:"gem",r:425,c:"antri"},"n-baekso":{sh:"snowflake",r:400,c:"baekso"}};
 function hashId(s){let h=7;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h)%100000+1;}
 function terrOf(m){if(m.kind!=="nation"&&m.kind!=="small")return null;const d=TERR[m.id]||{};const sh=m.tsh||d.sh||"";if(!sh||sh==="none")return null;
   return {sh,r:m.tr||d.r||300,rot:m.trot||0,asp:m.tasp||1,col:m.tcol||(d.c?`var(--n-${d.c})`:"var(--accent)"),seed:hashId(m.id)};}
+/* 엘더 푸사르크 24자: 가로 -.5~.5, 세로 -1~1 (위가 +) 안의 획 */
+const RUNES=[[[[-.3,-1],[-.3,1]],[[-.3,.2],[.4,.8]],[[-.3,-.3],[.4,.3]]],[[[-.35,-1],[-.35,1],[.35,.3],[.35,-1]]],[[[-.3,-1],[-.3,1]],[[-.3,.5],[.35,0],[-.3,-.5]]],[[[-.3,-1],[-.3,1],[.4,.5]],[[-.3,.45],[.4,-.05]]],
+ [[[-.3,-1],[-.3,1],[.35,.55],[-.3,.1],[.4,-1]]],[[[.3,.6],[-.3,0],[.3,-.6]]],[[[-.4,-.8],[.4,.8]],[[-.4,.8],[.4,-.8]]],[[[-.3,-1],[-.3,1],[.35,.55],[-.3,.1]]],
+ [[[-.35,-1],[-.35,1]],[[.35,-1],[.35,1]],[[-.35,.3],[.35,-.3]]],[[[0,-1],[0,1]],[[-.35,.35],[.35,-.35]]],[[[0,-1],[0,1]]],[[[.05,.9],[-.4,.45],[.05,0]],[[-.05,0],[.4,-.45],[-.05,-.9]]],
+ [[[-.35,-.6],[0,-1],[0,1],[.35,.6]]],[[[.4,1],[.05,.65],[-.3,1],[-.3,-1],[.05,-.65],[.4,-1]]],[[[0,-1],[0,1]],[[-.4,1],[0,.3],[.4,1]]],[[[.3,1],[-.3,.35],[.3,-.35],[-.3,-1]]],
+ [[[0,-1],[0,1]],[[-.4,.5],[0,1],[.4,.5]]],[[[-.3,-1],[-.3,1],[.35,.5],[-.3,0],[.35,-.5],[-.3,-1]]],[[[-.35,-1],[-.35,1],[0,.5],[.35,1],[.35,-1]]],[[[-.35,-1],[-.35,1],[.35,.3]],[[.35,-1],[.35,1],[-.35,.3]]],
+ [[[-.2,-1],[-.2,1],[.35,.45]]],[[[0,.6],[.4,0],[0,-.6],[-.4,0],[0,.6]]],[[[-.4,1],[-.4,-1],[.4,1],[.4,-1],[-.4,1]]],[[[-.4,-1],[.4,.4],[0,1],[-.4,.4],[.4,-1]]]];
+function terrAnchor(m,S){if(S.anchor==="capital"){const c=Object.values(M).find(q=>q.kind==="capital"&&q.of===m.id);if(c)return c;}return m;}
 function terrShape(kind,seed){
   const R=rng(seed),D=Math.PI/180,pol=(deg,r)=>[Math.cos(deg*D)*r,Math.sin(deg*D)*r];
   const circ=(cx,cy,r,n)=>{n=n||40;const a=[];for(let i=0;i<n;i++){const t=i/n*2*Math.PI;a.push([cx+Math.cos(t)*r,cy+Math.sin(t)*r]);}return a;};
-  const o={out:[],lines:[],dots:[],bands:[],fx:[],whole:false,reg:null};
+  const o={out:[],lines:[],dots:[],bands:[],fx:[],whole:false,reg:null,anchor:null};
   const L=(pts,closed,cls,an)=>{const l=Object.assign({pts,closed:!!closed,cls:cls||""},an||{});o.lines.push(l);return l;};
   const star=(p,s,fill,dur)=>o.fx.push({k:"star",p,s:s||1,fill:fill||"var(--z-goldhot)",dur:dur||(1.8+R()*2.6),begin:-R()*5});
   const mote=(p,r,fill,mv,dur,op)=>o.fx.push({k:"dot",p,r,fill,mv,dur,op:op||"0;1;0",begin:-R()*dur});
   const glow=(p,r,fill,dur,op)=>o.fx.push({k:"glow",p,r,fill,dur:dur||4,op:op||".35;.9;.35"});
   switch(kind){
-    case "sun":{o.whole=true;glow([0,0],.55,"url(#zgGold)",5);L(circ(0,0,.2),true,"",{pulse:[3,".6;1;.6"]});L(circ(0,0,.3),true,"thin");
-      for(let i=0;i<16;i++){const a=i*22.5-90;L([pol(a,.36),pol(a,i%2?1.1:8)],false,i%2?"thin":"",i%2?{pulse:[4,".25;.8;.25",-i*.25]}:null);}
-      for(let i=0;i<34;i++)star([(R()-.5)*8.4,(R()-.5)*2.6],1.1+R()*1.2,"var(--z-hot)");break;}
-    case "nebula":{o.whole=true;for(let i=0;i<11;i++){const cx=(R()-.5)*5.4,cy=(R()-.5)*1.5,r=.38+R()*.5,ph=R()*6,pts=[];
+    case "sun":{o.whole=true;o.anchor="capital";
+      /* 설선: 북은 설릉령(눈), 남은 양지령(볕). 수도 해마루 뒤에서 북으로 휜다 */
+      const sl=x=>.22-.4*Math.exp(-Math.pow(x/.55,2))+.06*Math.sin(x*2.3+1),line=[];for(let k=0;k<=60;k++){const x=-6+k*.2;line.push([x,sl(x)]);}
+      {const n=line.concat([[6,-5],[-6,-5]]);n.f=.07;n.c="var(--z-iceline)";const s=line.concat([[6,5],[-6,5]]);s.f=.07;o.reg=[n,s];}
+      L(line,false,"snowline");
+      /* 해: 원반, 천천히 도는 불꽃 테, 차례로 밝아지는 햇살 */
+      glow([0,0],.55,"url(#zgGold)",5);L(circ(0,0,.16),true,"",{pulse:[3,".6;1;.6"]});
+      {const f=[];for(let i=0;i<32;i++)f.push(pol(i*11.25,i%2?.33:.25));L(f,true,"",{spin:[[0,0],140,1]});}
+      for(let i=0;i<16;i++){const a=i*22.5-90;L([pol(a,.38),pol(a,i%2?1.3:8)],false,i%2?"thin":"",{pulse:[8,i%2?".15;.9;.15;.15":".45;1;.45;.45",-i*.5]});}
+      /* 양지령: 설선을 따라 내려가는 과원의 고랑, 태양의 열매 */
+      for(let k=1;k<=4;k++){const p=[],fy=x=>sl(x)+.2*k+.03*Math.sin(x*3+k);for(let j=0;j<=44;j++){const x=-4.4+j*.2;p.push([x,fy(x)]);}L(p,false,"thin furrow");
+        if(k<4)for(let j=0;j<22;j++){const x=-4.2+j*.4+(k%2)*.2;o.dots.push([x,fy(x)-.012,.011,{tw:2+R()*3}]);}}
+      for(let i=0;i<20;i++){const x=(R()-.5)*8;star([x,sl(x)+.15+R()*.9],1+R()*1.1,"var(--z-hot)");}
+      /* 설릉령: 내리는 눈 */
+      for(let i=0;i<24;i++){const x=(R()-.5)*8.2;mote([x,sl(x)-.25-R()*1.1],.012+R()*.01,"#fff",[.05+R()*.05,.25+R()*.15],6+R()*5,"0;1;1;0");}
+      /* 양지에서 산으로 오르는 따뜻한 기운 */
+      for(let i=0;i<8;i++){const x=(R()-.5)*6;mote([x,sl(x)+.6],.012,"var(--z-goldhot)",[(R()-.5)*.1,-.5],9+R()*5,"0;.8;0");}
+      break;}
+    case "nebula":{o.whole=true;const cy0=-.59,bx=y=>.05*Math.sin(y*6)+.03*Math.sin(y*13+1);
+      /* 구역: 서는 고요벌, 동은 은하평 */
+      {const ln=[];for(let k=0;k<=30;k++){const y=-2.4+k*.12;ln.push([bx(y),y]);}const w=ln.concat([[-6,1.2],[-6,-2.4]]);w.f=0;const e=ln.concat([[6,1.2],[6,-2.4]]);e.f=.1;o.reg=[w,e];}
+      /* 성운: 중심 없이 흩어져 제각각 떠다니는 구름 */
+      for(let i=0;i<10;i++){const cx=(R()-.5)*5.6,cy=cy0+(R()-.5)*1.5,r=.34+R()*.5,ph=R()*6,pts=[];
         for(let k=0;k<36;k++){const t=k/36*2*Math.PI,m=1+.16*Math.sin(3*t+ph)+.1*Math.sin(5*t+ph*2);pts.push([cx+Math.cos(t)*r*m,cy+Math.sin(t)*r*m*.8]);}L(pts,true,"dash",{mv:[(R()-.5)*.5,(R()-.5)*.14,22+R()*18,-R()*20]});}
-      for(let i=0;i<3;i++){const y0=-.7+i*.6,pts=[];for(let k=0;k<=40;k++){const x=-4+8*k/40;pts.push([x,y0+.18*Math.sin(x*1.3+i*2)]);}L(pts,false,"aurora",{pulse:[7+i*2,".08;.32;.08",-i*3],mv:[.5,.06,26+i*6,-i*5]});}
-      for(let i=0;i<46;i++)o.dots.push([(R()-.5)*6,(R()-.5)*1.8,.012+R()*.02,{tw:1.6+R()*3}]);break;}
+      for(let i=0;i<3;i++){const y0=cy0-.6+i*.6,pts=[];for(let k=0;k<=40;k++){const x=-4+8*k/40;pts.push([x,y0+.18*Math.sin(x*1.3+i*2)]);}L(pts,false,"aurora",{pulse:[7+i*2,".08;.32;.08",-i*3],mv:[.5,.06,26+i*6,-i*5]});}
+      /* 은하평(동): 은하수의 띠와 별 */
+      {const b=[];for(let k=0;k<=20;k++){const x=.1+k*.165;b.push([x,cy0+.42-.26*x+.05*Math.sin(x*3)]);}L(b,false,"milky",{w:.24});}
+      for(let i=0;i<80;i++){const x=.15+R()*3.2,y=cy0+.42-.26*x+(R()+R()+R()-1.5)*.22;o.dots.push([x,y,.008+R()*.014,{tw:1.2+R()*3.2}]);}
+      for(let i=0;i<10;i++){const x=.2+R()*3;star([x,cy0+.42-.26*x+(R()-.5)*.3],.9+R(),"#fff");}
+      /* 고요벌(서): 바람이 깎은 눈결뿐. 움직이는 것이 없다 */
+      for(let i=0;i<28;i++){const x=-.2-R()*3.2,y=cy0+(R()-.5)*1.5,w=.08+R()*.14;L([[x,y],[x+w*.5,y-.012],[x+w,y]],false,"thin");}
+      break;}
     case "starfort":{for(let i=0;i<8;i++){const a=i*45-90;o.out.push(pol(a-22.5,.72),pol(a-9,.72),pol(a-12,.86),pol(a,1),pol(a+12,.86),pol(a+9,.72));}
       const inner=[];for(let i=0;i<8;i++){const a=i*45-90;inner.push(pol(a-22.5,.4),pol(a,.56));}L(inner,true);
       L([pol(-45,.2),pol(45,.2),pol(135,.2),pol(225,.2)],true);for(let i=0;i<4;i++){const a=i*90-45;L([pol(a,.2),pol(a,.72)],false,"thin");}
@@ -795,6 +840,8 @@ function terrShape(kind,seed){
       L(seg(.875,.96,0,6),false,"water",{w:.08});L(circ(.96,sy(.96),.03,14),true,"water",{w:.05});glow([.96,sy(.96)],.05,"var(--z-ice)",5,".2;.6;.2");
       {const y=sy(.86);o.bands.push({outer:[[.845,y-.09],[.875,y-.09],[.875,y+.09],[.845,y+.09]],inner:null});[-.045,0,.045].forEach(d=>L([[.845,y+d],[.875,y+d]],false,"wallj"));
         L([[.86,y+.09],[.86,.3],[.9,.34]],false,"water",{w:.012});[-.014,.014].forEach((d,k)=>L(rev(seg(.72,.845,d,6)),false,"flowlt",{flow:[.03,.05,.9,.008,-k*.4]}));}
+      /* 옛 수문 터: 대전 때 무너진 둑의 흔적 (지금 수문의 바로 아래) */
+      {const t=.795,y=sy(t);L([[t,y-.1],[t,y-.035]],false,"dash");L([[t,y+.04],[t,y+.1]],false,"dash");[[t-.012,y-.03],[t+.01,y+.035],[t-.006,y+.03]].forEach(p=>o.dots.push([p[0],p[1],.007]));}
       /* 윗여울구·아랫여울구: 여울의 흰 물살 */
       [[.22,.58],[-.58,-.22]].forEach(c=>[-.016,.016].forEach((d,k)=>L(rev(seg(c[0],c[1],d,12)),false,"flowlt",{flow:[.025,.045,1.2,.007,-k*.5]})));
       /* 윗여울구: 등불 거리, 물레방아 */
@@ -817,23 +864,125 @@ function terrShape(kind,seed){
       mote([.18,sy(.18)],.045,"var(--z-cur)",[-.68,sy(-.5)-sy(.18)],36,"0;.5;.5;0");break;}
     case "hexgear":{const v=[];for(let i=0;i<6;i++)v.push(pol(i*60-90,1));
       for(let i=0;i<6;i++){const a=v[i],b=v[(i+1)%6];for(let k=0;k<6;k++){const t=k/6,j=k?(R()-.5)*.09:0;const nx=-(b[1]-a[1]),ny=b[0]-a[0];o.out.push([a[0]+(b[0]-a[0])*t+nx*j,a[1]+(b[1]-a[1])*t+ny*j]);}}
-      [[-.3,-.3],[.3,-.3],[-.3,.3],[.3,.3]].forEach(([cx,cy],gi)=>{const g=[];for(let i=0;i<8;i++){const a=i*45+(gi%2?22.5:0)+(gi>1?22.5:0);g.push(pol(a-13,.2),pol(a-8,.27),pol(a+8,.27),pol(a+13,.2));}
-        const dir=(gi===0||gi===3)?1:-1;L(g.map(p=>[p[0]+cx,p[1]+cy]),true,"",{spin:[[cx,cy],16,dir]});L(circ(cx,cy,.08,16),true,"thin");L([[cx-.14,cy],[cx+.14,cy]],false,"thin",{spin:[[cx,cy],16,dir]});L([[cx,cy-.14],[cx,cy+.14]],false,"thin",{spin:[[cx,cy],16,dir]});});
-      for(let i=0;i<8;i++)mote([(R()-.5)*1.2,(R()-.5)*1.2],.02,"var(--z-hot)",[(R()-.5)*.1,-.12],2+R()*2,"0;1;0");break;}
-    case "arcane":{o.out=circ(0,0,1,72);L(circ(0,0,.76,60),true);L(circ(0,0,.44,48),true,"thin",{pulse:[4,".3;1;.3"]});
-      const h=[];for(let k=0;k<7;k++)h.push(pol(k*3*360/7-90,.76));L(h,true,"",{spin:[[0,0],70,1]});
-      const h2=[];for(let k=0;k<7;k++)h2.push(pol(k*2*360/7-90,.44));L(h2,true,"thin",{spin:[[0,0],45,-1]});
-      for(let i=0;i<14;i++){const a=i*360/14;L([pol(a,.86),pol(a,.95)],false,"",{spin:[[0,0],110,-1]});}
-      glow([0,0],.22,"var(--tc)",3.5,".15;.6;.15");o.dots.push([0,0,.05]);for(let k=0;k<7;k++)star(pol(k*360/7-90,.76),1.2,"var(--z-goldhot)",2.4);for(let i=0;i<8;i++)mote(pol(R()*360,.2+R()*.6),.018,"var(--tc)",[0,-.14],3+R()*3,"0;.9;0");break;}
+      const rect=(x,y,w,h)=>[[x,y],[x+w,y],[x+w,y+h],[x,y+h]],lerp=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
+      /* 구역: 네 기어구와 가운데 별 광장 */
+      o.reg=[[-1,-1],[1,-1],[-1,1],[1,1]].map((s,i)=>{const w=[[0,0],[3*s[0],0],[3*s[0],3*s[1]],[0,3*s[1]]];w.f=(i===0||i===3)?.02:.08;return w;});{const c=circ(0,0,.14,24);c.f=.16;o.reg.push(c);}
+      /* 육각 성벽과 망루. 남서 모서리는 대전 때 뚫린 채다 */
+      {const iv=v.map(p=>[p[0]*.865,p[1]*.865]),ow=v.map(p=>[p[0]*.895,p[1]*.895]);
+        for(let i=0;i<6;i++){const j=(i+1)%6,t0=i===4?.24:.04,t1=i===3?.76:.96;o.bands.push({outer:[lerp(ow[i],ow[j],t0),lerp(ow[i],ow[j],t1),lerp(iv[i],iv[j],t1),lerp(iv[i],iv[j],t0)],inner:null});
+          if(i!==4){const p=[v[i][0]*.88,v[i][1]*.88];o.bands.push({outer:circ(p[0],p[1],.036,12),inner:circ(p[0],p[1],.017,8)});glow(p,.03,"var(--z-hot)",2.6+R()*2,".15;.85;.15");}}
+        const b=pol(150,.88);[[-.07,-.1],[.02,-.13],[.09,-.05],[.1,.06],[-.02,.03]].forEach((d,k)=>L([b,[b[0]+d[0]*.5+(k%2?.02:-.02),b[1]+d[1]*.5],[b[0]+d[0],b[1]+d[1]]],false,"crack",{pulse:[3+k*.6,".25;.9;.25",-k]}));
+        glow(b,.09,"var(--z-lava)",4,".08;.4;.08");for(let k=0;k<4;k++)mote([b[0]+(R()-.5)*.1,b[1]+(R()-.5)*.08],.008,"var(--z-lava)",[(R()-.5)*.04,-.1],3+R()*2,"0;1;0");
+        L([b,[-.58,.36],[-.44,.22],[-.3,.16],[-.14,.06]],false,"crack",{pulse:[6,".12;.5;.12"]});}
+      /* 서로 맞물려 도는 네 기어 */
+      [[-.27,-.27],[.27,-.27],[-.27,.27],[.27,.27]].forEach(([cx,cy],gi)=>{const g=[];for(let i=0;i<8;i++){const a=i*45+((gi===1||gi===2)?22.5:0);g.push(pol(a-13,.23),pol(a-8,.3),pol(a+8,.3),pol(a+13,.23));}
+        const dir=(gi===0||gi===3)?1:-1,sp={spin:[[cx,cy],26,dir]};L(g.map(p=>[p[0]+cx,p[1]+cy]),true,"",sp);L(circ(cx,cy,.17,24),true,"thin");L(circ(cx,cy,.06,14),true);
+        for(let k=0;k<4;k++){const a=pol(k*45,.17);L([[cx+a[0],cy+a[1]],[cx-a[0],cy-a[1]]],false,"thin",sp);}});
+      /* 별 광장과 네 대로, 가로등 */
+      L(circ(0,0,.14,28),true,"",{pulse:[4,".5;1;.5"]});L(circ(0,0,.085,20),true,"thin");for(let k=0;k<12;k++)L([pol(k*30,.085),pol(k*30,.14)],false,"thin");
+      [[0,-1],[1,0],[0,1],[-1,0]].forEach((d,k)=>{const e=k%2?.75:.86,n=[-d[1],d[0]];[-.013,.013].forEach(s=>L([[d[0]*.14+n[0]*s,d[1]*.14+n[1]*s],[d[0]*e+n[0]*s,d[1]*e+n[1]*s]],false,"thin"));
+        for(let q=0;q<7;q++){const u=.2+q*(e-.24)/6;o.dots.push([d[0]*u+n[0]*.03*(q%2?1:-1),d[1]*u+n[1]*.03*(q%2?1:-1),.008,{tw:1.6+R()*2}]);}
+        if(k%2){const x=d[0]*.762;o.bands.push({outer:rect(x-.022,-.06,.044,.12),inner:null});}});
+      /* 제1 기어구(북서): 바리케이드와 꺼지지 않는 잔불 */
+      for(let k=0;k<4;k++){const x=-.72+(k%2)*.03,y=-.34+k*.055;L([[x,y],[x+.03,y-.022],[x+.06,y],[x+.09,y-.022],[x+.12,y]],false);star([x+.03+R()*.06,y-.03],.7,"var(--z-lava)",.8+R()*1.2);}
+      /* 제2 기어구(북동): 청룡 광장, 광장을 도는 청룡의 그림자 */
+      {const p=[.44,-.22];L(circ(p[0],p[1],.075,20),true);L(circ(p[0],p[1],.045,14),true,"thin");glow(p,.09,"var(--z-ice)",3.6,".1;.6;.1");
+        const dr=[];for(let k=0;k<=14;k++){const t=k*9*D;dr.push([p[0]+Math.cos(t)*(.06+.008*Math.sin(k*1.3)),p[1]+Math.sin(t)*(.06+.008*Math.sin(k*1.3))]);}L(dr,false,"flowlt",{w:.016,spin:[p,18,1]});}
+      /* 제3 기어구(남서): 배급 밭, 생존자 야영지의 천막과 모닥불 */
+      for(let k=0;k<5;k++)L([[-.74+k*.012,.14+k*.028],[-.6,.14+k*.028]],false,"thin");
+      {[[-.7,.47],[-.66,.52],[-.71,.56],[-.64,.6],[-.6,.55]].forEach(q=>L([[q[0]-.018,q[1]+.014],[q[0],q[1]-.016],[q[0]+.018,q[1]+.014]],true));glow([-.66,.56],.03,"var(--z-lava)",1.3,".3;1;.5;.9;.3");}
+      /* 제4 기어구(남동): 염전, 굴뚝과 연기 */
+      for(let r=0;r<3;r++)for(let k=0;k<3;k++){L(rect(.44+k*.05,.44+r*.05,.04,.04),true,"thin");if((r+k)%2===0)star([.46+k*.05,.46+r*.05],.7,"#fff",1.6+R()*2);}
+      for(let k=0;k<3;k++){const x=.62+k*.035;L(rect(x,.2,.018,.05),true);mote([x+.009,.2],.011,"#cfd8dc",[.03+R()*.03,-.13-R()*.05],5+R()*3,"0;.6;0");}
+      /* 투쟁의 문: 남쪽의 개선문, 바벨론으로 가는 길 */
+      {const y=.76;[-.05,.05].forEach(x=>o.bands.push({outer:rect(x-.012,y-.05,.024,.1),inner:null}));o.bands.push({outer:rect(-.062,y-.066,.124,.02),inner:null});
+        const ar=[];for(let k=0;k<=8;k++){const t=Math.PI*(1+k/8);ar.push([Math.cos(t)*.038,y-.01+Math.sin(t)*.035]);}L(ar,false);glow([0,y],.07,"var(--z-hot)",3.4,".1;.55;.1");
+        L([[0,.9],[-.15,1.05],[-.33,1.2]],false,"dash");}
+      for(let i=0;i<8;i++)mote([(R()-.5)*1.1,(R()-.5)*1.1],.016,"var(--z-hot)",[(R()-.5)*.1,-.12],2+R()*2,"0;1;0");break;}
+    case "arcane":{o.out=circ(0,0,1,72);const sp=(d,dir)=>({spin:[[0,0],d,dir]});
+      /* 구역: 가운데 중앙 학부 + 네 학구(북 마도, 동 마법, 남 연무, 서 서고) */
+      o.reg=[];for(let i=0;i<4;i++){const a=-90+90*i,w=[];for(let k=0;k<=10;k++)w.push(pol(a-45+k*9,.3));w.push(pol(a+45,3),pol(a,4),pol(a-45,3));w.f=i%2?.09:.02;o.reg.push(w);}
+      {const c=circ(0,0,.3,40);c.f=.14;o.reg.push(c);}
+      /* 바깥 테: 눈금, 도는 룬 띠, 금빛이 도는 고리 */
+      L(circ(0,0,.985,90),true,"lace");L(circ(0,0,.965,72),true,"thin");L(circ(0,0,.855,72),true);
+      o.bands.push({outer:circ(0,0,.965,72),inner:circ(0,0,.855,72)});
+      const rune=(i,a,r,hh,ww)=>RUNES[i%24].map(st=>st.map(p=>pol(a+p[0]*ww/r/D,r+p[1]*hh)));
+      for(let i=0;i<24;i++)L(null,false,"rune",{multi:rune(i,i*15+7.5-90,.91,.04,.046),spin:[[0,0],150,-1],pulse:[6,".55;1;.55",-i*.25]});
+      for(let i=0;i<12;i++){const p=pol(i*30,.91);L(circ(p[0],p[1],.007,6),true,"rune",sp(150,-1));}
+      L(circ(0,0,.855,72),true,"shim",{flow:[.12,2.57,10,.02]});L(circ(0,0,.855,72),true,"shim",{flow:[.12,2.57,10,.02,-5]});
+      /* 겹친 두 사각(팔각별): 네 학구의 틀. 꼭짓점마다 마력 결절 */
+      const sqA=[],sqB=[];for(let k=0;k<4;k++){sqA.push(pol(k*90-90,.855));sqB.push(pol(k*90-45,.855));}L(sqA,true);L(sqB,true,"thin");
+      for(let k=0;k<8;k++){const p=pol(k*45-90,.855);if(k===6){/* 꺼진 결절: 대전 때 기록을 말소하며 스스로 끊은 서쪽(서고) 결절 */L(circ(p[0],p[1],.035,14),true,"dash");L([[p[0]-.02,p[1]-.02],[p[0]+.02,p[1]+.02]],false,"thin");L([[p[0]-.02,p[1]+.02],[p[0]+.02,p[1]-.02]],false,"thin");continue;}L(circ(p[0],p[1],.035,14),true,"",{pulse:[3.2,".35;1;.35",-k*.4]});star(p,1.25,"var(--z-goldhot)",2+R()*1.5);}
+      /* 도는 칠각별과 그 안을 도는 일곱 달 */
+      const h=[];for(let k=0;k<7;k++)h.push(pol(k*3*360/7-90,.6));L(h,true,"thin",sp(80,1));L(circ(0,0,.6,60),true,"thin");
+      for(let k=0;k<7;k++){const p=pol(k*360/7-90,.44);L(circ(p[0],p[1],.03,12),true,"",sp(46,-1));L(circ(p[0]+.012,p[1],.022,10),true,"thin",sp(46,-1));}
+      L(circ(0,0,.44,48),true,"dash",{pulse:[4,".3;.9;.3"]});
+      /* 네 축: 가장자리에서 학원으로 모이는 마력 */
+      for(let k=0;k<4;k++){const a=k*90-90;L([pol(a,.3),pol(a,.855)],false,"thin");L([pol(a,.855),pol(a,.3)],false,"flowlt",{flow:[.05,.16,2.6,.01,-k*.6]});L([pol(a+45,.3),pol(a+45,.975)],false,"dash");}
+      /* 가운데: 타나토스 학원. 오각 회랑과 다섯 탑, 성운빛 */
+      glow([0,0],.34,"url(#zgFog)",5,".35;.9;.35");L(circ(0,0,.3,48),true,"",{pulse:[3.5,".55;1;.55"]});
+      {const pg=[];for(let k=0;k<5;k++){const p=pol(k*72-90,.2);pg.push(p);o.bands.push({outer:circ(p[0],p[1],.022,10),inner:null});glow(p,.02,"var(--z-goldhot)",2+R()*2,".2;1;.2");}L(pg,true);const ps=[];for(let k=0;k<5;k++)ps.push(pol(k*144-90,.2));L(ps,true,"thin");
+        for(let i=0;i<12;i++)L(null,false,"rune",{multi:rune(i*2+1,i*30-90,.25,.022,.026),spin:[[0,0],60,1]});}
+      /* 북 · 마도 학구: 도는 톱니와 그 안의 별 */
+      {const c=pol(-90,.745),t=[];for(let i=0;i<10;i++){const a=i*36;t.push([c[0]+Math.cos((a-7)*D)*.05,c[1]+Math.sin((a-7)*D)*.05],[c[0]+Math.cos((a-5)*D)*.066,c[1]+Math.sin((a-5)*D)*.066],[c[0]+Math.cos((a+5)*D)*.066,c[1]+Math.sin((a+5)*D)*.066],[c[0]+Math.cos((a+7)*D)*.05,c[1]+Math.sin((a+7)*D)*.05]);}
+        L(t,true,"",{spin:[c,14,1]});L(circ(c[0],c[1],.024,10),true,"thin");glow(c,.02,"var(--z-hot)",2.4,".2;1;.2");
+        const c2=[c[0]+.1,c[1]+.035],t2=[];for(let i=0;i<8;i++){const a=i*45;t2.push([c2[0]+Math.cos((a-9)*D)*.03,c2[1]+Math.sin((a-9)*D)*.03],[c2[0]+Math.cos((a-6)*D)*.042,c2[1]+Math.sin((a-6)*D)*.042],[c2[0]+Math.cos((a+6)*D)*.042,c2[1]+Math.sin((a+6)*D)*.042],[c2[0]+Math.cos((a+9)*D)*.03,c2[1]+Math.sin((a+9)*D)*.03]);}L(t2,true,"thin",{spin:[c2,11.2,-1]});}
+      /* 동 · 마법 학구: 오망성 진과 흩어지는 빛 */
+      {const c=pol(0,.745),pt=[];for(let k=0;k<5;k++)pt.push([c[0]+Math.cos((k*144-90)*D)*.055,c[1]+Math.sin((k*144-90)*D)*.055]);L(circ(c[0],c[1],.062,20),true,"",{pulse:[2.8,".4;1;.4"]});L(pt,true,"thin",{spin:[c,20,1]});
+        o.fx.push({k:"ring",p:c,r:.05,dur:3.6,begin:0,stroke:"var(--tc)"},{k:"ring",p:c,r:.05,dur:3.6,begin:-1.8,stroke:"var(--z-goldhot)"});for(let k=0;k<6;k++)star([c[0]+(R()-.5)*.22,c[1]+(R()-.5)*.26],.7+R()*.6,k%2?"var(--z-goldhot)":"var(--z-ice)",1+R()*1.6);}
+      /* 남 · 연무 학구: 엇갈린 두 검, 대회장의 원형 경기장 */
+      {const c=pol(90,.745);[-1,1].forEach(s=>{L([[c[0]-s*.055,c[1]+.055],[c[0]+s*.055,c[1]-.055]],false);L([[c[0]-s*.045+.014,c[1]+.031],[c[0]-s*.045-.014,c[1]+.059]].map(p=>[p[0]+(s>0?0:0),p[1]]),false,"thin");});
+        const q=[.34,.7];L(circ(q[0],q[1],.06,22),true);L(circ(q[0],q[1],.04,18),true,"thin");L(circ(q[0],q[1],.075,24),true,"lace");[[-.015,-.01],[.02,.012],[0,.02]].forEach((d,k)=>star([q[0]+d[0],q[1]+d[1]],1.1,"var(--z-hot)",.7+k*.35));L([[.22,.62],[q[0]-.05,q[1]-.04]],false,"thin");}
+      /* 서 · 서고 학구: 펼친 책과 떠오르는 책장 */
+      {const c=pol(180,.745);L([[c[0],c[1]-.03],[c[0]-.06,c[1]-.045],[c[0]-.06,c[1]+.03],[c[0],c[1]+.045]],false);L([[c[0],c[1]-.03],[c[0]+.06,c[1]-.045],[c[0]+.06,c[1]+.03],[c[0],c[1]+.045],[c[0],c[1]-.03]],false);
+        [-.012,.008].forEach(d=>{L([[c[0]-.048,c[1]+d-.012],[c[0]-.012,c[1]+d]],false,"thin");L([[c[0]+.048,c[1]+d-.012],[c[0]+.012,c[1]+d]],false,"thin");});
+        for(let k=0;k<5;k++){const x=c[0]+(R()-.5)*.14,y=c[1]-.03-R()*.04,w=.012;L([[x-w,y],[x+w,y-w*.4],[x+w,y+w],[x-w,y+w*1.4]],true,"thin",{mv:[(R()-.5)*.05,-.11-R()*.06,6+R()*4,-R()*8],pulse:[5+R()*3,"0;.9;0",-R()*6]});}}
+      /* 천문봉의 관측소, 약초원 */
+      {const q=[-.36,-.4];L([[q[0]-.03,q[1]],[q[0]-.03,q[1]-.015],[q[0]-.02,q[1]-.035],[q[0],q[1]-.043],[q[0]+.02,q[1]-.035],[q[0]+.03,q[1]-.015],[q[0]+.03,q[1]]],true);L([q,[q[0]+.035,q[1]-.07]],false,"thin");for(let k=0;k<4;k++)star([q[0]+.02+R()*.1,q[1]-.08-R()*.08],.7+R()*.5,"var(--z-goldhot)",1.2+R()*2);}
+      for(let k=0;k<7;k++)o.dots.push([-.8+(R()-.5)*.13,-.6+(R()-.5)*.1,.009,{tw:2+R()*2}]);
+      /* 떠오르는 마력, 흩날리는 나비빛 */
+      for(let i=0;i<10;i++)mote(pol(R()*360,.2+R()*.6),.016,"var(--tc)",[0,-.14],3+R()*3,"0;.9;0");
+      for(let i=0;i<7;i++)o.fx.push({k:"petal",p:[(R()-.5)*1.3,(R()-.5)*1.2],s:.55+R()*.4,mv:[(R()-.5)*.3,-.22-R()*.2],dur:7+R()*6,begin:-R()*12});
+      break;}
     case "keystone":{const base=[[-.82,-.88],[.82,-.88],[.5,.95],[-.5,.95]];
       for(let e=0;e<4;e++){const a=base[e],b=base[(e+1)%4],dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy),nx=dy/len,ny=-dx/len,n=e===2?7:6;
         for(let k=0;k<n;k++){const t=k/n,t2=(k+.5)/n;o.out.push([a[0]+dx*t,a[1]+dy*t]);
           if(e===2){const arch=.2*Math.sin(Math.PI*t2);o.out.push([a[0]+dx*t2-nx*arch,a[1]+dy*t2-ny*arch]);}
           else{const sp=.07+R()*.17;o.out.push([a[0]+dx*t2+nx*sp+(R()-.5)*.05,a[1]+dy*t2+ny*sp]);}}}
-      const c=[(R()-.5)*.15,(R()-.5)*.15],ends=[[-.7,-.6],[.1,-.88],[.72,-.3],[.4,.6],[-.5,.5]];
-      ends.forEach((q,i)=>{const mid=[(c[0]+q[0])/2+(R()-.5)*.18,(c[1]+q[1])/2+(R()-.5)*.18];L([c,mid,q],false,"crack",{pulse:[2.2+R()*2.5,".25;1;.25",-R()*4]});const n2=ends[(i+1)%5],sc=[(c[0]+q[0]+n2[0])/3,(c[1]+q[1]+n2[1])/3];
-        o.dots.push([sc[0],sc[1],.035,{tw:1.2+R()*2.6}]);glow(sc,.09,"var(--z-lava)",1.5+R()*3,"0;.7;0;0");});
-      glow(c,.12,"var(--z-lava)",2.6,".2;.8;.2");break;}
+      const c=[0,.1],ends=[[-.7,-.6],[.1,-.88],[.72,-.3],[.4,.6],[-.5,.5]],far=q=>[c[0]+(q[0]-c[0])*4,c[1]+(q[1]-c[1])*4],sc=ends.map((q,i)=>{const n=ends[(i+1)%5];return [(c[0]+q[0]+n[0])/3,(c[1]+q[1]+n[1])/3];});
+      const ell=(x,y,rx,ry,rot)=>{const p=[],cr=Math.cos(rot*D),sr=Math.sin(rot*D);for(let k=0;k<14;k++){const t=k/14*2*Math.PI,u=Math.cos(t)*rx,w=Math.sin(t)*ry;p.push([x+u*cr-w*sr,y+u*sr+w*cr]);}return p;};
+      const tent=(x,y)=>L([[x-.018,y+.014],[x,y-.016],[x+.018,y+.014]],true);
+      /* 갈라진 금 다섯 줄기가 쐐기성에서 만난다. 금 사이의 다섯 조각이 지방이다 */
+      const cr=ends.map(q=>{const p=[c],nx=-(q[1]-c[1]),ny=q[0]-c[0];for(let k=1;k<5;k++){const t=k/5,j=(k%2?1:-1)*(.03+R()*.04);p.push([c[0]+(q[0]-c[0])*t+nx*j,c[1]+(q[1]-c[1])*t+ny*j]);}p.push(q);return p;});
+      o.reg=cr.map((p,i)=>{const w=p.concat([far(ends[i]),far(ends[(i+1)%5])],cr[(i+1)%5].slice().reverse());w.f=[.02,.1,.04,.11,.06][i];return w;});
+      cr.forEach((p,i)=>{L(p,false,"crack",{pulse:[2.2+R()*2.5,".3;1;.3",-R()*4]});
+        /* 금을 사이에 두고 마주 선 감시초 */
+        [.45,.75].forEach((t,k)=>{const q=ends[i],len=Math.hypot(q[0]-c[0],q[1]-c[1]),nx=-(q[1]-c[1])/len,ny=(q[0]-c[0])/len,x=c[0]+(q[0]-c[0])*t,y=c[1]+(q[1]-c[1])*t;
+          [-1,1].forEach(s=>o.dots.push([x+nx*.06*s,y+ny*.06*s,.011,{tw:s>0?1.3+k*.4:2.1+k*.5}]));});});
+      /* 쐐기성 */
+      o.bands.push({outer:[[c[0]-.075,c[1]-.085],[c[0]+.075,c[1]-.085],[c[0]+.048,c[1]+.075],[c[0]-.048,c[1]+.075]],inner:[[c[0]-.045,c[1]-.058],[c[0]+.045,c[1]-.058],[c[0]+.028,c[1]+.05],[c[0]-.028,c[1]+.05]]});glow(c,.13,"var(--z-lava)",2.6,".2;.8;.2");
+      /* 조각마다 따로 선 가시 요새. 제각각 번쩍인다 */
+      sc.forEach((q,i)=>{const p=[q[0]+[.1,-.1,.02,-.14,.02][i],q[1]+[-.1,.09,-.12,.02,-.13][i]],a=[],b=[];for(let k=0;k<16;k++){a.push([p[0]+Math.cos(k*22.5*D)*(k%2?.026:.046),p[1]+Math.sin(k*22.5*D)*(k%2?.026:.046)]);}for(let k=0;k<8;k++)b.push([p[0]+Math.cos(k*45*D)*.014,p[1]+Math.sin(k*45*D)*.014]);
+        o.bands.push({outer:a,inner:b});glow(p,.075,"var(--z-lava)",1.7+i*.75,"0;.75;0;0");});
+      /* 칼날 조각: 꽂아 둔 칼 */
+      {const x0=sc[0][0]-.06,y0=sc[0][1]+.15;[-.06,0,.06].forEach((d,k)=>{const x=x0+d,y=y0+(k===1?-.015:0);L([[x-.011,y+.04],[x,y-.085],[x+.011,y+.04]],true);L([[x-.028,y+.04],[x+.028,y+.04]],false);L([[x,y+.04],[x,y+.07]],false);star([x,y-.08],.7,"#fff",1+R()*1.5);});}
+      /* 사슬 조각: 사슬, 암시장의 어두운 등 */
+      {for(let k=0;k<7;k++)L(ell(.1+k*.045,-.2-k*.012,.03,.014,k%2?75:-15),true,"",{pulse:[5,".5;1;.5",-k*.4]});
+        for(let k=0;k<7;k++){o.dots.push([.2+(k%4)*.04,-.6-Math.floor(k/4)*.035,.008,{tw:2.5+R()*3}]);}for(let k=0;k<3;k++)L([[.19+k*.045,-.66],[.225+k*.045,-.66],[.225+k*.045,-.64],[.19+k*.045,-.64]],true,"thin");}
+      /* 독니 조각: 독니와 떨어지는 독 */
+      {const x=.56,y=.12;[-1,1].forEach(s=>L([[x+s*.035,y-.045],[x+s*.012,y-.045],[x+s*.018,y+.05]],true));L([[x-.045,y-.045],[x+.045,y-.045]],false);
+        [-1,1].forEach((s,k)=>{mote([x+s*.018,y+.055],.008,"#9BD67A",[0,.1],2.4+k*.7,"0;1;1;0");});glow([x,y+.14],.03,"#9BD67A",3,".1;.6;.1");}
+      /* 그림자 조각: 떠도는 그림자, 밀수항의 부두와 밤배 */
+      {for(let k=0;k<3;k++)mote([-.22+k*.12,.36+(k%2)*.1],.05,"var(--z-cur)",[.16-k*.12,(k%2?-.06:.07)],14+k*4,"0;.4;.4;0");
+        [-.03,.0,.03,.06].forEach(d=>L([[.08+d,.68],[.08+d,.735]],false));
+        L([[.08,.74],[.1,1.0],[.2,1.3]],false,"dash");mote([.2,1.3],.011,"var(--z-cur)",[-.12,-.56],17,"0;.9;.9;0");mote([.2,1.3],.011,"var(--z-cur)",[-.12,-.56],17,"0;.9;.9;0");o.fx[o.fx.length-1].begin=-8.5;mote([.08,.74],.011,"var(--z-cur)",[.12,.56],21,"0;.9;.9;0");o.fx[o.fx.length-1].begin=-4;}
+      /* 재갈 조각: 재갈, 용병 소굴의 천막과 모닥불 */
+      {const x=-.6,y=-.14;L([[x-.05,y],[x+.05,y]],false);L(circ(x-.066,y,.018,10),true);L(circ(x+.066,y,.018,10),true);L([[x-.066,y+.018],[x-.03,y+.08]],false,"thin");L([[x+.066,y+.018],[x+.03,y+.08]],false,"thin");
+        [[-.6,.16],[-.55,.2],[-.62,.23],[-.52,.26]].forEach(q=>tent(q[0],q[1]));glow([-.57,.215],.028,"var(--z-lava)",1.2,".3;1;.5;.9;.3");}
+      /* 침략로: 북동(GIV), 동(괴뢰령), 남동(쐐기 관문과 바벨론). 약탈대가 나가고 전리품이 들어온다 */
+      [[[.62,-.62],[1.1,-.95],[1.6,-1.3]],[[.72,-.05],[1.0,-.05],[1.22,-.04]],[[.4,.6],[.63,.6],[.85,.575]]].forEach((rd,i)=>{L(rd,false,"dash");const a=rd[0],b=rd[2];
+        mote(a,.011,"var(--z-lava)",[b[0]-a[0],b[1]-a[1]],9+i*2,"0;1;1;0");mote(b,.009,"var(--z-goldhot)",[a[0]-b[0],a[1]-b[1]],13+i*2,"0;1;1;0");o.fx[o.fx.length-1].begin=-5;});
+      break;}
     case "blossom":{const rf=th=>{const d=((th+90)%72+72)%72,dt=Math.min(d,72-d);let r=.5+.5*Math.pow(Math.abs(Math.cos(2.5*(th+90)*D)),.55);return r*(1-.16*Math.exp(-Math.pow(dt/5.5,2)));};
       for(let i=0;i<150;i++){const th=i/150*360;o.out.push(pol(th,rf(th)));}
       const rim=[];for(let i=0;i<150;i++){const th=i/150*360;rim.push(pol(th,rf(th)*.93));}L(rim,true,"thin");
@@ -874,20 +1023,93 @@ function terrShape(kind,seed){
     case "shamrock":{const fn=th=>(.42+.58*Math.pow(Math.abs(Math.cos(1.5*(th+90)*D)),.55))*(1+.03*Math.abs(Math.sin(21*th*D)));
       const inn=[];for(let i=0;i<168;i++){const th=i/168*360;o.out.push(pol(th,fn(th)));inn.push(pol(th,fn(th)*.86));}L(inn,true,"lace");L(inn,true,"shim",{flow:[.05,.11,3.2,.014]});
       for(let i=0;i<3;i++){const p=pol(i*120-90,.58);L(circ(p[0],p[1],.2,28),true,"",{pulse:[4,".45;1;.45",-i*1.3]});L(circ(p[0],p[1],.1,20),true,"thin");glow(p,.2,"var(--tc)",4,".05;.35;.05");for(let k=0;k<3;k++)star([p[0]+(R()-.5)*.3,p[1]+(R()-.5)*.3],1,"var(--z-goldhot)");}L(circ(0,0,.12,20),true);break;}
-    case "gem":{const ov=[],tv=[];for(let i=0;i<8;i++){ov.push(pol(i*45+22.5,1));tv.push(pol(i*45,.5));}o.out=ov;L(tv,true,"",{pulse:[3.2,".5;1;.5"]});
-      for(let i=0;i<8;i++){L([tv[i],ov[i]],false,"glint",{pulse:[3.2,".15;1;.15;.15",-i*.4]});L([tv[i],ov[(i+7)%8]],false,"glint",{pulse:[3.2,".15;1;.15;.15",-i*.4-.2]});}
-      const st=[];for(let i=0;i<8;i++)st.push(pol(i*45+22.5,.28));L(st,true,"thin");for(let i=0;i<10;i++)star(pol(R()*360,.15+R()*.75),1+R(),"var(--z-hot)");
-      for(let i=0;i<2;i++)o.fx.push({k:"ring",p:[0,0],r:.5,dur:5,begin:-i*2.5});break;}
-    case "snowflake":{for(let i=0;i<6;i++){const a=i*60-90;o.out.push(pol(a-30,.5),pol(a-13,.6),pol(a-9,.88),pol(a,1),pol(a+9,.88),pol(a+13,.6));}
-      for(let i=0;i<6;i++){const a=i*60-90;L([pol(a,.18),pol(a,.94)],false,"",{pulse:[5,".45;1;.45",-i*.8]});L([pol(a,.6),pol(a-9,.8)],false,"thin");L([pol(a,.6),pol(a+9,.8)],false,"thin");}
-      const h1=[],h2=[];for(let i=0;i<6;i++){h1.push(pol(i*60-90,.18));h2.push(pol(i*60-60,.46));}L(h1,true);L(h2,true,"thin");glow([0,0],.15,"var(--z-lava)",2.8,".15;.75;.15");
-      for(let i=0;i<26;i++)mote([(R()-.5)*1.6,-.9+R()*1.4],.014+R()*.012,"#fff",[.04+R()*.05,.3+R()*.2],5+R()*5,"0;1;1;0");break;}
+    case "gem":{const ov=[],tv=[],kv=[],c8=Math.cos(22.5*D),T=.3*c8,rev=p=>p.slice().reverse();
+      for(let i=0;i<8;i++){ov.push(pol(i*45+22.5,1));tv.push(pol(i*45+22.5,.3));kv.push(pol(i*45,.64));}o.out=ov;
+      const rect=(x,y,w,h)=>[[x,y],[x+w,y],[x+w,y+h],[x,y+h]],boat=(p,mv,dur,bg)=>{mote(p,.009,"var(--z-ice)",mv,dur,"0;1;1;0");if(bg!=null)o.fx[o.fx.length-1].begin=bg;};
+      /* 구역: 가운데 금고 구, 네 방향의 구. 구의 경계는 운하다 */
+      o.reg=[];[-90,0,90,180].forEach((a,i)=>{const w=[pol(a-45,T),pol(a-22.5,.3),pol(a+22.5,.3),pol(a+45,T),pol(a+45,3),pol(a,3.4),pol(a-45,3)];w.f=i%2?.09:.03;o.reg.push(w);});
+      {const c=tv.slice();c.f=.15;o.reg.push(c);}
+      /* 세공면: 브릴리언트 컷. 깎인 면이 차례로 번쩍인다 */
+      L(ov.map(p=>[p[0]*.955,p[1]*.955]),true,"thin");
+      for(let i=0;i<8;i++){L([tv[(i+7)%8],kv[i],tv[i]],false,"thin");L([tv[i],ov[i]],false,"thin");L([ov[(i+7)%8],kv[i],ov[i]],false,"glint",{pulse:[6.4,".06;.9;.06;.06",-i*.8]});}
+      /* 금고 해자와 네 줄기 큰 운하. 남서·북서 운하는 바다로 나간다 */
+      L(tv,true,"water",{w:.02});L(tv,true,"flowlt",{flow:[.05,.09,3.2,.007]});
+      [45,135,225,315].forEach((a,k)=>{const p=[pol(a,T),pol(a,a===135||a===225?1.34:c8)];L(p,false,"water",{w:.013});L(p,false,"flowlt",{flow:[.04,.08,2.4,.005,-k*.6]});});
+      /* 금고 구: 금고 성벽, 보석 문장, 해자를 도는 수룡의 그림자 */
+      {const a=[],b=[],g=[];for(let i=0;i<8;i++){a.push(pol(i*45+22.5,.15));b.push(pol(i*45+22.5,.132));g.push(pol(i*45,.08));}o.bands.push({outer:a,inner:b});L(g,true,"",{pulse:[3.2,".5;1;.5"]});
+        for(let i=0;i<8;i+=2)L([g[i],g[(i+4)%8]],false,"thin");glow([0,0],.1,"var(--z-goldhot)",3.2,".1;.55;.1");
+        const dr=[];for(let k=0;k<=16;k++)dr.push(pol(k*3.6,.288+.01*Math.sin(k*1.2)));L(dr,false,"dragon",{w:.024,spin:[[0,0],46,1]});
+        o.fx.push({k:"ring",p:[0,.2],r:.07,dur:5,begin:0},{k:"ring",p:[0,.2],r:.07,dur:5,begin:-2.5});}
+      /* 네 성문과 큰길 (남쪽은 대운하) */
+      [0,-90,180,90].forEach(a=>{const p=pol(a,c8),t=pol(a+90,1);o.bands.push({outer:[[p[0]-t[0]*.05-p[0]*.02,p[1]-t[1]*.05-p[1]*.02],[p[0]+t[0]*.05-p[0]*.02,p[1]+t[1]*.05-p[1]*.02],[p[0]+t[0]*.05+p[0]*.02,p[1]+t[1]*.05+p[1]*.02],[p[0]-t[0]*.05+p[0]*.02,p[1]-t[1]*.05+p[1]*.02]],inner:null});
+        glow(p,.03,"var(--z-hot)",3+R()*2,".15;.8;.15");if(a!==90)L([pol(a,T),pol(a,c8)],false,"dash");});
+      /* 운하 구(남): 대운하, 가로 운하 넷, 다리, 나루의 부두, 오가는 배 */
+      {const gc=[[0,T],[0,c8]];L(gc,false,"water",{w:.014});L(gc,false,"flowlt",{flow:[.04,.08,2.6,.006]});
+        [.42,.56,.7,.84].forEach((y,k)=>{const p=[[-y+.03,y],[y-.03,y]];L(p,false,"water",{w:.008});L(k%2?p:rev(p),false,"flowlt",{flow:[.03,.06,2.2+k*.3,.004,-k*.5]});});
+        [[-.25,.42],[.25,.42],[-.34,.56],[.3,.7],[-.45,.7],[.4,.84]].forEach(q=>[-.012,.012].forEach(d=>L([[q[0]+d,q[1]-.022],[q[0]+d,q[1]+.022]],false)));
+        [-.18,-.155,-.13,-.105,-.08].forEach(x=>L([[x,.56],[x,.595]],false));
+        boat([-.5,.56],[1,0],22);boat([.38,.42],[-.76,0],18,-6);boat([-.64,.7],[1.28,0],26,-11);boat([0,T],[0,c8-T],15,-4);
+        mote(pol(135,T),.012,"#fff",[pol(135,1.05)[0],pol(135,1.05)[1]],24,"0;1;1;0");mote(pol(135,1.3),.012,"#fff",[-pol(135,1.0)[0],-pol(135,1.0)[1]],24,"0;1;1;0");o.fx[o.fx.length-1].begin=-12;}
+      /* 상단 구(북): 대거래소, 창고 줄, 금화의 반짝임, 북동으로 나가는 상단 길 */
+      {const x=.12,y=-.62;L(rect(x-.05,y-.105,.1,.07),true);L([[x-.05,y-.07],[x,y-.105],[x+.05,y-.07],[x,y-.035]],true,"thin");
+        for(let r=0;r<2;r++)for(let k=0;k<5;k++)L(rect(-.34+k*.05,-.5-r*.045,.034,.024),true,"thin");
+        for(let k=0;k<10;k++)star([x+(R()-.5)*.3,y-.07+(R()-.5)*.2],.8+R()*.5,"var(--z-goldhot)",1+R()*1.5);
+        const rd=[[x,y-.105],[.3,-.9],[.62,-1.12],[.95,-1.25]];L(rd,false,"dash");
+        for(let k=0;k<3;k++){mote(rd[0],.009,"var(--z-goldhot)",[rd[3][0]-rd[0][0],rd[3][1]-rd[0][1]],26,"0;1;1;0");o.fx[o.fx.length-1].begin=-k*8.5;}
+        mote([0,-c8],.009,"var(--z-goldhot)",[0,c8-T],16,"0;1;1;0");}
+      /* 학원 구(동): 학원 회랑과 펼친 책, 강의동, 길러 낸 인재가 세상으로 나간다. 남동의 용목 가도 */
+      {const x=.6,y=-.27;L(rect(x-.085,y-.085,.17,.17),true);L(rect(x-.05,y-.05,.1,.1),true,"thin");[[-1,-1],[1,-1],[1,1],[-1,1]].forEach(s=>L(circ(x+s[0]*.085,y+s[1]*.085,.014,8),true));
+        L([[x-.03,y+.02],[x,y+.03],[x+.03,y+.02],[x+.03,y-.02],[x,y-.01],[x-.03,y-.02]],true);L([[x,y+.03],[x,y-.01]],false);
+        for(let k=0;k<5;k++)L(rect(.42+k*.055,.3,.036,.026),true,"thin");
+        [[.7,-.2],[.2,-.75],[.55,.6],[-.5,-.1],[.75,.25],[-.2,.55]].forEach((d,k)=>{mote([x,y],.007,k%2?"var(--z-ice)":"var(--z-goldhot)",d,13+k*1.7,"0;1;.7;0");o.fx[o.fx.length-1].begin=-k*2.3;});
+        for(let k=0;k<5;k++)star([x+(R()-.5)*.22,y+(R()-.5)*.22],.8,"var(--z-ice)",1.6+R()*2);
+        L([pol(0,c8),[1.36,0]],false,"dash");L([[.62,.14],[.8,.45],[.91,.71],[1.0,.92]],false,"dash");}
+      /* 공방 구(서): 세공한 보석, 공방 줄, 망치의 불티, 서쪽 수출 부두 */
+      {["var(--z-ice)","var(--z-lava)","var(--z-goldhot)","var(--z-hot)","var(--tc)"].forEach((c,k)=>{const x=-.8+k*.075,y=-.32,s=1;
+          L([[x-.022*s,y-.012],[x-.011,y-.025],[x+.011,y-.025],[x+.022,y-.012],[x,y+.028]],true);L([[x-.022,y-.012],[x+.022,y-.012]],false,"thin");L([[x-.011,y-.025],[x,y+.028],[x+.011,y-.025]],false,"thin");
+          glow([x,y],.03,c,2.5,".1;.9;.1");o.fx[o.fx.length-1].dur=2+k*.4;});
+        for(let r=0;r<2;r++)for(let k=0;k<6;k++){L(rect(-.84+k*.05,.2+r*.045,.034,.024),true,"thin");if((k+r)%2)star([-.823+k*.05,.2+r*.045],.7,"var(--z-lava)",.7+R()*.9);}
+        [-.05,0,.05].forEach(y=>L([[-c8,y],[-c8-.07,y]],false));mote([-c8-.03,0],.011,"#fff",[-.4,.06],18,"0;1;1;0");mote([-c8-.03,.05],.011,"#fff",[-.4,-.1],23,"0;1;1;0");o.fx[o.fx.length-1].begin=-9;}
+      for(let i=0;i<8;i++)star(pol(R()*360,.35+R()*.55),1+R(),"var(--z-hot)");break;}
+    case "snowflake":{for(let i=0;i<6;i++){const a=i*60-90;o.out.push(pol(a-30,.44),pol(a-15,.5),pol(a-19,.68),pol(a-8.5,.62),pol(a-11,.86),pol(a-4.5,.82),pol(a,1),pol(a+4.5,.82),pol(a+11,.86),pol(a+8.5,.62),pol(a+19,.68),pol(a+15,.5));}
+      /* 구역: 가운데 백화성, 세 갈래(북 백화 직할령, 남동 기갑 공창구, 남서 설령 변방) */
+      o.reg=[];[-90,30,150].forEach((a,i)=>{const w=[pol(a-60,.18),pol(a,.18),pol(a+60,.18),pol(a+60,3),pol(a,3.4),pol(a-60,3)];w.f=[.03,.1,.06][i];o.reg.push(w);});
+      const h1=[],h1b=[],h2=[];for(let i=0;i<6;i++){h1.push(pol(i*60-90,.18));h1b.push(pol(i*60-90,.162));h2.push(pol(i*60-60,.4));}{const c=h1.slice();c.f=.16;o.reg.push(c);}
+      /* 여섯 갈래의 결정: 축과 곁가지 */
+      for(let i=0;i<6;i++){const a=i*60-90;L([pol(a,.18),pol(a,.96)],false,"",{pulse:[6,".5;1;.5",-i]});
+        [[.46,19,.66],[.66,11,.84],[.84,5,.91]].forEach(v=>[-1,1].forEach(sd=>L([pol(a,v[0]),pol(a+sd*v[1],v[2])],false,"thin")));
+        glow(pol(a,.98),.03,"var(--z-ice)",3+R()*2,".1;.8;.1");}
+      /* 백화성: 육각 성벽, 외성, 흰 꽃 */
+      o.bands.push({outer:h1,inner:h1b});L(h2,true,"thin");
+      for(let i=0;i<6;i++){const b=i*60-60;L([pol(b,.03),pol(b-15,.085),pol(b,.142),pol(b+15,.085)],true,"wfl",{pulse:[7,".55;1;.55",-i*.5]});}
+      L(circ(0,0,.025,10),true,"shim");glow([0,0],.16,"#fff",7,".05;.3;.05");
+      /* 백화 직할령(북): 길을 따라 선 등, 서리 광산의 마나 결정, 용목 고개로 가는 길 */
+      for(let k=0;k<7;k++){const p=pol(-90,.26+k*.1);o.dots.push([p[0]+(k%2?.018:-.018),p[1],.009,{tw:2.5+R()*2}]);}
+      {const mx=-.29,my=-.78;for(let k=0;k<6;k++){const x=mx+(k-2.5)*.026+(R()-.5)*.01,h=.04+R()*.045,y=my+(R()-.5)*.03;L([[x-.011,y],[x-.002,y-h],[x+.011,y]],true,"flowlt");}
+        glow([mx,my-.02],.06,"var(--z-ice)",3.5,".15;.75;.15");for(let k=0;k<4;k++)star([mx+(R()-.5)*.14,my-.03+(R()-.5)*.08],.8,"var(--z-ice)",1.4+R()*1.6);
+        L([pol(-150,.18),[-.25,-.5],[-.4,-.82],[-.55,-1.12]],false,"dash");}
+      /* 기갑 공창구(남동): 육각 장갑판 조립, 대장간 불, 굴뚝 연기, 출고를 기다리는 기갑주, 광석 길 */
+      {const c=pol(30,.37),s=.04,hx=(x,y)=>{const h=[];for(let j=0;j<6;j++)h.push([x+Math.cos(j*60*D)*s,y+Math.sin(j*60*D)*s]);return h;};
+        L(hx(c[0],c[1]),true,"",{pulse:[4.2,".3;1;.3;.3",0]});for(let j=0;j<6;j++){const q=pol(30+j*60,s*1.732);L(hx(c[0]+q[0],c[1]+q[1]),true,"",{pulse:[4.2,".3;1;.3;.3",-(j+1)*.6]});}
+        const f=[.5,.34];glow(f,.075,"var(--z-lava)",2.6,".2;.85;.2");L(circ(f[0],f[1],.035,12),true);
+        for(let k=0;k<4;k++){mote([f[0]+.03+k*.012,f[1]-.03],.012,"#cfd8dc",[.03+R()*.03,-.14-R()*.05],5+R()*3,"0;.6;0");star([f[0]+(R()-.5)*.1,f[1]+(R()-.5)*.1],.7,"var(--z-lava)",.6+R()*.9);}
+        for(let k=0;k<3;k++){const p=pol(30,.72+k*.075),n=pol(120,1),u=pol(30,1),bx=(du,dn)=>[p[0]+u[0]*du+n[0]*dn,p[1]+u[1]*du+n[1]*dn];
+          L([bx(-.022,-.014),bx(.012,-.014),bx(.012,.014),bx(-.022,.014)],true);L([bx(.012,-.024),bx(.012,.024)],false);o.dots.push([...bx(.03,0),.008,{tw:1.6+k*.5}]);}
+        const m=[-.2,-.74];L([m,f],false,"dash");for(let k=0;k<3;k++){mote(m,.01,"var(--z-ice)",[f[0]-m[0],f[1]-m[1]],21,"0;1;1;0");o.fx[o.fx.length-1].begin=-k*7;}}
+      /* 설령 변방(남서): 띄엄띄엄 떨어진 집, 고요골의 흑백 그림자, 얼음못 */
+      {[[-.42,.3],[-.6,.28],[-.5,.5],[-.3,.52],[-.7,.46]].forEach(q=>o.dots.push([q[0],q[1],.009,{tw:5+R()*4}]));
+        const g=[-.86,.5],ar=(a0,r)=>{const p=[];for(let k=0;k<=10;k++){const t=(a0+k*15)*D;p.push([g[0]+Math.cos(t)*r,g[1]+Math.sin(t)*r]);}return p;};
+        L(ar(0,.06),false,"dragon",{w:.016,spin:[g,60,1]});L(ar(180,.06),false,"wfl2",{w:.016,spin:[g,60,1]});
+        const q=[.16,.72];L(circ(q[0],q[1],.045,16),true,"flowlt");L([[q[0]-.03,q[1]-.01],[q[0],q[1]+.005],[q[0]+.02,q[1]-.02]],false,"thin");L([[q[0],q[1]+.005],[q[0]+.01,q[1]+.03]],false,"thin");glow(q,.04,"var(--z-ice)",6,".1;.5;.1");}
+      /* 눈, 그리고 짙은 마나가 피어오른다 */
+      for(let i=0;i<26;i++)mote([(R()-.5)*1.7,-.95+R()*1.5],.012+R()*.012,"#fff",[.04+R()*.05,.3+R()*.2],5+R()*5,"0;1;1;0");
+      for(let i=0;i<10;i++)mote([(R()-.5)*1.5,-.4+R()*1.2],.01+R()*.008,"#C9A6F5",[(R()-.5)*.08,-.28-R()*.2],7+R()*6,"0;.85;0");break;}
     default:{const hs=[];for(let k=2;k<=7;k++)hs.push([k,(R()*2-1)*.16/Math.pow(k,.7),R()*6.28]);
       for(let i=0;i<72;i++){const t=i/72*2*Math.PI;let m=1;hs.forEach(h=>m+=h[1]*Math.sin(h[0]*t+h[2]));o.out.push([Math.cos(t)*m,Math.sin(t)*m]);}}
   }
   return o;}
 let terrSig="",worldVer=0;
-function terrSignature(){return worldVer+"|"+(layers.terr!==false)+"|"+(layers.nfx!==false)+"|"+(layers.fxmove!==false)+"|"+(layers.border!==false)+"|"+(layers.region!==false)+"|"+Object.values(M).filter(m=>m.kind==="nation"||m.kind==="small"||m.kind==="region").map(m=>[m.id,m.x,m.y,m.tsh,m.tr,m.trot,m.tasp,m.tcol,m.expect,m.tb,m.of].join(",")).join(";");}
+function terrSignature(){return worldVer+"|"+(layers.terr!==false)+"|"+(layers.nfx!==false)+"|"+(layers.fxmove!==false)+"|"+(layers.border!==false)+"|"+(layers.region!==false)+"|"+Object.values(M).filter(m=>m.kind==="nation"||m.kind==="small"||m.kind==="region"||m.kind==="capital").map(m=>[m.id,m.x,m.y,m.tsh,m.tr,m.trot,m.tasp,m.tcol,m.expect,m.tb,m.of].join(",")).join(";");}
 const borderPoly={};
 function inPoly(x,y,poly){let c=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const a=poly[i],b=poly[j];if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])c=!c;}return c;}
 function nationAt(x,y,bigOnly){let hit=null,best=1e18;Object.keys(borderPoly).forEach(id=>{const m=M[id];if(!m||(bigOnly&&m.kind!=="nation"))return;const t=terrOf(m);if(bigOnly&&t&&(t.sh==="sun"||t.sh==="nebula"))return;if(inPoly(x,y,borderPoly[id])){const d=Math.hypot(m.x-x,m.y-y)+(m.kind==="nation"?1e6:0);if(d<best){best=d;hit=id;}}});return hit;}
@@ -898,7 +1120,7 @@ function drawRegions(G){if(layers.region===false)return;const by={};Object.value
     const g=el("g",{"pointer-events":"none",style:`--tc:${t.col}`},G);if(cid&&C[cid]&&!inLand(cid,borderPoly[id]))g.setAttribute("clip-path",`url(#clip-${cid})`);
     const S=terrShape(t.sh,t.seed);if(S.reg){const a=t.rot*Math.PI/180,ca=Math.cos(a),sa=Math.sin(a),sx=t.r*Math.sqrt(t.asp),sy=t.r/Math.sqrt(t.asp),pd=pts=>"M"+pts.map(q=>q[0].toFixed(1)+","+q[1].toFixed(1)).join("L")+"Z";
       const cp=el("clipPath",{id:"clipb-"+id},g);el("path",{d:pd(borderPoly[id])},cp);const g2=el("g",{"clip-path":`url(#clipb-${id})`},g);
-      S.reg.forEach((poly,i)=>el("path",{d:pd(poly.map(p=>{const x=p[0]*sx,y=p[1]*sy;return [par.x+x*ca-y*sa,par.y+x*sa+y*ca];})),class:"terr-region","fill-opacity":poly.f!=null?poly.f:(i%2?.07:0),"vector-effect":"non-scaling-stroke"},g2));return;}
+      const an=terrAnchor(par,S);S.reg.forEach((poly,i)=>el("path",{d:pd(poly.map(p=>{const x=p[0]*sx,y=p[1]*sy;return [an.x+x*ca-y*sa,an.y+x*sa+y*ca];})),class:"terr-region",style:poly.c?`fill:${poly.c};stroke:${poly.c}`:null,"fill-opacity":poly.f!=null?poly.f:(i%2?.07:0),"vector-effect":"non-scaling-stroke"},g2));return;}
     rs.forEach((r,i)=>{let poly=borderPoly[id];for(const o of rs){if(o===r)continue;poly=clipHalf(poly,[r.x,r.y],[o.x,o.y]);if(poly.length<3)break;}
       if(poly.length>=3)el("path",{d:"M"+poly.map(q=>q[0].toFixed(1)+","+q[1].toFixed(1)).join("L")+"Z",class:"terr-region","fill-opacity":i%2?.07:0,"vector-effect":"non-scaling-stroke"},g);});});}
 function drawBorders(G,list){Object.keys(borderPoly).forEach(k=>delete borderPoly[k]);const show=layers.border!==false;const NB=180,bin=(dx,dy)=>((Math.round(Math.atan2(dy,dx)/(2*Math.PI)*NB)%NB)+NB)%NB;
@@ -931,7 +1153,7 @@ function drawTerritories(){const G=$("gTerr");G.replaceChildren();if(layers.terr
   list.forEach(({m,t})=>{
     const S=terrShape(t.sh,t.seed);const cid=continentAt(m.x,m.y)||(S.whole&&m.expect&&C[m.expect]?m.expect:null);
     const a=t.rot*Math.PI/180,ca=Math.cos(a),sa=Math.sin(a),sx=t.r*Math.sqrt(t.asp),sy=t.r/Math.sqrt(t.asp);
-    const tv=p=>{const x=p[0]*sx,y=p[1]*sy;return [x*ca-y*sa,x*sa+y*ca];},tf=p=>{const q=tv(p);return [m.x+q[0],m.y+q[1]];};
+    const an=terrAnchor(m,S),tv=p=>{const x=p[0]*sx,y=p[1]*sy;return [x*ca-y*sa,x*sa+y*ca];},tf=p=>{const q=tv(p);return [an.x+q[0],an.y+q[1]];};
     const P=(pts,closed)=>"M"+pts.map(p=>{const q=tf(p);return F(q[0])+","+F(q[1]);}).join("L")+(closed?"Z":"");
     const g=el("g",{"pointer-events":"none",style:`--tc:${t.col}`},G);if(cid&&(S.whole||!inLand(cid,S.out.map(p=>tf([p[0]*1.45,p[1]*1.45])))))g.setAttribute("clip-path",`url(#clip-${cid})`);
     if(S.whole){if(cid&&geo[cid])el("path",{d:geo[cid].d,class:"terr-fill whole","vector-effect":"non-scaling-stroke"},g);}
@@ -939,7 +1161,7 @@ function drawTerritories(){const G=$("gTerr");G.replaceChildren();if(layers.terr
     S.bands.forEach(b=>el("path",{d:P(b.outer,true)+(b.inner?P(b.inner,true):""),"fill-rule":"evenodd",class:"terr-band"},g));
     if(fxOn)S.fx.filter(x=>x.k==="glow").forEach(x=>{const q=tf(x.p);const c=el("circle",{cx:F(q[0]),cy:F(q[1]),r:F(x.r*t.r),fill:x.fill,opacity:still?.5:0},g);A(c,"opacity",x.op,x.dur,-Math.random()*x.dur);});
     S.lines.forEach(l=>{if(l.flow){if(!fxOn)return;const [da,db,dur,w,bg]=l.flow;const e=el("path",{d:P(l.pts,l.closed),class:"terr-line "+l.cls,"stroke-width":F(w*t.r),"stroke-dasharray":`${F(da*t.r)} ${F(db*t.r)}`},g);A(e,"stroke-dashoffset",`0;${F(-(da+db)*t.r)}`,dur,bg||0);return;}
-      const e=el("path",l.w?{d:P(l.pts,l.closed),class:"terr-line "+l.cls,style:"stroke-width:"+F(l.w*t.r)+"px"}:{d:P(l.pts,l.closed),class:"terr-line "+l.cls,"vector-effect":"non-scaling-stroke"},g);
+      const dd=l.multi?l.multi.map(q=>P(q,false)).join(""):P(l.pts,l.closed);const e=el("path",l.w?{d:dd,class:"terr-line "+l.cls,style:"stroke-width:"+F(l.w*t.r)+"px"}:{d:dd,class:"terr-line "+l.cls,"vector-effect":"non-scaling-stroke"},g);
       if(l.spin){const c=tf(l.spin[0]);AT(e,"rotate",`0 ${F(c[0])} ${F(c[1])};${360*l.spin[2]} ${F(c[0])} ${F(c[1])}`,l.spin[1]);}
       else if(l.mv){const d=tv([l.mv[0],l.mv[1]]);AT(e,"translate",`0 0;${F(d[0])} ${F(d[1])};0 0`,l.mv[2],l.mv[3]||0);}
       if(l.pulse)A(e,"opacity",l.pulse[1],l.pulse[0],l.pulse[2]||0);});
@@ -952,11 +1174,182 @@ function drawTerritories(){const G=$("gTerr");G.replaceChildren();if(layers.terr
     });
   });}
 
+/* ---------- 지명 장식: 표식마다 이름에 맞춘 작은 그림. 표식을 옮기면 함께 움직인다 ---------- */
+function flairCtx(G,m,still,S){S=S||1.8;const F=v=>(+v).toFixed(1),g=el("g",{class:"flair fxs","pointer-events":"none"},G),X=m.x,Y=m.y,R=rng(hashId(m.id)+7);
+  const A=(p,attr,values,dur,begin)=>{if(!still)el("animate",{attributeName:attr,values,dur:dur+"s",begin:(begin||0)+"s",repeatCount:"indefinite"},p);};
+  const AT=(p,type,values,dur,begin)=>{if(!still)el("animateTransform",{attributeName:"transform",type,values,dur:dur+"s",begin:(begin||0)+"s",repeatCount:"indefinite"},p);};
+  const d=(pts,closed)=>"M"+pts.map(p=>F(X+p[0]*S)+","+F(Y+p[1]*S)).join("L")+(closed?"Z":"");
+  const c={g,R,X,Y,S,still,d,A,AT,F,
+    ln(pts,cls,closed,o){o=o||{};let e;
+      if(o.flow){if(still)return null;e=el("path",{d:d(pts,closed),class:"fl "+(cls||""),"stroke-width":F(o.flow[3]*S),"stroke-dasharray":F(o.flow[0]*S)+" "+F(o.flow[1]*S)},g);A(e,"stroke-dashoffset","0;"+F(-(o.flow[0]+o.flow[1])*S),o.flow[2],o.flow[4]||0);return e;}
+      e=el("path",o.w?{d:d(pts,closed),class:"fl "+(cls||""),style:"stroke-width:"+F(o.w*S)+"px"}:{d:d(pts,closed),class:"fl "+(cls||""),"vector-effect":"non-scaling-stroke"},g);
+      if(o.spin)AT(e,"rotate",`0 ${F(X+o.spin[0]*S)} ${F(Y+o.spin[1]*S)};${360*(o.spin[3]||1)} ${F(X+o.spin[0]*S)} ${F(Y+o.spin[1]*S)}`,o.spin[2]);
+      else if(o.mv)AT(e,"translate",`0 0;${F(o.mv[0]*S)} ${F(o.mv[1]*S)}`+(o.back?";0 0":""),o.mv[2],o.mv[3]||0);
+      if(o.pulse)A(e,"opacity",o.pulse[1],o.pulse[0],o.pulse[2]||0);return e;},
+    circ(x,y,r,cls,o){const p=[],n=Math.max(10,Math.round(r/3)+8);for(let i=0;i<n;i++){const t=i/n*6.2832;p.push([x+Math.cos(t)*r,y+Math.sin(t)*r*(o&&o.ry?o.ry:1)]);}return c.ln(p,cls,true,o);},
+    arc(x,y,r,a0,a1,cls,o){const p=[],n=Math.max(6,Math.round(Math.abs(a1-a0)/12));for(let i=0;i<=n;i++){const t=(a0+(a1-a0)*i/n)*Math.PI/180;p.push([x+Math.cos(t)*r,y+Math.sin(t)*r]);}return c.ln(p,cls,false,o);},
+    dot(x,y,r,fill,tw,ph){const e=el("circle",{cx:F(X+x*S),cy:F(Y+y*S),r:F(r*S),fill,opacity:.9},g);if(tw)A(e,"opacity",".15;1;.15",tw,ph!=null?ph:-R()*tw);return e;},
+    glow(x,y,r,fill,dur,op){const e=el("circle",{cx:F(X+x*S),cy:F(Y+y*S),r:F(r*S),fill,opacity:still?.4:0},g);A(e,"opacity",op||".1;.6;.1",dur||4,-R()*(dur||4));return e;},
+    mote(x,y,r,fill,dx,dy,dur,op,begin){const w=el("g",{},g),e=el("circle",{cx:F(X+x*S),cy:F(Y+y*S),r:F(r*S),fill,opacity:still?.6:0},w),b=begin!=null?begin:-R()*dur;AT(w,"translate",`0 0;${F(dx*S)} ${F(dy*S)}`,dur,b);A(e,"opacity",op||"0;1;1;0",dur,b);return e;},
+    star(x,y,s,fill,dur){const e=el("path",{d:"M0,-3.5 L.8,-.8 L3.5,0 L.8,.8 L0,3.5 L-.8,.8 L-3.5,0 L-.8,-.8Z",transform:`translate(${F(X+x*S)} ${F(Y+y*S)}) scale(${F(s*S*1.3)})`,fill:fill||"var(--z-goldhot)",opacity:still?.85:0},g);A(e,"opacity","0;1;0",dur||2,-R()*4);return e;},
+    ring(x,y,r,dur,begin,stroke){if(still)return;const w=el("g",{transform:`translate(${F(X+x*S)} ${F(Y+y*S)})`},g),w2=el("g",{},w),e=el("circle",{r:F(r*S),fill:"none",stroke:stroke||"var(--z-ice)","stroke-width":F(1.6*S),opacity:0},w2);AT(w2,"scale",".2;1.6",dur,begin||0);A(e,"opacity",".8;0",dur,begin||0);},
+    rays(x,y,r0,r1,n,a0,a1,cls,o){for(let i=0;i<n;i++){const t=(a0+(a1-a0)*i/(n-1))*Math.PI/180;c.ln([[x+Math.cos(t)*r0,y+Math.sin(t)*r0],[x+Math.cos(t)*r1,y+Math.sin(t)*r1]],cls,false,o&&o.seq?{pulse:[o.seq,".2;1;.2;.2",-i*o.seq/n]}:o);}},
+    flake(x,y,r,cls,o){for(let i=0;i<3;i++){const t=i*Math.PI/3,dx=Math.cos(t)*r,dy=Math.sin(t)*r;c.ln([[x-dx,y-dy],[x+dx,y+dy]],cls,false,o);}}};
+  return c;}
+const GOLD="var(--z-goldhot)",ICE="var(--z-ice)",ICEL="var(--z-iceline)",LAVA="var(--z-lava)",VIO="#C9A6F5";
+const FLAIR={
+ /* ===== 환상: 해와 눈의 산악 ===== */
+ "c-hwansang":c=>{/* 해마루: 해를 등진 태양 대성당. 서열 1위의 종소리 */
+   c.ln([[-28,-24],[-28,-54],[-15,-54],[-15,-70],[-6,-70],[-6,-84],[0,-104],[6,-84],[6,-70],[15,-70],[15,-54],[28,-54],[28,-24]],"gold f-gold",true);
+   c.circ(0,-44,7,"gold");c.rays(0,-44,9,14,8,0,315,"gold thin");c.ln([[-5,-24],[-5,-34],[0,-39],[5,-34],[5,-24]],"gold",false);
+   c.ring(0,-96,16,6,0,GOLD);c.ring(0,-96,16,6,-3,GOLD);},
+ "t-hwansang-1":c=>{/* 금실 과원: 줄 맞춘 과수, 가지 사이의 금실, 익어 가는 열매 */
+   for(let j=0;j<3;j++)for(let i=0;i<5;i++){const x=-118+i*24+(j%2)*8,y=-92+j*22;c.circ(x,y,7,"grn");c.dot(x+2,y+1,2.4,GOLD,1.8+c.R()*2.6);}
+   for(let j=0;j<3;j++){const p=[];for(let k=0;k<=12;k++){const x=-124+k*10;p.push([x+(j%2)*8,-98+j*22+4*Math.sin(k*1.05)]);}c.ln(p,"gold thin",false,{pulse:[5,".25;1;.25",-j*1.6]});}
+   c.mote(-60,-20,3,GOLD,60,20,9,"0;1;1;0");},
+ "g-hwansang-2":{s:1,f:c=>{/* 금실 숲: 나무 사이에 걸린 금빛 실 */
+   for(let j=0;j<6;j++){const y0=-70+j*26,p=[];for(let k=0;k<=14;k++){const u=k/14;p.push([-130+u*260+(j%2?12:-12),y0+16*Math.sin(u*Math.PI)*(j%2?1:-.6)+6*Math.sin(u*9+j)]);}c.ln(p,"gold thin",false,{pulse:[6,".15;1;.15;.15",-j]});}
+   for(let k=0;k<6;k++)c.star((c.R()-.5)*230,(c.R()-.5)*130,1.4,GOLD,2+c.R()*2);}},
+ "g-hwansang-1":{s:1,f:c=>{/* 양지 숲: 나뭇잎 사이로 떨어지는 볕뉘 */
+   for(let k=0;k<6;k++){c.glow((c.R()-.5)*220,(c.R()-.5)*120,16+c.R()*10,GOLD,5+c.R()*4,".05;.45;.05");}
+   for(let k=0;k<4;k++)c.mote((c.R()-.5)*200,30+c.R()*30,2.4,GOLD,(c.R()-.5)*20,-70,8+c.R()*4,"0;.9;0");}},
+ "g-hwansang-3":c=>{/* 해맞이내: 물머리의 해맞이 돌, 물비늘 */
+   c.arc(-26,-16,13,180,360,"gold");c.ln([[-44,-16],[-8,-16]],"gold",false);c.rays(-26,-16,17,25,5,200,340,"gold thin",{seq:5});
+   for(let k=0;k<6;k++)c.star(6+c.R()*26,24+k*26,1.2,GOLD,1.4+c.R()*2);},
+ "gp-hwansang":{under:true,s:1,f:c=>{/* 해오름 봉: 봉우리 뒤로 떠오르는 해 */
+   c.glow(0,-150,150,"url(#zgGold)",9,".15;.75;.15");c.arc(0,-150,120,180,360,"gold");c.arc(0,-150,150,180,360,"gold thin");c.rays(0,-150,165,215,11,188,352,"gold",{seq:9});}},
+ "v-hwansang-1":c=>{/* 첫눈재: 두 봉우리 사이의 고갯길, 해마다 가장 먼저 내리는 눈 */
+   c.ln([[-78,-18],[-50,-58],[-24,-30]],"",false);c.ln([[-14,-32],[16,-68],[48,-22]],"",false);c.ln([[-50,-58],[-44,-48],[-52,-44]],"lite",false);c.ln([[16,-68],[22,-56],[13,-52]],"lite",false);
+   c.ln([[-40,-4],[-26,-14],[-32,-22],[-19,-31],[-23,-40],[-14,-50]],"thin dash",false);c.dot(-19,-31,2.6,GOLD,3);
+   for(let k=0;k<9;k++)c.mote(-70+c.R()*110,-90+c.R()*30,2.2,"#fff",8,46,4+c.R()*3,"0;1;1;0");},
+ "sm-hwansang-1":c=>{/* 새벽빛 자치령: 지평선에 걸린 새벽 해 */
+   c.ln([[-80,-92],[80,-92]],"gold",false);c.arc(0,-92,34,180,360,"gold f-gold");c.rays(0,-92,42,62,7,198,342,"gold",{seq:7});c.glow(0,-100,60,"url(#zgGold)",7,".1;.7;.1");},
+ "p-in-11":c=>{/* 태양 순례길: 길가의 해 돌 */
+   c.ln([[-6,-22],[-6,-44],[6,-44],[6,-22]],"gold",false);c.circ(0,-54,8,"gold f-gold");c.rays(0,-54,11,16,8,0,315,"gold thin");c.glow(0,-54,16,GOLD,5);},
+ "p-hwansang-c1":c=>{/* 빙문곶: 해협을 향해 선 얼음 문 */
+   [[-66,0],[-28,0]].forEach(q=>c.ln([[q[0]-9,-12],[q[0]-6,-74],[q[0]+6,-74],[q[0]+9,-12]],"ice f-ice",true));c.arc(-47,-70,19,180,360,"ice");c.arc(-47,-70,27,185,355,"lite thin");
+   for(let k=0;k<4;k++)c.mote(-47,-30-k*8,3,"#fff",-110,(c.R()-.5)*30,7+c.R()*4,"0;.7;0");c.star(-66,-78,1.6,ICE,2.5);c.star(-28,-78,1.6,ICE,3.3);},
+ "p-hwansang-c2":c=>{/* 해돋이 곶: 환상에서 가장 먼저 뜨는 해 */
+   c.ln([[20,-10],[150,-10]],"gold",false);c.arc(85,-10,30,180,360,"gold f-gold");c.rays(85,-10,38,58,9,190,350,"gold",{seq:4});c.glow(85,-18,70,"url(#zgGold)",4,".2;.9;.2");c.ring(85,-10,40,8,0,GOLD);},
+ "p-hwansang-c3":c=>{/* 서리 나루: 서리 낀 잔교, 서리해를 건너는 배 */
+   c.ln([[-5,18],[-5,78]],"",false);c.ln([[5,18],[5,78]],"",false);for(let k=0;k<6;k++)c.ln([[-5,24+k*10],[5,24+k*10]],"thin",false);
+   for(let k=0;k<5;k++)c.star(-14+c.R()*28,20+c.R()*60,1.1,ICE,2+c.R()*2);
+   c.mote(0,86,4,"#fff",40,330,26,"0;1;1;0");c.mote(40,416,4,"#fff",-40,-330,26,"0;1;1;0",-13);},
+ "p-hwansang-c4":c=>{/* 북해 벼랑: 깎아지른 얼음 벼랑, 떨어져 나가는 얼음 */
+   const p=[[-96,-22],[-66,-38],[-40,-24],[-8,-42],[24,-26],[56,-40],[90,-22]];c.ln(p,"ice",false,{w:3});p.forEach((q,i)=>{if(i<p.length-1)for(let k=0;k<3;k++){const u=(k+.5)/3,x=q[0]+(p[i+1][0]-q[0])*u,y=q[1]+(p[i+1][1]-q[1])*u;c.ln([[x,y],[x-2,y+12]],"ice thin",false);}});
+   for(let k=0;k<4;k++)c.mote(-70+k*45,-40,3.4,"#fff",(c.R()-.5)*20,-70,6+c.R()*4,"0;1;.6;0");},
+ "d-hwansang-1":c=>{/* 설인 동굴: 굴로 이어지는 커다란 발자국 */
+   for(let k=0;k<7;k++){const x=34+k*20,y=30+k*13+(k%2?9:-9),e=c.circ(x,y,6.5,"f-dark",{ry:.7});if(e&&!c.still)c.A(e,"opacity","0;.75;.75;0",7,-(7-k)*.7);
+     for(let t=-1;t<=1;t++)c.dot(x-8,y+t*4,1.3,"var(--mt-line)");}},
+ "d-hwansang-2":c=>{/* 수정 빙굴: 얼음과 수정이 뒤섞인 결정 */
+   [[-60,-20,34,0],[-46,-22,50,1],[-32,-20,40,0],[-20,-22,28,1],[-70,-18,22,1]].forEach(q=>c.ln([[q[0]-7,q[1]],[q[0]+1,q[1]-q[2]],[q[0]+8,q[1]]],q[3]?"vio f-vio":"ice f-ice",true));
+   c.glow(-44,-40,34,ICE,4,".1;.6;.1");c.star(-46,-74,1.6,VIO,2.2);c.star(-60,-56,1.3,ICE,3);c.star(-30,-62,1.3,"#fff",2.6);},
+ "d-hwansang-3":c=>{/* 골렘 채석장: 계단식 채석장, 황금 제단에서 걸어 내려오는 골렘 */
+   for(let k=0;k<3;k++)c.ln([[-84+k*10,-18-k*12],[-84+k*10,-30-k*12],[-30-k*10,-30-k*12],[-30-k*10,-18-k*12]],"",false);
+   [[-96,-12],[-22,-12],[-58,-62],[-40,-66]].forEach(q=>c.ln([[q[0],q[1]],[q[0]+9,q[1]],[q[0]+9,q[1]-9],[q[0],q[1]-9]],"gold f-gold",true));
+   const a=M["a-hwansang"];if(a){const dx=a.x-c.X,dy=a.y-c.Y,L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L,far=Math.min(L-60,420);c.ln([[ux*40,uy*40],[ux*far/c.S,uy*far/c.S]],"gold thin dash",false);
+     for(let k=0;k<2;k++){const w=el("g",{},c.g),e=el("rect",{x:c.F(c.X+ux*far-5),y:c.F(c.Y+uy*far-6),width:10,height:12,fill:GOLD,opacity:c.still?.6:0},w);c.AT(w,"translate",`0 0;${c.F(-ux*(far-40*c.S))} ${c.F(-uy*(far-40*c.S))}`,22,-k*11);c.A(e,"opacity","0;1;1;0",22,-k*11);}}},
+ "d-hwansang-4":c=>{/* 서리 거인의 계단: 산을 오르는 거인의 층계, 멀리 울리는 발소리 */
+   const p=[[-30,-10]];for(let k=0;k<6;k++){p.push([-30-k*24,-10-(k+1)*17],[-54-k*24,-10-(k+1)*17]);}c.ln(p,"ice",false,{w:3.5});p.forEach((q,i)=>{if(i%2===0&&i)c.star(q[0]-12,q[1]-4,1.2,ICE,2+c.R()*2);});
+   c.ring(-150,-120,34,7,0,ICE);c.ring(-150,-120,34,7,-.7,ICE);},
+ "d-hwansang-5":c=>{/* 눈사태 골짜기: 쏟아져 내리는 눈 */
+   c.ln([[-86,-80],[-50,-16],[-14,-80]],"",false);
+   for(let k=0;k<3;k++)c.ln([[-66,-74],[-50,-62],[-34,-74]],"lite",false,{w:3,mv:[0,44,2.6,-k*.87],pulse:[2.6,"0;1;1;0",-k*.87]});
+   for(let k=0;k<5;k++)c.mote(-62+c.R()*24,-28,4+c.R()*3,"#fff",(c.R()-.5)*50,10+c.R()*14,2.4+c.R(),"0;.8;0");},
+ "u-hwansang-1":c=>{/* 해시계 광장: 눈금은 맞는데 그림자가 거꾸로 돈다 */
+   c.circ(0,-62,36,"");c.circ(0,-62,28,"thin");for(let k=0;k<12;k++){const t=k*Math.PI/6;c.ln([[Math.cos(t)*29,-62+Math.sin(t)*29],[Math.cos(t)*36,-62+Math.sin(t)*36]],k%3?"thin":"",false);}
+   c.ln([[0,-62],[0,-84],[7,-62]],"gold",true);c.ln([[0,-62],[22,-50]],"shade",false,{w:4,spin:[0,-62,37,-1]});},
+ "u-hwansang-2":c=>{/* 얼어붙은 종루: 얼음에 갇혀 울리지 않는 종 */
+   c.ln([[-26,-16],[-34,-52],[-22,-92],[0,-108],[22,-92],[34,-52],[26,-16]],"ice f-icelo",true);
+   c.ln([[-10,-20],[-10,-74],[10,-74],[10,-20]],"",false);c.ln([[-14,-74],[0,-94],[14,-74]],"",true);c.arc(0,-56,7,180,360,"gold");c.ln([[-8,-56],[8,-56]],"gold",false);c.dot(0,-52,1.8,GOLD);
+   c.arc(0,-56,16,200,250,"lite thin");c.arc(0,-56,16,290,340,"lite thin");c.star(-22,-90,1.4,ICE,5);},
+ /* ===== 빛: 눈과 얼음의 평원 ===== */
+ "c-bit":c=>{/* 플라테: 성운의 소용돌이, 별 모양 대성당, 제각각 흩어진 지붕 */
+   for(let s=0;s<2;s++){const p=[];for(let k=0;k<=30;k++){const t=k/30*3.6*Math.PI+s*Math.PI,r=14+k*3.6;p.push([Math.cos(t)*r,Math.sin(t)*r*.62]);}c.ln(p,"lite thin",false,{spin:[0,0,110,1]});}
+   {const p=[];for(let k=0;k<16;k++){const t=k*Math.PI/8-Math.PI/2,r=k%2?11:26;p.push([Math.cos(t)*r,-72+Math.sin(t)*r]);}c.ln(p,"ice f-ice",true,{pulse:[6,".6;1;.6"]});c.dot(0,-72,3,"#fff",3);}
+   for(let k=0;k<8;k++){const t=c.R()*6.28,r=70+c.R()*80,x=Math.cos(t)*r,y=Math.sin(t)*r*.6;c.arc(x,y,7,180,360,"");c.ln([[x-7,y],[x+7,y]],"thin",false);c.dot(x,y-2,1.6,GOLD,2+c.R()*6);}},
+ "t-bit-1":c=>{/* 흩별나루: 흩어진 별 같은 등불, 제각각 모여드는 사람들 */
+   for(let k=0;k<3;k++)c.ln([[14,-14+k*14],[62,-14+k*14]],"",false);for(let k=0;k<3;k++)c.ln([[-52+k*18,-30],[-43+k*18,-46],[-34+k*18,-30]],"",true);
+   for(let k=0;k<10;k++)c.star((c.R()-.5)*210,(c.R()-.5)*130,1+c.R()*.8,GOLD,1.6+c.R()*4);
+   for(let k=0;k<6;k++){const t=c.R()*6.28,r=170+c.R()*90,x=Math.cos(t)*r,y=Math.sin(t)*r*.7;c.mote(x,y,2.6,"#fff",-x*.9,-y*.9-30*.9,13+c.R()*9,"0;1;1;0");}},
+ "v-bit-1":c=>{/* 눈꽃쉼터: 눈꽃, 설원에 하나뿐인 화톳불, 엇갈리는 발자국 길 */
+   [[-46,-48,13,30],[-16,-66,8,-44],[-70,-22,7,52]].forEach(q=>{c.flake(q[0],q[1],q[2],"lite",{spin:[q[0],q[1],Math.abs(q[3]),q[3]>0?1:-1]});c.dot(q[0],q[1],1.8,"#fff");});
+   c.glow(-18,-22,6,LAVA,1.6,".3;.9;.5;.8;.3");c.ln([[-26,-16],[-18,-30],[-10,-16]],"",true);c.ln([[-150,20],[150,-20]],"thin dots",false);c.ln([[-30,-140],[20,140]],"thin dots",false);},
+ "sm-bit-1":{s:1,f:c=>{/* 유빙 연맹: 떠다니는 얼음, 얼음 사이의 고깃배 */
+   for(let k=0;k<7;k++){const x=150+c.R()*150,y=-150+k*48+c.R()*20,s=10+c.R()*12;c.ln([[x-s,y],[x-s*.3,y-s*.6],[x+s,y-s*.2],[x+s*.6,y+s*.5],[x-s*.4,y+s*.6]],"ice f-snow",true,{mv:[(c.R()-.5)*26,(c.R()-.5)*18,14+c.R()*10,-c.R()*10],back:1});}
+   c.mote(120,-60,3.4,GOLD,150,40,24,"0;1;1;0");c.mote(270,60,3.4,GOLD,-150,-30,28,"0;1;1;0",-9);}},
+ "p-bit-c1":c=>{/* 빙산곶: 갈라져 서쪽으로 떠내려가는 빙산 */
+   for(let k=0;k<4;k++){const y=-60+k*40,s=14+k*4;c.ln([[-40-s,y+s*.5],[-40-s*.4,y-s],[-40+s*.2,y-s*.3],[-40+s*.7,y-s*.8],[-40+s,y+s*.5]],"ice f-ice",true,{mv:[-200,(k-1.5)*24,36+k*7,-k*9],pulse:[36+k*7,"0;1;1;0",-k*9]});}},
+ "p-bit-c2":c=>{/* 동녘 얼음벽: 아침 해를 받는 얼음 절벽 */
+   const p=[];for(let k=0;k<=10;k++)p.push([34+(k%2?9:0),-90+k*18]);c.ln(p,"ice",false,{w:3});p.forEach((q,i)=>{if(i<10)c.ln([[q[0],q[1]+6],[q[0]-13,q[1]+10]],"ice thin",false);});
+   for(let k=0;k<4;k++)c.star(44,-76+k*44,1.5,GOLD,2+k*.7);c.glow(60,0,50,"url(#zgGold)",6,".05;.4;.05");},
+ "p-bit-c3":c=>{/* 월흔 빙벽: 달의 조수가 깎은 벼랑 */
+   for(let k=0;k<5;k++)c.arc(-80+k*40,-28,20,20,160,"ice");
+   {const p=[];for(let k=0;k<=12;k++){const t=(-100+k*200/12)*Math.PI/180;p.push([Math.cos(t)*16,-92+Math.sin(t)*16]);}for(let k=12;k>=0;k--){const t=(-100+k*200/12)*Math.PI/180;p.push([7+Math.cos(t)*11,-92+Math.sin(t)*13]);}c.ln(p,"lite f-snow",true,{pulse:[8,".5;1;.5"]});}
+   for(let k=0;k<2;k++){const p=[];for(let j=0;j<=16;j++)p.push([-110+j*13.75,-52-5*Math.sin(j*.8+k)]);c.ln(p,"lite thin",false,{mv:[0,18,8,-k*4],back:1});}},
+ "p-bit-c4":c=>{/* 남해 끝: 세상의 남쪽 끝에 쌓은 돌무지와 깃대 */
+   c.circ(-34,-10,11,"f-dark",{ry:.55});c.circ(-34,-21,8,"f-dark",{ry:.6});c.circ(-34,-30,5.5,"f-dark",{ry:.65});c.ln([[-34,-34],[-34,-76]],"",false);
+   c.ln([[-34,-76],[-12,-70],[-34,-63]],"lite f-ice",true,{pulse:[3,".6;1;.6"]});c.ln([[-8,18],[-8,44],[-13,36]],"thin",false);c.ln([[-8,44],[-3,36]],"thin",false);c.ring(-34,-10,30,9,0,ICE);},
+ "g-bit-1":{s:1,f:c=>{/* 서리 기둥밭: 기둥마다 맺힌 서리의 반짝임 */
+   for(let k=0;k<8;k++)c.star((c.R()-.5)*260,(c.R()-.5)*130-20,1.3,k%3?ICE:"#fff",1.6+c.R()*3);}},
+ "g-bit-2":c=>{/* 얼음내: 언 강의 금. 흐르지 않는다 */
+   c.ln([[10,24],[22,36],[14,48],[30,62]],"lite",false);c.ln([[22,36],[36,34]],"lite thin",false);c.star(18,40,1.2,ICE,6);},
+ "gp-bit":{s:1,f:c=>{/* 빙관산: 꼭대기를 두른 얼음 왕관 */
+   c.ln([[-40,-178],[-40,-212],[-26,-194],[-13,-222],[0,-198],[13,-222],[26,-194],[40,-212],[40,-178]],"ice",false,{w:2.5});
+   [[-40,-212],[-13,-222],[13,-222],[40,-212]].forEach((q,i)=>c.star(q[0],q[1]-4,1.5,i%2?"#fff":ICE,2+i*.6));c.glow(0,-200,50,ICE,7,".05;.4;.05");}},
+ "d-bit-1":c=>{/* 설원 늑대굴: 눈 위의 발자국, 어둠 속의 두 눈, 긴 울음 */
+   for(let k=0;k<8;k++){const x=30+k*17,y=24+k*9+(k%2?5:-5);c.dot(x,y,2.6,"var(--mt-line)");for(let t=-1;t<=1;t++)c.dot(x-5,y+t*3,1,"var(--mt-line)");}
+   c.dot(-34,-34,2,GOLD,3.2,0);c.dot(-26,-34,2,GOLD,3.2,0);c.ring(-30,-40,26,6,0,ICE);c.ring(-30,-40,26,6,-.8,ICE);},
+ "d-bit-2":c=>{/* 빙하 균열굴: 푸르게 빛나는 빙하의 틈 */
+   [[[-90,-50],[-62,-34],[-70,-18],[-40,-4],[-46,12]],[[-62,-34],[-40,-40],[-22,-30]],[[-40,-4],[-18,-8]]].forEach((p,i)=>c.ln(p,"lite",false,{w:3-i*.8,pulse:[4,".35;1;.35",-i]}));c.glow(-55,-20,36,ICE,4,".05;.5;.05");},
+ "d-bit-3":c=>{/* 눈보라 미궁: 멎지 않고 도는 눈보라 */
+   {const p=[];for(let k=0;k<=44;k++){const t=k/44*6*Math.PI,r=6+k*1.5;p.push([-60+Math.cos(t)*r,-50+Math.sin(t)*r]);}c.ln(p,"lite",false,{spin:[-60,-50,11,1]});}
+   for(let k=0;k<4;k++){const s=22+k*14;c.ln([[-60-s,-50-s+10],[-60-s,-50-s],[-60-s+10,-50-s]],"thin",false);c.ln([[-60+s,-50+s-10],[-60+s,-50+s],[-60+s-10,-50+s]],"thin",false);}
+   for(let k=0;k<8;k++){const t=c.R()*6.28;c.mote(-60+Math.cos(t)*70,-50+Math.sin(t)*70,2.4,"#fff",-Math.sin(t)*90,Math.cos(t)*90,2.2+c.R()*1.6,"0;1;0");}},
+ "d-bit-4":c=>{/* 얼음 호수 밑: 얼음장 아래로 내려가는 구멍, 밑에서 오르는 공기 방울 */
+   c.circ(-70,-36,62,"ice f-icelo",{ry:.5});c.ln([[-116,-40],[-92,-30],[-98,-18]],"lite thin",false);c.ln([[-40,-52],[-26,-40],[-34,-30]],"lite thin",false);
+   c.circ(-70,-36,12,"f-dark",{ry:.6});for(let k=0;k<3;k++)c.ln([[-78+k*2,-38+k*3],[-62-k*2,-38+k*3]],"thin",false);
+   for(let k=0;k<6;k++)c.mote(-118+c.R()*96,-26-c.R()*8,2.2,"#fff",(c.R()-.5)*12,-10,3+c.R()*3,"0;.8;0");},
+ "u-bit-1":c=>{/* 빙하 속 등대: 얼음에 갇힌 채 아직 희미하게 켜진 불, 얼어붙은 빛줄기 */
+   c.ln([[-30,-14],[-40,-58],[-26,-104],[2,-116],[28,-98],[38,-52],[30,-14]],"ice f-icelo",true);
+   c.ln([[-9,-18],[-6,-78],[6,-78],[9,-18]],"",true);c.ln([[-9,-78],[9,-78]],"",false);c.ln([[-6,-78],[-6,-88],[6,-88],[6,-78]],"gold",false);c.ln([[-8,-88],[0,-96],[8,-88]],"",true);
+   c.glow(0,-83,10,GOLD,12,".05;.55;.05");c.ln([[6,-85],[34,-96]],"gold thin",false);c.ln([[6,-81],[36,-80]],"gold thin",false);},
+ "n-bit":{under:true,s:1,f:c=>{/* 빛: 각자 따로 사는 외딴 불빛. 스물네 박자에 한 번, 모두가 수도와 한마음으로 이어진다 */
+   const cap=Object.values(M).find(q=>q.kind==="capital"&&q.of==="n-bit");let n=0;
+   for(let k=0;k<160&&n<26;k++){const x=(c.R()-.5)*4500,y=-1050+c.R()*1300;if(continentAt(c.X+x,c.Y+y)!=="bit")continue;n++;
+     if(cap)c.ln([[x,y],[cap.x-c.X,cap.y-c.Y]],"lite thin",false,{pulse:[24,"0;0;0;0;0;0;0;0;0;0;.6;0",0]});c.dot(x,y,3.2,GOLD,3+c.R()*7);}}}
+};
+/* 길: 표식과 표식을 잇는다. 환상의 길은 금빛 점선, 빛의 길은 눈에 덮여 장대만 서 있다 */
+const ROUTES=[
+ {ids:["sm-hwansang-1","p-in-11","c-hwansang"],cls:"gold road",mot:[GOLD,4,46,1],shrine:1},
+ {ids:["c-hwansang","t-hwansang-1"],cls:"gold road thin",mot:[GOLD,2,30,-1]},
+ {ids:["c-hwansang","a-hwansang"],cls:"gold road thin",mot:["#fff",3,36,1],mot2:[GOLD,2,44,-1]},
+ {ids:["c-hwansang","p-hwansang-c3"],cls:"road thin",mot:["#fff",1,40,1]},
+ {ids:["c-hwansang","v-hwansang-1","p-hwansang-c1"],cls:"road thin"},
+ {ids:["p-bit-c3","v-bit-1","c-bit"],stakes:1,mot:["#fff",1,60,1]},
+ {ids:["c-bit","t-bit-1","sm-bit-1"],stakes:1,mot:["#fff",1,70,1]},
+ {ids:["c-bit","a-bit"],stakes:1},
+ {ids:["c-bit","p-bit-c4"],stakes:1}];
+function drawRoute(G,rt,still){const ms=rt.ids.map(i=>M[i]);if(ms.some(m=>!m))return;const F=v=>(+v).toFixed(1),R=rng(hashId(rt.ids.join("")));const pts=[];
+  for(let i=0;i<ms.length-1;i++){const a=ms[i],b=ms[i+1],dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy)||1,n=Math.max(4,Math.round(L/170)),amp=Math.min(46,L*.05),ph=R()*6;
+    for(let k=(i?1:0);k<=n;k++){const u=k/n,w=Math.sin(u*Math.PI)*amp*Math.sin(u*5+ph);pts.push([a.x+dx*u-dy/L*w,a.y+dy*u+dx/L*w]);}}
+  const g=el("g",{class:"flair fxs","pointer-events":"none"},G),d=smooth(pts).replace(/Z$/,"");
+  const open="M"+pts.map(p=>F(p[0])+","+F(p[1])).join("L");
+  if(rt.stakes){let acc=0;for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i],L=Math.hypot(b[0]-a[0],b[1]-a[1]);acc+=L;if(acc>=120){acc=0;el("path",{d:`M${F(b[0])},${F(b[1])}v-13`,class:"fl stake","vector-effect":"non-scaling-stroke"},g);el("circle",{cx:F(b[0]),cy:F(b[1]-14),r:2,fill:"var(--z-iceline)"},g);}}}
+  else{el("path",{d:open,class:"fl "+rt.cls,"vector-effect":"non-scaling-stroke"},g);
+    if(rt.shrine)for(let i=2;i<pts.length-1;i+=3){const p=pts[i];el("circle",{cx:F(p[0]),cy:F(p[1]-9),r:3.2,fill:GOLD,opacity:.85},g);el("path",{d:`M${F(p[0])},${F(p[1])}v-6`,class:"fl gold","vector-effect":"non-scaling-stroke"},g);}}
+  if(still)return;[rt.mot,rt.mot2].forEach(mo=>{if(!mo)return;const rev="M"+pts.slice().reverse().map(p=>F(p[0])+","+F(p[1])).join("L");
+    for(let k=0;k<mo[1];k++){const c=el("circle",{r:3,fill:mo[0],opacity:0},g);el("animateMotion",{path:mo[3]>0?open:rev,dur:mo[2]+"s",begin:(-k*mo[2]/mo[1])+"s",repeatCount:"indefinite"},c);el("animate",{attributeName:"opacity",values:"0;1;1;0",dur:mo[2]+"s",begin:(-k*mo[2]/mo[1])+"s",repeatCount:"indefinite"},c);}});}
+function flairSig(){const s=new Set(Object.keys(FLAIR));ROUTES.forEach(r=>r.ids.forEach(i=>s.add(i)));s.add("a-hwansang");let o=(layers.nfx!==false)+"|";s.forEach(i=>{const m=M[i];if(m)o+=i+","+m.x+","+m.y+";";});Object.values(M).forEach(m=>{if(m.kind==="capital")o+=m.id+m.x+","+m.y;});return o;}
+function drawFlairs(G,GH,still){if(layers.nfx===false)return;ROUTES.forEach(r=>drawRoute(GH,r,still));
+  Object.keys(FLAIR).forEach(id=>{const m=M[id];if(!m)return;const f=FLAIR[id],fn=typeof f==="function"?f:f.f,under=typeof f!=="function"&&f.under;
+    const c=flairCtx(under?G:GH,m,still,typeof f!=="function"?f.s:0);if(under&&G.firstChild)G.insertBefore(c.g,G.firstChild);try{fn(c);}catch(e){console.error("flair",id,e);}});}
 /* ---------- 자연 지형: 산지, 숲, 강 ---------- */
 const NATT=[["hill","산지"],["forest","숲"],["river","강"],["peak","큰 산"],["range","큰 산맥"],["ice","얼음 기둥 지대"],["frozen","언 강"]];const NATR={hill:150,forest:170,river:170,peak:230,range:600,ice:170,frozen:170};
 let natSig="";
-function natSignature(){return worldVer+"|"+(layers.nature!==false)+"|"+(layers.fxmove!==false)+"|"+Object.values(M).filter(m=>m.kind==="nature").map(m=>[m.id,m.x,m.y,m.tt,m.zr,m.zrot].join(",")).join(";");}
-function drawNature(){const G=$("gNat"),GH=$("gNatHi");G.replaceChildren();GH.replaceChildren();if(layers.nature===false)return;const F=v=>(+v).toFixed(1),still=NOANIM||layers.fxmove===false;
+function natSignature(){return flairSig()+"|"+worldVer+"|"+(layers.nature!==false)+"|"+(layers.fxmove!==false)+"|"+Object.values(M).filter(m=>m.kind==="nature").map(m=>[m.id,m.x,m.y,m.tt,m.zr,m.zrot].join(",")).join(";");}
+function drawNature(){const G=$("gNat"),GH=$("gNatHi");G.replaceChildren();GH.replaceChildren();drawNature0(G,GH);drawFlairs(G,GH,NOANIM||layers.fxmove===false);}
+function drawNature0(G,GH){if(layers.nature===false)return;const F=v=>(+v).toFixed(1),still=NOANIM||layers.fxmove===false;
   Object.values(M).filter(m=>m.kind==="nature").sort((a,b)=>a.y-b.y).forEach(m=>{const cid=continentAt(m.x,m.y);if(!cid)return;
     const R=rng(hashId(m.id)),tt=m.tt||"forest",r=m.zr||NATR[tt]||170,big=tt==="peak"||tt==="range",g=el("g",{"pointer-events":"none"},big?GH:G);
     {let inl=tt==="hill"||tt==="forest"||tt==="ice"||tt==="peak";if(inl){const ex=tt==="peak"?r*1.1:r*1.4,ey=r*.95+60;for(let k=0;k<8&&inl;k++){const a=k*Math.PI/4;if(continentAt(m.x+Math.cos(a)*ex,m.y+Math.sin(a)*ey)!==cid)inl=false;}}if(!inl)g.setAttribute("clip-path",`url(#clip-${cid})`);}
@@ -1263,7 +1656,7 @@ function renderOv(){
   const LG=$("ovLab"),IG=$("ovIcon");
   const pending=[];
   // 1) 큰 나라 알약과 점 아이콘: 항상 그림
-  const ZT={small:1.5,capital:1.3,region:1.3,city:1.8,village:2.6,dungeon:1.8,ruin:1.8,place:1.3,nature:1.4},LT={shelter:1.2,dungeon:2.3,ruin:2.3,nature:1.7,place:1.3,capital:1.3,city:1.8,village:2.6};
+  const ZT={small:1.5,capital:1.3,region:1.3,city:1.8,village:2.6,dungeon:1.8,ruin:1.8,place:1.9,nature:1.4},LT={shelter:1.2,dungeon:2.3,ruin:2.3,nature:1.7,place:2.2,capital:1.3,city:1.8,village:2.6};
   const DETAIL={nature:1,capital:1,city:1,village:1,dungeon:1,ruin:1,place:1,region:1,small:1},showAll=layers.all===true;
   const sd=uiScale*(nameGrow?clamp(.75+.25*z,1,1.9):1),fade=zt=>showAll||!zt?1:clamp((z-zt)/(zt*.12),0,1);
   for(const o of vis){const m=o.m,p=o.p;o.al=isSel(m)?1:fade(ZT[m.kind]);o.s=DETAIL[m.kind]?sd:s;
@@ -1293,7 +1686,7 @@ function renderOv(){
       continue;}
     {const la=selected?1:fade(LT[m.kind]);if(la<=0)continue;curAlpha=Math.min(o.al,la);}
     let txt=m.name||"(이름 없음)";if(m.kind==="dungeon"&&m.grade)txt+=" · "+m.grade;
-    const cls=m.kind,tk=T(m.kind),fs=({apex:13,shelter:13,capital:12,city:11,village:10,dungeon:10.5,nature:10.5}[m.kind]||12)*o.s*tk.sz*(m.tsz||1),wt=tk.wt;
+    const cls=m.kind,tk=T(m.kind),fs=({apex:13,shelter:13,capital:12,city:11,village:10,dungeon:10.5,nature:10.5,place:10.5}[m.kind]||12)*o.s*tk.sz*(m.tsz||1),wt=tk.wt;
     const w=tw(txt,fs,wt,tk.fam),h=fs*1.35,r=o.r,gap=5*s;
     const cand=[{x:p.x+r+gap,y:p.y-h/2,a:"start"},{x:p.x-r-gap-w,y:p.y-h/2,a:"end"},{x:p.x-w/2,y:p.y+r+gap*.6,a:"middle"},{x:p.x-w/2,y:p.y-r-gap*.6-h,a:"middle"}];
     let pick=null;for(const c of cand){const b={x:c.x,y:c.y,w,h};if(!hits(b)){pick=c;break;}}
@@ -1345,7 +1738,7 @@ function icon(g,m,p,s){const x=p.x,y=p.y;
   if(m.kind==="city"){const r=3.3*s;el("rect",{x:x-r,y:y-r,width:2*r,height:2*r,rx:1.2,class:"ic-city"},g);el("rect",{x:x-r*.35,y:y-r*.35,width:r*.7,height:r*.7,fill:"var(--ink)"},g);return r+1;}
   if(m.kind==="nature"){const tt=m.tt||"forest",r=(tt==="peak"||tt==="range"?4:3)*s;if(tt==="river"||tt==="frozen")el("circle",{cx:x,cy:y,r:r*.8,class:"ic-nature "+tt},g);else el("path",{d:`M${x-r},${y+r*.75}L${x},${y-r}L${x+r},${y+r*.75}Z`,class:"ic-nature "+tt},g);return r+1;}
   if(m.kind==="village"){const r=2.4*s;el("circle",{cx:x,cy:y,r,class:"ic-vil"},g);return r+1;}
-  const r=5.5*s;el("circle",{cx:x,cy:y,r,class:"ic-place"},g);el("circle",{cx:x,cy:y,r:1.8*s,fill:"var(--ink)"},g);return r;}
+  const r=3.2*s;el("circle",{cx:x,cy:y,r,class:"ic-place"},g);el("circle",{cx:x,cy:y,r:1.1*s,fill:"var(--ink)"},g);return r;}
 function deco(g,m,p,b){
   if(sel&&sel.t==="m"&&sel.id===m.id){
     if(m.kind==="nation"||(m.kind==="small"&&b.w>14))el("rect",{x:b.x-4,y:b.y-4,width:b.w+8,height:b.h+8,rx:(b.h+8)/2,class:"selring"},g);
