@@ -144,6 +144,15 @@ h1{font-family:var(--display);font-weight:800;font-size:26px;line-height:1.15;ma
 .terr-line.wfl{stroke:#fff;fill:#fff;fill-opacity:.6;opacity:.95;stroke-width:1}
 .terr-line.wfl2{stroke:#fff;opacity:.85;stroke-linecap:round}
 .terr-dot{fill:var(--tc);opacity:.85}
+.net-road{fill:none;stroke:var(--mt-line);stroke-width:2.2;stroke-dasharray:9 5;opacity:.7;stroke-linecap:round;stroke-linejoin:round}
+.net-ferry{fill:none;stroke:var(--sea-ink);stroke-width:2.4;stroke-dasharray:2 6;opacity:.85;stroke-linecap:round}
+.net-trade{fill:none;stroke:var(--ruin);stroke-width:3.2;stroke-dasharray:1 6;opacity:.95;stroke-linecap:round;stroke-linejoin:round}
+.net-boat{fill:var(--panel);stroke:var(--sea-ink);stroke-width:2}
+.net-goods{fill:var(--z-goldhot);stroke:var(--ruin);stroke-width:3}
+.hide-net #gNet{display:none}
+.sw.road{border:none;height:0;border-top:2px dashed var(--mt-line);border-radius:0}
+.sw.ferry{border:none;height:0;border-top:2px dotted var(--sea-ink);border-radius:0}
+.sw.trade{border:none;height:0;border-top:3px dotted var(--ruin);border-radius:0}
 .hide-terr #gTerr{display:none}
 .mk-sh{fill:var(--mt-line);opacity:.16}
 .mk-dk{fill:var(--rock-dk)} .mk-lt{fill:var(--rock-lit)}
@@ -376,6 +385,7 @@ pre.out{margin:0;padding:10px;border:1px solid var(--rule);border-radius:6px;bac
           <g id="gTerr"></g>
           <g id="gMount"></g>
           <g id="gNatHi"></g>
+          <g id="gNet"></g>
           <g id="gZone"></g>
           <g id="gSub" pointer-events="none"></g>
           <g id="gGrid" pointer-events="none"></g>
@@ -484,6 +494,9 @@ pre.out{margin:0;padding:10px;border:1px solid var(--rule);border-radius:6px;bac
           <div><i class="glyph g-shelter"></i><span>악마 대피소 (해저). 실선 + 왕관 = 그레이트 데몬이 있는 곳</span></div>
           <div><i class="glyph g-place"></i><span>지명 (도시, 산, 거점 등)</span></div>
           <div><i class="glyph g-sea"></i><span>바다 이름</span></div>
+          <div><i class="sw road"></i><span>길. 수도와 나루, 이웃 나라를 잇는 육로 (진혼 가도, 용목 가도 등)</span></div>
+          <div><i class="sw ferry"></i><span>바닷길. 나루 사이를 오가는 배 (서리해, 월흔해, 빙문해협, 갈림해협, 환류해)</span></div>
+          <div><i class="sw trade"></i><span>교역로. 금빛 점이 짐이 가는 쪽으로 흐름. 합금은 경계·심연·잔재·환상에서 빛·침묵으로, 안트리 상단이 중개</span></div>
           <div><i class="sw gr"></i><span>마력 농도. 진할수록 높음: 심연 › 환상 › 빛 › 경계 › 잔재</span></div>
           <div><i class="sw lo"></i><span>침묵 = 마력 최저</span></div>
           <div><i class="sw ice"></i><span>눈과 얼음 (환상 · 빛)</span></div>
@@ -646,7 +659,7 @@ const view={k:1,tx:0,ty:0}; let k0=1;
 let mode="view", placing=null, contEdit=false, sel=null, canEdit=false, loaded=false, definitive=false;
 let dragging=null; let moveWith=true;
 const undoS=[], redoS=[];
-const LAYERS=[["all","확대하지 않아도 모두 표시"],["mana","마력 농도"],["terrain","지형 (산 · 얼음)"],["grid","격자와 좌표"],["terr","나라 영토"],["border","국경선"],["nfx","나라 효과"],["seafx","바다 효과"],["fx","던전 분위기 효과"],["fxmove","효과 움직임"],["nation","큰 나라"],["small","작은 나라"],["region","지방 (이름과 경계)"],["capital","수도"],["city","도시"],["village","마을"],["apex","최상위 던전"],["dungeon","일반 던전"],["ruin","유적"],["nature","산지 · 숲 · 강"],["shelter","악마 대피소"],["place","지명"],["sea","바다 이름"]];
+const LAYERS=[["all","확대하지 않아도 모두 표시"],["mana","마력 농도"],["terrain","지형 (산 · 얼음)"],["grid","격자와 좌표"],["terr","나라 영토"],["border","국경선"],["nfx","나라 효과"],["seafx","바다 효과"],["fx","던전 분위기 효과"],["fxmove","효과 움직임"],["nation","큰 나라"],["small","작은 나라"],["region","지방 (이름과 경계)"],["capital","수도"],["city","도시"],["village","마을"],["apex","최상위 던전"],["dungeon","일반 던전"],["ruin","유적"],["nature","산지 · 숲 · 강"],["net","교통 · 무역"],["shelter","악마 대피소"],["place","지명"],["sea","바다 이름"]];
 let layers={}; LAYERS.forEach(([k])=>layers[k]=true);layers.all=false;
 let uiScale=1, nameGrow=true;
 const PREF="fp-map-view-v1";
@@ -1441,6 +1454,53 @@ function flairSig(){const s=new Set(Object.keys(FLAIR));ROUTES.forEach(r=>r.ids.
 function drawFlairs(G,GH,still){if(layers.nfx===false)return;ROUTES.forEach(r=>drawRoute(GH,r,still));
   Object.keys(FLAIR).forEach(id=>{const m=M[id];if(!m)return;const f=FLAIR[id],fn=typeof f==="function"?f:f.f,under=typeof f!=="function"&&f.under;
     const c=flairCtx(under?G:GH,m,still,typeof f!=="function"?f.s:0);if(under&&G.firstChild)G.insertBefore(c.g,G.firstChild);try{fn(c);}catch(e){console.error("flair",id,e);}});}
+/* ---------- 교통 · 무역 ----------
+   길(육로)은 수도와 나루를 잇고, 바닷길 다섯은 지명 원고의 나루 짝을 잇는다.
+   교역로는 J-3의 '재료는 경계·심연·잔재·환상에서 빛·침묵으로 흐른다, 안트리가 중개'를 따라 그린다. 금빛 점이 짐이 가는 쪽으로 흐른다 */
+const NET={
+  road:[
+    {p:["c-essension","t-essension-3","c-pandemo"],n:"강심과 흑철성을 잇는 길"},
+    {p:["c-pandemo","t-pandemo-1","p-in-8","c-gemu"],n:"흑철성에서 세 나라 갈림목을 지나 벚꽃 마당으로"},
+    {p:["p-in-8","c-reva"],n:"세 나라 갈림목에서 타나토스 학원으로"},
+    {p:["c-pandemo","t-pandemo-4","p-gyeonggye-c1"],n:"흑철성에서 서리곶으로"},
+    {p:["c-reva","p-gyeonggye-c2"],n:"타나토스 학원에서 월흔 나루로"},
+    {p:["c-gemu","p-gyeonggye-c3"],n:"벚꽃 마당에서 환류곶으로"},
+    {p:["c-pandemo","t-pandemo-3","p-in-4","a-gyeonggye"],n:"진혼 가도"},
+    {p:["c-giv","t-giv-2","p-chimmuk-c1"],n:"포시드에서 빙문 나루로"},
+    {p:["c-cruel","p-chimmuk-c3"],n:"쐐기성에서 갈림곶으로"},
+    {p:["c-antri","t-antri-1","p-simyeon-c1"],n:"포티아 수도에서 갈림 나루로"},
+    {p:["c-antri","t-antri-2","p-yongmok","t-baekso-2","c-baekso"],n:"용목 가도"},
+    {p:["c-gigye","t-gigye-4","p-janjae-c4"],n:"썬더 기관도에서 환류 나루로"},
+    {p:["c-repli","sm-repli-1","p-janjae-c4"],n:"가니메데 궁에서 환류 나루로"}],
+  ferry:[
+    ["p-hwansang-c3","p-gyeonggye-c1"],["p-gyeonggye-c2","p-bit-c3"],["p-chimmuk-c1","p-hwansang-c1"],
+    ["p-chimmuk-c3","p-simyeon-c1"],["p-janjae-c4","p-gyeonggye-c3"]],
+  trade:[
+    {p:["sm-antri-1",[2350,4420],[2620,3500],[2460,2700],"p-chimmuk-c4","v-giv-2","c-giv"],n:"안트리 상단의 뱃길: 합금과 보석을 GIV로"},
+    {p:["t-antri-1","p-simyeon-c1","p-chimmuk-c3","c-cruel"],n:"갈림해협 건너기: 안트리의 합금을 크루얼 키스톤으로"},
+    {p:["c-pandemo","p-in-8","c-reva","p-gyeonggye-c2","p-bit-c3","c-bit"],n:"월흔해 건너기: 경계의 합금을 빛으로"},
+    {p:["sm-gigye-2",[9500,3150],[9820,3900],[9800,5000],[9250,5700],[7900,6150],"t-bit-1"],n:"녹슨 자유항의 뱃길: 잔재의 쇠붙이를 빛 동쪽으로"},
+    {p:["c-gigye","t-gigye-4","p-janjae-c4","p-gyeonggye-c3","c-gemu","p-in-8","c-pandemo"],n:"환류 뱃길: 구시대 장비와 철을 경계로"},
+    {p:["c-hwansang","p-hwansang-c3","p-gyeonggye-c1","c-pandemo"],n:"서리해 건너기: 환상의 합금을 경계로"},
+    {p:["t-baekso-2","p-yongmok","t-antri-2","c-antri"],n:"용목 가도: 백소의 경무광과 카고스를 안트리로"},
+    {p:["t-antri-2","p-yongmok","t-baekso-2","c-baekso"],n:"용목 가도: 안트리의 프림 다이아몬드를 백소로"}]};
+const netPt=q=>Array.isArray(q)?{x:q[0],y:q[1]}:M[q];
+function netPath(list,wig,seed){const ms=list.map(netPt);if(ms.some(m=>!m))return null;const R=rng(seed),pts=[];
+  for(let i=0;i<ms.length-1;i++){const a=ms[i],b=ms[i+1],dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy)||1,n=Math.max(3,Math.round(L/160)),amp=Math.min(40,L*.04)*wig,ph=R()*6;
+    for(let k=(i?1:0);k<=n;k++){const u=k/n,w=Math.sin(u*Math.PI)*amp*Math.sin(u*4+ph);pts.push([a.x+dx*u-dy/L*w,a.y+dy*u+dx/L*w]);}}
+  return pts;}
+let netSig="";
+function netSignature(){const s=new Set();NET.road.forEach(r=>r.p.forEach(i=>s.add(i)));NET.ferry.forEach(f=>f.forEach(i=>s.add(i)));NET.trade.forEach(t=>t.p.forEach(i=>{if(!Array.isArray(i))s.add(i);}));
+  let o=worldVer+"|"+(layers.net!==false)+"|"+(layers.fxmove!==false)+"|";s.forEach(i=>{const m=M[i];o+=i+(m?m.x+","+m.y:"-")+";";});return o;}
+function drawNet(){const G=$("gNet");G.replaceChildren();if(layers.net===false)return;const still=NOANIM||layers.fxmove===false,F=v=>(+v).toFixed(1);
+  const line=(pts,cls,title)=>{const d="M"+pts.map(p=>F(p[0])+","+F(p[1])).join("L");const p=el("path",{d,class:cls,"vector-effect":"non-scaling-stroke"},G);if(title)el("title",{},p).textContent=title;return d;};
+  NET.road.forEach(r=>{const pts=netPath(r.p,1,hashId(r.p.join("")));if(pts)line(pts,"net-road",r.n);});
+  NET.ferry.forEach(f=>{const pts=netPath(f,.6,hashId(f.join("")));if(!pts)return;const d=line(pts,"net-ferry","바닷길: "+M[f[0]].name+" ↔ "+M[f[1]].name);
+    if(still)return;const rev="M"+pts.slice().reverse().map(p=>F(p[0])+","+F(p[1])).join("L");
+    [d,rev].forEach((path,k)=>{const b=el("path",{d:"M-26,-8 L20,-8 L32,0 L20,8 L-26,8 L-18,0 Z",class:"net-boat fxs"},G);el("animateMotion",{path,dur:"26s",begin:(-k*13)+"s",repeatCount:"indefinite",rotate:"auto"},b);});});
+  NET.trade.forEach((t,ti)=>{const pts=netPath(t.p,.8,hashId(t.n));if(!pts)return;const d=line(pts,"net-trade",t.n);if(still)return;
+    let L=0;for(let i=1;i<pts.length;i++)L+=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);const dur=Math.max(18,L/90),n=Math.max(2,Math.round(L/900));
+    for(let k=0;k<n;k++){const c=el("circle",{r:16,class:"net-goods fxs"},G);const b=(-k*dur/n).toFixed(2)+"s";el("animateMotion",{path:d,dur:dur.toFixed(1)+"s",begin:b,repeatCount:"indefinite"},c);el("animate",{attributeName:"opacity",values:"0;1;1;1;0",dur:dur.toFixed(1)+"s",begin:b,repeatCount:"indefinite"},c);}});}
 /* ---------- 자연 지형: 산지, 숲, 강 ---------- */
 const NATT=[["hill","산지"],["forest","숲"],["river","강"],["peak","큰 산"],["range","큰 산맥"],["ice","얼음 기둥 지대"],["frozen","언 강"]];const NATR={hill:150,forest:170,river:170,peak:230,range:600,ice:170,frozen:170};
 let natSig="";
@@ -1699,7 +1759,7 @@ function schedule(world,viewOnly){if(world)rafWorld=true;if(!viewOnly)needFull=t
   else if(view.k!==cv.k||view.tx!==cv.tx||view.ty!==cv.ty){const q=view.k/cv.k;stage.classList.add("soft");$("world").setAttribute("transform",worldT());$("ov").setAttribute("transform",`translate(${(view.tx-q*cv.tx).toFixed(2)} ${(view.ty-q*cv.ty).toFixed(2)}) scale(${q.toFixed(5)})`);
     const t=performance.now();if(t-cullAt>90){cullAt=t;cull();}clearTimeout(trail);trail=setTimeout(()=>schedule(),170);}});}
 /* 화면 밖 그림 숨기기 · 멀리서 잔 장식 숨기기 */
-const CULLG=["gSea","gNat","gTerr","gMount","gNatHi","gZone"],cbox=new WeakMap();
+const CULLG=["gSea","gNat","gTerr","gMount","gNatHi","gNet","gZone"],cbox=new WeakMap();
 function cull(){const z=view.k/k0;stage.classList.toggle("lod-far",z<1.3);
   const mx=sr.width*.4/view.k+60,my=sr.height*.4/view.k+60,x0=-view.tx/view.k-mx,y0=-view.ty/view.k-my,x1=(sr.width-view.tx)/view.k+mx,y1=(sr.height-view.ty)/view.k+my;
   for(const id of CULLG){const G=$(id);for(let c=G.firstElementChild;c;c=c.nextElementSibling){let b=cbox.get(c);
@@ -1721,7 +1781,7 @@ function renderOv(){
   ["ovRuler","ovCont","ovLab","ovIcon","ovHandle"].forEach(id=>$(id).replaceChildren());
   {const cw=toW({x:sr.width/2,y:sr.height/2});$("where").textContent=(cw.x<0||cw.y<0||cw.x>W||cw.y>H)?"지도 밖":"화면 가운데 · "+(subOn?cellFine(cw.x,cw.y):cellOf(cw.x,cw.y));}
   boxes=[];
-  {const sg=terrSignature();if(sg!==terrSig){terrSig=sg;drawTerritories();}const zs=zoneSignature();if(zs!==zoneSig){zoneSig=zs;drawZones();}const ss2=seaSignature();if(ss2!==seaSig){seaSig=ss2;drawSea();}const ns2=natSignature();if(ns2!==natSig){natSig=ns2;drawNature();}}
+  {const sg=terrSignature();if(sg!==terrSig){terrSig=sg;drawTerritories();}const zs=zoneSignature();if(zs!==zoneSig){zoneSig=zs;drawZones();}const ss2=seaSignature();if(ss2!==seaSig){seaSig=ss2;drawSea();}const ns2=natSignature();if(ns2!==natSig){natSig=ns2;drawNature();}const nt2=netSignature();if(nt2!==netSig){netSig=nt2;drawNet();}}
   const VW=sr.width,VH=sr.height;
   $("compass").setAttribute("transform",`translate(40 ${VH-46})`);
   // 격자 좌표
