@@ -128,6 +128,7 @@ h1{font-family:var(--display);font-weight:800;font-size:26px;line-height:1.15;ma
 .terr-line.flowlt{stroke:var(--z-ice);opacity:.85;stroke-linecap:round}
 .terr-line.aurora{stroke:var(--z-wisp);stroke-width:14;stroke-linecap:round}
 .terr-line.crack{stroke:var(--z-lava);stroke-width:1.8}
+.terr-line.char{stroke:var(--muted);stroke-width:2.2;opacity:.9}
 .terr-line.rune{stroke:var(--z-goldhot);stroke-width:1.9;opacity:1}
 .terr-line.glint{stroke:var(--z-hot);stroke-width:1.4}
 .terr-line.snowline{stroke:var(--z-iceline);stroke-dasharray:1 6;stroke-width:2.4;opacity:.85}
@@ -1083,6 +1084,10 @@ function terrShape(kind,seed){
       const s=[[-.26,-.5],[.3,-.56],[-.12,-.03],[0,0],[.12,.03],[-.3,.52],[.3,.44]];[[0,1],[0,2],[1,4],[2,3],[3,4],[2,5],[4,6],[5,6]].forEach(([a,b])=>L([s[a],s[b]],false,"dash"));s.forEach(q=>o.dots.push([q[0],q[1],.03,{tw:1.5+R()*2.5}]));
       glow(s[0],.045,"var(--z-lava)",3.4,".08;.4;.08");glow(s[6],.045,"var(--z-ice)",2.6,".15;.6;.15");[s[0],s[1],s[5],s[6]].forEach(q=>star(q,1.5,"var(--z-goldhot)",2+R()*2));
       for(let i=0;i<18;i++)o.fx.push({k:"petal",p:[(R()-.5)*1.5,-.8+R()*1.2],s:.7+R()*.8,mv:[.12+R()*.2,.3+R()*.25],dur:6+R()*6,begin:-R()*12});
+      /* 패전의 흔적 · 새령 서쪽 기슭의 불탄 벚나무 숲: 판데모니움과 맞닿은 대전의 싸움터. 검게 탄 줄기와 꺼지지 않은 잿불 */
+      {const c=pol(206,.66);[[-.07,-.03],[-.035,.025],[0,-.02],[.035,.03],[.07,-.015],[-.05,.07],[.02,.075]].forEach(([dx,dy],k)=>{const x=c[0]+dx,y=c[1]+dy,s=k%2?1:-1;
+          L([[x,y+.03],[x+.004*s,y-.004],[x-.002*s,y-.03]],false,"char");L([[x+.003*s,y],[x+.022*s,y-.016]],false,"char");L([[x-.001*s,y-.016],[x-.016*s,y-.027]],false,"thin");});
+        L(circ(c[0],c[1]+.02,.11,22),true,"dash");[[-.05,.04],[.04,.01],[.0,.06]].forEach((d,k)=>glow([c[0]+d[0],c[1]+d[1]],.014,"var(--z-lava)",3.2+k*.9,".05;.45;.05"));}
       break;}
     case "shamrock":{const fn=th=>(.42+.58*Math.pow(Math.abs(Math.cos(1.5*(th+90)*D)),.55))*(1+.03*Math.abs(Math.sin(21*th*D)));
       const sx=y=>.04*Math.sin((y-.6)*5),rect=(x,y,w,h)=>[[x,y],[x+w,y],[x+w,y+h],[x,y+h]];
@@ -1132,6 +1137,10 @@ function terrShape(kind,seed){
       [[[1.49,-.28],[1.1,-.05],[.74,.3]],[[-1.18,-.49],[-.95,-.1],[-.7,.32]]].forEach((rd,i)=>{L(rd,false,"dash");const a=rd[0],b=rd[2];for(let k=0;k<3;k++){mote(a,.01,"var(--z-goldhot)",[b[0]-a[0],b[1]-a[1]],18+i*3,"0;1;1;0");o.fx[o.fx.length-1].begin=-k*6;}});
       /* 흩날리는 클로버 잎 */
       for(let i=0;i<8;i++)o.fx.push({k:"petal",p:[(R()-.5)*1.4,-.7+R()*1.1],s:.6+R()*.5,mv:[.1+R()*.15,.2+R()*.2],dur:8+R()*6,begin:-R()*12});
+      /* 패전의 흔적 · 무너진 넷째 탑 터: 대전 때 무너진 궁의 넷째 탑. 다시 세우지 않고 밑동만 남겼다 */
+      {const y0=-.07,x=.1;L([[x-.03,y0+.05],[x-.03,y0-.02],[x-.012,y0-.04],[x+.004,y0-.012],[x+.016,y0-.034],[x+.03,y0-.016],[x+.03,y0+.05]],false);
+        L([[x-.03,y0+.012],[x+.03,y0+.012]],false,"thin");L([[x-.045,y0+.05],[x+.045,y0+.05]],false);
+        [[x-.05,y0+.06],[x+.048,y0+.064],[x+.008,y0+.072],[x-.022,y0+.07]].forEach(q=>o.dots.push([q[0],q[1],.005]));glow([x,y0],.05,"var(--z-ice)",6,".04;.3;.04");}
       break;}
     case "gem":{const ov=[],tv=[],kv=[],c8=Math.cos(22.5*D),T=.3*c8,rev=p=>p.slice().reverse();
       for(let i=0;i<8;i++){ov.push(pol(i*45+22.5,1));tv.push(pol(i*45+22.5,.3));kv.push(pol(i*45,.64));}o.out=ov;
@@ -1180,7 +1189,11 @@ function terrShape(kind,seed){
           glow([x,y],.03,c,2.5,".1;.9;.1");o.fx[o.fx.length-1].dur=2+k*.4;});
         for(let r=0;r<2;r++)for(let k=0;k<6;k++){L(rect(-.84+k*.05,.2+r*.045,.034,.024),true,"thin");if((k+r)%2)star([-.823+k*.05,.2+r*.045],.7,"var(--z-lava)",.7+R()*.9);}
         [-.05,0,.05].forEach(y=>L([[-c8,y],[-c8-.07,y]],false));mote([-c8-.03,0],.011,"#fff",[-.4,.06],18,"0;1;1;0");mote([-c8-.03,.05],.011,"#fff",[-.4,-.1],23,"0;1;1;0");o.fx[o.fx.length-1].begin=-9;}
-      for(let i=0;i<8;i++)star(pol(R()*360,.35+R()*.55),1+R(),"var(--z-hot)");break;}
+      for(let i=0;i<8;i++)star(pol(R()*360,.35+R()*.55),1+R(),"var(--z-hot)");
+      /* 패전의 흔적 · 갚음 비석: 대전 배상으로 내준 돈과 식량을 새긴 비석. 다 갚은 날 대거래소 곁에 세웠다. 안트리의 흔적은 이것 하나다 */
+      {const x=.3,y=-.5;L([[x-.016,y+.035],[x-.016,y-.02],[x-.008,y-.032],[x+.008,y-.032],[x+.016,y-.02],[x+.016,y+.035]],true);
+        [-.012,-.002,.008,.018].forEach(d=>L([[x-.009,y+d],[x+.009,y+d]],false,"thin"));L([[x-.03,y+.035],[x+.03,y+.035]],false);glow([x,y],.03,"var(--z-goldhot)",5,".05;.35;.05");}
+      break;}
     case "snowflake":{for(let i=0;i<6;i++){const a=i*60-90;o.out.push(pol(a-30,.44),pol(a-15,.5),pol(a-19,.68),pol(a-8.5,.62),pol(a-11,.86),pol(a-4.5,.82),pol(a,1),pol(a+4.5,.82),pol(a+11,.86),pol(a+8.5,.62),pol(a+19,.68),pol(a+15,.5));}
       /* 구역: 가운데 백화성, 세 갈래(북 백화 직할령, 남동 기갑 공창구, 남서 설령 변방) */
       o.reg=[];[-90,30,150].forEach((a,i)=>{const w=[pol(a-60,.18),pol(a,.18),pol(a+60,.18),pol(a+60,3),pol(a,3.4),pol(a-60,3)];w.f=[.03,.1,.06][i];o.reg.push(w);});
