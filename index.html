@@ -1690,12 +1690,14 @@ function hits(b){for(const o of boxes){if(b.x<o.x+o.w&&b.x+b.w>o.x&&b.y<o.y+o.h&
 const pad=(b,p)=>({x:b.x-p,y:b.y-p,w:b.w+2*p,h:b.h+2*p});
 
 let raf=0,rafWorld=false,needFull=true,cv=null,trail=0;
-/* 지도를 끌거나 굴리는 동안은 이미 그린 그림을 통째로 옮기기만 하고(다시 그리지 않음), 멈추면 한 번 선명하게 다시 그린다 */
-function commitView(){$("world").setAttribute("transform",`translate(${view.tx.toFixed(2)} ${view.ty.toFixed(2)}) scale(${view.k.toFixed(5)})`);svg.style.transform="";cv={k:view.k,tx:view.tx,ty:view.ty};stage.classList.remove("soft");}
+/* 지도를 끌거나 굴리는 동안은 지도 그림을 바로 따라 옮기고(빈 곳이 생기지 않게 화면 밖 그림도 이어서 드러냄) 글자·표식은 통째로 옮기기만 한다. 멈추면 글자를 한 번 다시 배치한다 */
+const worldT=()=>`translate(${view.tx.toFixed(2)} ${view.ty.toFixed(2)}) scale(${view.k.toFixed(5)})`;let cullAt=0;
+function commitView(){$("world").setAttribute("transform",worldT());$("ov").removeAttribute("transform");svg.style.transform="";cv={k:view.k,tx:view.tx,ty:view.ty};stage.classList.remove("soft");}
 function schedule(world,viewOnly){if(world)rafWorld=true;if(!viewOnly)needFull=true;if(raf)return;raf=requestAnimationFrame(()=>{raf=0;
   if(rafWorld){rafWorld=false;needFull=true;renderWorld();}
   if(needFull||!cv){needFull=false;clearTimeout(trail);commitView();renderOv();cull();}
-  else if(view.k!==cv.k||view.tx!==cv.tx||view.ty!==cv.ty){const q=view.k/cv.k;stage.classList.add("soft");svg.style.transform=`translate(${(view.tx-q*cv.tx).toFixed(2)}px,${(view.ty-q*cv.ty).toFixed(2)}px) scale(${q.toFixed(5)})`;clearTimeout(trail);trail=setTimeout(()=>schedule(),170);}});}
+  else if(view.k!==cv.k||view.tx!==cv.tx||view.ty!==cv.ty){const q=view.k/cv.k;stage.classList.add("soft");$("world").setAttribute("transform",worldT());$("ov").setAttribute("transform",`translate(${(view.tx-q*cv.tx).toFixed(2)} ${(view.ty-q*cv.ty).toFixed(2)}) scale(${q.toFixed(5)})`);
+    const t=performance.now();if(t-cullAt>90){cullAt=t;cull();}clearTimeout(trail);trail=setTimeout(()=>schedule(),170);}});}
 /* 화면 밖 그림 숨기기 · 멀리서 잔 장식 숨기기 */
 const CULLG=["gSea","gNat","gTerr","gMount","gNatHi","gZone"],cbox=new WeakMap();
 function cull(){const z=view.k/k0;stage.classList.toggle("lod-far",z<1.3);
