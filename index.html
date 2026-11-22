@@ -487,16 +487,16 @@ pre.out{margin:0;padding:10px;border:1px solid var(--rule);border-radius:6px;bac
           <div><i class="glyph g-village"></i><span>마을. 수도·도시·마을은 확대하면 차례로 나타남</span></div>
           <div><i class="glyph g-apex"></i><span>최상위 던전, M등급. 콘셉트별 아이콘, 붉은 숫자는 위험 순위</span></div>
           <div id="legIcons" style="display:flex;flex-direction:column;align-items:stretch;gap:6px;grid-template-columns:none;padding-left:30px"></div>
-          <div style="display:block;padding-left:30px;font-size:12.5px;color:var(--ink2);line-height:1.7">던전 주변 분위기: 용의 협곡은 용암 균열과 불씨 · 황금 제단은 금빛과 도는 빛살 · 빙산의 협곡은 갈라진 얼음과 냉기 · 무덤은 묘비와 도깨비불 · 흑연의 연못은 독안개와 고래 그림자 · 바벨론은 가라앉는 나선 구덩이</div>
-          <div style="display:block;padding-left:30px;font-size:12.5px;color:var(--ink2);line-height:1.7">바다 효과: 서리해는 유빙과 서리 · 월흔해는 달빛 조수 · 흑조해는 검은 해류 · 환류해는 잔재를 감싸 도는 해류 · 빙문해협은 얼음 관문 · 갈림해협은 두 빛깔 물길 · 북해안·남해안은 빙산 · 동해안·서해안은 너울</div>
+          <div style="display:block;padding-left:30px;font-size:12.5px;color:var(--ink2);line-height:1.7">던전 주변 분위기: 드라콘 협곡은 용암 균열과 불씨 · 황금 제단은 금빛과 도는 빛살 · 빙산의 협곡은 갈라진 얼음과 냉기 · 무덤은 묘비와 도깨비불 · 멜란 림네는 독안개와 고래 그림자 · 바벨론은 가라앉는 나선 구덩이</div>
+          <div style="display:block;padding-left:30px;font-size:12.5px;color:var(--ink2);line-height:1.7">바다 효과: 파고스해는 유빙과 서리 · 셀레네해는 달빛 조수 · 멜라스해는 검은 해류 · 키클로스해는 잔재를 감싸 도는 해류 · 크리오필레 해협은 얼음 관문 · 스키스마 해협은 두 빛깔 물길 · 보레아스해·노토스해는 빙산 · 에우로스해·제피로스해는 너울</div>
           <div><i class="glyph g-dungeon"></i><span>일반 던전. 글자는 등급 (G~SSS, M). 선택 탭에서 아이콘을 고를 수 있음</span></div>
           <div><i class="glyph g-ruin"></i><span>유적</span></div>
           <div><i class="glyph g-nature"></i><span>산지 · 숲 · 강 (빈 땅의 자연 지형)</span></div>
           <div><i class="glyph g-shelter"></i><span>악마 대피소 (해저). 실선 + 왕관 = 그레이트 데몬이 있는 곳</span></div>
           <div><i class="glyph g-place"></i><span>지명 (도시, 산, 거점 등)</span></div>
           <div><i class="glyph g-sea"></i><span>바다 이름</span></div>
-          <div><i class="sw road"></i><span>길. 수도와 나루, 이웃 나라를 잇는 육로 (진혼 가도, 용목 가도 등)</span></div>
-          <div><i class="sw ferry"></i><span>바닷길. 나루 사이를 오가는 배 (서리해, 월흔해, 빙문해협, 갈림해협, 환류해)</span></div>
+          <div><i class="sw road"></i><span>길. 수도와 나루, 이웃 나라를 잇는 육로 (레퀴엠 가도, 트라켈로스 가도 등)</span></div>
+          <div><i class="sw ferry"></i><span>바닷길. 나루 사이를 오가는 배 (파고스해, 셀레네해, 크리오필레 해협, 스키스마 해협, 키클로스해)</span></div>
           <div><i class="sw trade"></i><span>교역로. 금빛 점이 짐이 가는 쪽으로 흐름. 합금은 경계·심연·잔재·환상에서 빛·침묵으로, 안트리 상단이 중개</span></div>
           <div><i class="sw gr"></i><span>마력 농도. 진할수록 높음: 심연 › 환상 › 빛 › 경계 › 잔재</span></div>
           <div><i class="sw lo"></i><span>침묵 = 마력 최저</span></div>
@@ -571,9 +571,9 @@ const DEF_ICON={"a-simyeon":"volcano","a-hwansang":"altar","a-bit":"iceberg","a-
 const FONTS=[["Hahmlet","함렛 (명조 제목체)","serif"],["Noto Sans KR","본고딕","sans"],["Noto Serif KR","본명조","serif"],["Nanum Myeongjo","나눔명조","serif"],["Gowun Batang","고운바탕","serif"],["Song Myung","송명","serif"],["Gowun Dodum","고운돋움","sans"],["Do Hyeon","도현","sans"],["Black Han Sans","검은고딕","sans"],["Gugi","구기","sans"],["Nanum Pen Script","나눔펜 (손글씨)","sans"]];
 const TCAT=[["cont","대륙 이름","Hahmlet",.8,true,"환상 · 경계"],["contSub","대륙 방위 · 설명","Hahmlet",1,true,"北 · 가장 큰 대륙"],
   ["nation","큰 나라","Noto Sans KR",1,true,"판데모니움"],["small","작은 나라","Noto Sans KR",1,true,"작은 나라"],
-  ["apex","최상위 던전","Noto Sans KR",1,true,"천상의 황금 제단"],["dungeon","일반 던전","Noto Sans KR",1,false,"일반 던전"],
-  ["ruin","유적","Noto Sans KR",1,true,"유적"],["shelter","악마 대피소","Hahmlet",1,true,"흑요궁 · 정음굴"],
-  ["place","지명","Noto Sans KR",1,false,"지명"],["nature","산지 · 숲 · 강","Gowun Batang",1,false,"까치 숲"],["region","지방 이름","Hahmlet",1,false,"북동 군관구"],["capital","수도","Noto Sans KR",1,true,"흑철성"],["city","도시","Noto Sans KR",1,false,"여울장터"],["village","마을","Noto Sans KR",1,false,"고요골"],["seaOuter","바깥 바다","Hahmlet",1,true,"북해안"],["seaInner","내해 · 해협","Hahmlet",1,false,"서리해 · 갈림해협"]];
+  ["apex","최상위 던전","Noto Sans KR",1,true,"우라니아 제단"],["dungeon","일반 던전","Noto Sans KR",1,false,"일반 던전"],
+  ["ruin","유적","Noto Sans KR",1,true,"유적"],["shelter","악마 대피소","Hahmlet",1,true,"옵시디아궁 · 헤시키아굴"],
+  ["place","지명","Noto Sans KR",1,false,"지명"],["nature","산지 · 숲 · 강","Gowun Batang",1,false,"까치 숲"],["region","지방 이름","Hahmlet",1,false,"아퀼로 군관구"],["capital","수도","Noto Sans KR",1,true,"아테르 성"],["city","도시","Noto Sans KR",1,false,"여울장터"],["village","마을","Noto Sans KR",1,false,"갈레네 골"],["seaOuter","바깥 바다","Hahmlet",1,true,"보레아스해"],["seaInner","내해 · 해협","Hahmlet",1,false,"파고스해 · 스키스마 해협"]];
 function typoDefaults(){const o={};TCAT.forEach(([k,,f,sz,b])=>o[k]={f,sz,b});return o;}
 let typo=typoDefaults();
 function famOf(f){const d=FONTS.find(x=>x[0]===f)||FONTS[1];return `"${d[0]}",${d[2]==="serif"?'"Noto Serif KR",serif':'"Noto Sans KR",sans-serif'}`;}
@@ -624,27 +624,27 @@ const DEFAULT_M=[
   {id:"n-reva",kind:"nation",name:"레바테일",x:1220,y:990,expect:"gyeonggye",proj:"8위 타나토스",note:"세계대전 패전."},
   {id:"n-gigye",kind:"nation",name:"기계상",x:1750,y:880,expect:"janjae",proj:"5위 썬더",note:"구시대 장비를 보존, 기술은 비공개. 세계대전 승전."},
   {id:"n-repli",kind:"nation",name:"레플리콘",x:1770,y:956,expect:"janjae",proj:"11위 가니메데",note:"2차 주기 건국. 세계대전 패전."},
-  {id:"a-simyeon",kind:"apex",icon:"volcano",name:"용의 협곡",x:250,y:1140,expect:"simyeon",rank:1,note:"활화산 지대, 용암이 들끓는 지면. 코어: 가짜로 생성된 용. 근처에 사는 진짜 용과는 무관."},
-  {id:"a-hwansang",kind:"apex",icon:"altar",name:"천상의 황금 제단",x:680,y:240,expect:"hwansang",rank:2,note:"높은 산 위. 골렘 지역, 돈이 가장 잘 되는 곳. 코어: 금강 마도골렘."},
-  {id:"a-bit",kind:"apex",icon:"iceberg",name:"갈라진 빙산의 협곡",x:680,y:1336,expect:"bit",rank:3,note:"빙산이 갈라진 해안 가까이. 코어: 아이스 스켈레톤 사제."},
-  {id:"a-gyeonggye",kind:"apex",icon:"grave",name:"죽은 자들의 무덤",x:720,y:1000,expect:"gyeonggye",rank:4,note:"넓은 공동묘지. 언데드, 스켈레톤, 아더 스켈레톤. 코어: 데스나이트."},
-  {id:"a-janjae",kind:"apex",icon:"pond",name:"흑연의 연못",x:1756,y:1036,expect:"janjae",rank:5,note:"검은 독안개, 지속 독 피해. 코어: 연못 속 거대한 유령 고래."},
+  {id:"a-simyeon",kind:"apex",icon:"volcano",name:"드라콘 협곡",x:250,y:1140,expect:"simyeon",rank:1,note:"활화산 지대, 용암이 들끓는 지면. 코어: 가짜로 생성된 용. 근처에 사는 진짜 용과는 무관."},
+  {id:"a-hwansang",kind:"apex",icon:"altar",name:"우라니아 제단",x:680,y:240,expect:"hwansang",rank:2,note:"높은 산 위. 골렘 지역, 돈이 가장 잘 되는 곳. 코어: 금강 마도골렘."},
+  {id:"a-bit",kind:"apex",icon:"iceberg",name:"크리오클라스 협곡",x:680,y:1336,expect:"bit",rank:3,note:"빙산이 갈라진 해안 가까이. 코어: 아이스 스켈레톤 사제."},
+  {id:"a-gyeonggye",kind:"apex",icon:"grave",name:"네크로폴리스",x:720,y:1000,expect:"gyeonggye",rank:4,note:"넓은 공동묘지. 언데드, 스켈레톤, 아더 스켈레톤. 코어: 데스나이트."},
+  {id:"a-janjae",kind:"apex",icon:"pond",name:"멜란 림네",x:1756,y:1036,expect:"janjae",rank:5,note:"검은 독안개, 지속 독 피해. 코어: 연못 속 거대한 유령 고래."},
   {id:"a-chimmuk",kind:"apex",name:"바벨론",x:216,y:610,expect:"chimmuk",rank:6,icon:"tower",note:"지하로 파고드는 역방향 타워. 세계에서 유일한 마족 던전(마족종). 코어: 마족왕(마왕). 공략이 유독 복잡하기로 유명."},
-  {id:"s-heukyo",kind:"shelter",name:"흑요궁",x:530,y:940,king:true,note:"심연·경계 사이 해저."},
-  {id:"s-jeongeum",kind:"shelter",name:"정음굴",x:490,y:676,good:true,note:"침묵·경계 사이 해저. 왕 없음, 착한 악마 세력."},
-  {id:"s-bingjeo",kind:"shelter",name:"빙저원",x:1770,y:536,king:true,note:"환상·잔재 사이 해저."},
-  {id:"s-deungha",kind:"shelter",name:"등하궁",x:1660,y:1170,good:true,note:"빛·잔재 사이 해저. 왕 없음, 착한 악마 세력."},
-  {id:"s-hyeopjeo",kind:"shelter",name:"협저궁",x:1562,y:840,king:true,note:"경계·잔재 사이 해저."},
-  {id:"sea-n",kind:"sea",name:"북해안",x:1760,y:60,tier:"outer",note:"바깥 바다."},
-  {id:"sea-e",kind:"sea",name:"동해안",x:1900,y:290,tier:"outer",note:"바깥 바다."},
-  {id:"sea-w",kind:"sea",name:"서해안",x:90,y:760,tier:"outer",note:"바깥 바다."},
-  {id:"sea-s",kind:"sea",name:"남해안",x:1760,y:1476,tier:"outer",note:"바깥 바다."},
-  {id:"sea-seori",kind:"sea",name:"서리해",x:1200,y:540,tier:"inner",note:"환상과 경계 사이. 북쪽 설원에서 내려오는 찬 기운이 닿는 바다."},
-  {id:"sea-wolheun",kind:"sea",name:"월흔해",x:1080,y:1136,tier:"inner",note:"경계와 빛 사이. 달 '월흔'의 조수가 가장 크게 드나든다."},
-  {id:"sea-heukjo",kind:"sea",name:"흑조해",x:492,y:808,tier:"inner",note:"심연·침묵과 경계 사이 서쪽 내해. 대피소 두 곳이 가라앉아 있다."},
-  {id:"sea-hwanryu",kind:"sea",name:"환류해",x:1480,y:1032,tier:"inner",note:"잔재를 고리처럼 감싸 도는 동쪽 내해. 대피소 세 곳."},
-  {id:"sea-bingmun",kind:"sea",name:"빙문해협",x:444,y:150,tier:"inner",note:"침묵과 환상 사이. 얼음 대륙 환상으로 들어가는 관문."},
-  {id:"sea-galrim",kind:"sea",name:"갈림해협",x:250,y:730,tier:"inner",note:"침묵과 심연 사이. 마력 최저와 최고가 갈리는 좁은 물길."}
+  {id:"s-heukyo",kind:"shelter",name:"옵시디아궁",x:530,y:940,king:true,note:"심연·경계 사이 해저."},
+  {id:"s-jeongeum",kind:"shelter",name:"헤시키아굴",x:490,y:676,good:true,note:"침묵·경계 사이 해저. 왕 없음, 착한 악마 세력."},
+  {id:"s-bingjeo",kind:"shelter",name:"크리오바토스",x:1770,y:536,king:true,note:"환상·잔재 사이 해저."},
+  {id:"s-deungha",kind:"shelter",name:"리크노스궁",x:1660,y:1170,good:true,note:"빛·잔재 사이 해저. 왕 없음, 착한 악마 세력."},
+  {id:"s-hyeopjeo",kind:"shelter",name:"스테노스궁",x:1562,y:840,king:true,note:"경계·잔재 사이 해저."},
+  {id:"sea-n",kind:"sea",name:"보레아스해",x:1760,y:60,tier:"outer",note:"바깥 바다."},
+  {id:"sea-e",kind:"sea",name:"에우로스해",x:1900,y:290,tier:"outer",note:"바깥 바다."},
+  {id:"sea-w",kind:"sea",name:"제피로스해",x:90,y:760,tier:"outer",note:"바깥 바다."},
+  {id:"sea-s",kind:"sea",name:"노토스해",x:1760,y:1476,tier:"outer",note:"바깥 바다."},
+  {id:"sea-seori",kind:"sea",name:"파고스해",x:1200,y:540,tier:"inner",note:"환상과 경계 사이. 북쪽 설원에서 내려오는 찬 기운이 닿는 바다."},
+  {id:"sea-wolheun",kind:"sea",name:"셀레네해",x:1080,y:1136,tier:"inner",note:"경계와 빛 사이. 달 '월흔'의 조수가 가장 크게 드나든다."},
+  {id:"sea-heukjo",kind:"sea",name:"멜라스해",x:492,y:808,tier:"inner",note:"심연·침묵과 경계 사이 서쪽 내해. 대피소 두 곳이 가라앉아 있다."},
+  {id:"sea-hwanryu",kind:"sea",name:"키클로스해",x:1480,y:1032,tier:"inner",note:"잔재를 고리처럼 감싸 도는 동쪽 내해. 대피소 세 곳."},
+  {id:"sea-bingmun",kind:"sea",name:"크리오필레 해협",x:444,y:150,tier:"inner",note:"침묵과 환상 사이. 얼음 대륙 환상으로 들어가는 관문."},
+  {id:"sea-galrim",kind:"sea",name:"스키스마 해협",x:250,y:730,tier:"inner",note:"침묵과 심연 사이. 마력 최저와 최고가 갈리는 좁은 물길."}
 ];
 
 /* 좌표 배율: 예전 자료(sc 없음)는 5배로 키워서 읽는다 */
@@ -742,7 +742,7 @@ function updMini(){const r=$("miniV");if(!r)return;const b=stageRect();const a=t
 const NCOL={hwansang:["#C98A12","#F0BE55"],bit:["#2F93B3","#7FD3EA"],pandemo:["#3F3A5C","#B3ABE0"],gigye:["#8A5A2B","#E0A66A"],essension:["#B23A48","#F08C98"],giv:["#2E63A6","#86B4F0"],reva:["#7A4FB0","#C9A6F5"],cruel:["#7A1F2B","#E06A7A"],gemu:["#C4527F","#F3A3C4"],repli:["#2E8B57","#7FD9A6"],antri:["#1E8A8A","#6FD6D0"],baekso:["#5E7F96","#B5D2E6"]};
 (function(){const L=Object.keys(NCOL).map(k=>`--n-${k}:${NCOL[k][0]}`).join(";"),D=Object.keys(NCOL).map(k=>`--n-${k}:${NCOL[k][1]}`).join(";");
   const st=document.createElement("style");st.textContent=`:root{${L}}@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){${D}}}:root[data-theme="dark"]{${D}}`;document.head.appendChild(st);})();
-const TSHAPES=[["sun","태양 · 설선과 과원"],["nebula","성운 · 고요벌과 은하평"],["diamondwall","다이아몬드 장벽과 요새"],["starfort","별 모양 요새"],["gear","톱니바퀴와 다섯 구"],["river","강줄기와 계단식 구획"],["hexgear","육각 성벽과 네 개의 기어"],["arcane","마법진"],["keystone","쐐기돌과 다섯 조각"],["blossom","벚꽃과 별자리"],["shamrock","세잎 클로버, 정원과 레이스"],["gem","보석 세공과 운하"],["snowflake","눈 결정과 공창"],["blob","자연스러운 덩어리"]];
+const TSHAPES=[["sun","태양 · 설선과 과원"],["nebula","성운 · 에레미아 평원과 갈락시아스 평원"],["diamondwall","다이아몬드 장벽과 요새"],["starfort","별 모양 요새"],["gear","톱니바퀴와 다섯 구"],["river","강줄기와 계단식 구획"],["hexgear","육각 성벽과 네 개의 기어"],["arcane","마법진"],["keystone","쐐기돌과 다섯 조각"],["blossom","벚꽃과 별자리"],["shamrock","세잎 클로버, 정원과 레이스"],["gem","보석 세공과 운하"],["snowflake","눈 결정과 공창"],["blob","자연스러운 덩어리"]];
 const TERR={"n-hwansang":{sh:"sun",r:700,c:"hwansang"},"n-bit":{sh:"nebula",r:650,c:"bit"},"n-pandemo":{sh:"diamondwall",r:720,c:"pandemo"},"n-gigye":{sh:"gear",r:450,c:"gigye"},
   "n-essension":{sh:"river",r:600,c:"essension"},"n-giv":{sh:"hexgear",r:500,c:"giv"},"n-reva":{sh:"arcane",r:420,c:"reva"},"n-cruel":{sh:"keystone",r:480,c:"cruel"},
   "n-gemu":{sh:"blossom",r:520,c:"gemu"},"n-repli":{sh:"shamrock",r:375,c:"repli"},"n-antri":{sh:"gem",r:425,c:"antri"},"n-baekso":{sh:"snowflake",r:400,c:"baekso"}};
@@ -767,7 +767,7 @@ function terrShape(kind,seed){
   const glow=(p,r,fill,dur,op)=>o.fx.push({k:"glow",p,r,fill,dur:dur||4,op:op||".35;.9;.35"});
   switch(kind){
     case "sun":{o.whole=true;o.anchor="capital";
-      /* 설선: 북은 설릉령(눈), 남은 양지령(볕). 수도 해마루 뒤에서 북으로 휜다 */
+      /* 설선: 북은 오레이아령(눈), 남은 헬리아령(볕). 수도 헬리오폴리스 뒤에서 북으로 휜다 */
       const sl=x=>.22-.4*Math.exp(-Math.pow(x/.55,2))+.06*Math.sin(x*2.3+1),line=[];for(let k=0;k<=60;k++){const x=-6+k*.2;line.push([x,sl(x)]);}
       {const n=line.concat([[6,-5],[-6,-5]]);n.f=.07;n.c="var(--z-iceline)";const s=line.concat([[6,5],[-6,5]]);s.f=.07;o.reg=[n,s];}
       L(line,false,"snowline");
@@ -775,27 +775,27 @@ function terrShape(kind,seed){
       glow([0,0],.55,"url(#zgGold)",5);L(circ(0,0,.16),true,"",{pulse:[3,".6;1;.6"]});
       {const f=[];for(let i=0;i<32;i++)f.push(pol(i*11.25,i%2?.33:.25));L(f,true,"",{spin:[[0,0],140,1]});}
       for(let i=0;i<16;i++){const a=i*22.5-90;L([pol(a,.38),pol(a,i%2?1.3:8)],false,i%2?"thin":"",{pulse:[8,i%2?".15;.9;.15;.15":".45;1;.45;.45",-i*.5]});}
-      /* 양지령: 설선을 따라 내려가는 과원의 고랑, 태양의 열매 */
+      /* 헬리아령: 설선을 따라 내려가는 과원의 고랑, 태양의 열매 */
       for(let k=1;k<=4;k++){const p=[],fy=x=>sl(x)+.2*k+.03*Math.sin(x*3+k);for(let j=0;j<=44;j++){const x=-4.4+j*.2;p.push([x,fy(x)]);}L(p,false,"thin furrow");
         if(k<4)for(let j=0;j<22;j++){const x=-4.2+j*.4+(k%2)*.2;o.dots.push([x,fy(x)-.012,.011,{tw:2+R()*3}]);}}
       for(let i=0;i<20;i++){const x=(R()-.5)*8;star([x,sl(x)+.15+R()*.9],1+R()*1.1,"var(--z-hot)");}
-      /* 설릉령: 내리는 눈 */
+      /* 오레이아령: 내리는 눈 */
       for(let i=0;i<24;i++){const x=(R()-.5)*8.2;mote([x,sl(x)-.25-R()*1.1],.012+R()*.01,"#fff",[.05+R()*.05,.25+R()*.15],6+R()*5,"0;1;1;0");}
       /* 양지에서 산으로 오르는 따뜻한 기운 */
       for(let i=0;i<8;i++){const x=(R()-.5)*6;mote([x,sl(x)+.6],.012,"var(--z-goldhot)",[(R()-.5)*.1,-.5],9+R()*5,"0;.8;0");}
       break;}
     case "nebula":{o.whole=true;const cy0=-.59,bx=y=>.05*Math.sin(y*6)+.03*Math.sin(y*13+1);
-      /* 구역: 서는 고요벌, 동은 은하평 */
+      /* 구역: 서는 에레미아 평원, 동은 갈락시아스 평원 */
       {const ln=[];for(let k=0;k<=30;k++){const y=-2.4+k*.12;ln.push([bx(y),y]);}const w=ln.concat([[-6,1.2],[-6,-2.4]]);w.f=0;const e=ln.concat([[6,1.2],[6,-2.4]]);e.f=.1;o.reg=[w,e];}
       /* 성운: 중심 없이 흩어져 제각각 떠다니는 구름 */
       for(let i=0;i<10;i++){const cx=(R()-.5)*5.6,cy=cy0+(R()-.5)*1.5,r=.34+R()*.5,ph=R()*6,pts=[];
         for(let k=0;k<36;k++){const t=k/36*2*Math.PI,m=1+.16*Math.sin(3*t+ph)+.1*Math.sin(5*t+ph*2);pts.push([cx+Math.cos(t)*r*m,cy+Math.sin(t)*r*m*.8]);}L(pts,true,"dash",{mv:[(R()-.5)*.5,(R()-.5)*.14,22+R()*18,-R()*20]});}
       for(let i=0;i<3;i++){const y0=cy0-.6+i*.6,pts=[];for(let k=0;k<=40;k++){const x=-4+8*k/40;pts.push([x,y0+.18*Math.sin(x*1.3+i*2)]);}L(pts,false,"aurora",{pulse:[7+i*2,".08;.32;.08",-i*3],mv:[.5,.06,26+i*6,-i*5]});}
-      /* 은하평(동): 은하수의 띠와 별 */
+      /* 갈락시아스 평원(동): 은하수의 띠와 별 */
       {const b=[];for(let k=0;k<=20;k++){const x=.1+k*.165;b.push([x,cy0+.42-.26*x+.05*Math.sin(x*3)]);}L(b,false,"milky",{w:.24});}
       for(let i=0;i<80;i++){const x=.15+R()*3.2,y=cy0+.42-.26*x+(R()+R()+R()-1.5)*.22;o.dots.push([x,y,.008+R()*.014,{tw:1.2+R()*3.2}]);}
       for(let i=0;i<10;i++){const x=.2+R()*3;star([x,cy0+.42-.26*x+(R()-.5)*.3],.9+R(),"#fff");}
-      /* 고요벌(서): 바람이 깎은 눈결뿐. 움직이는 것이 없다 */
+      /* 에레미아 평원(서): 바람이 깎은 눈결뿐. 움직이는 것이 없다 */
       for(let i=0;i<28;i++){const x=-.2-R()*3.2,y=cy0+(R()-.5)*1.5,w=.08+R()*.14;L([[x,y],[x+w*.5,y-.012],[x+w,y]],false,"thin");}
       break;}
     case "starfort":{for(let i=0;i<8;i++){const a=i*45-90;o.out.push(pol(a-22.5,.72),pol(a-9,.72),pol(a-12,.86),pol(a,1),pol(a+12,.86),pol(a+9,.72));}
@@ -836,7 +836,7 @@ function terrShape(kind,seed){
     case "gear":{for(let i=0;i<12;i++){const a=i*30;o.out.push(pol(a-10,.84),pol(a-7,1),pol(a+7,1),pol(a+10,.84));}
       const rect=(x,y,w,h)=>[[x,y],[x+w,y],[x+w,y+h],[x,y+h]];
       const cog=(cx,cy,r0,r1,n,ph)=>{const g=[],s=180/n;for(let i=0;i<n;i++){const a=i*360/n+(ph||0);g.push([cx+Math.cos((a-s*.55)*D)*r0,cy+Math.sin((a-s*.55)*D)*r0],[cx+Math.cos((a-s*.32)*D)*r1,cy+Math.sin((a-s*.32)*D)*r1],[cx+Math.cos((a+s*.32)*D)*r1,cy+Math.sin((a+s*.32)*D)*r1],[cx+Math.cos((a+s*.55)*D)*r0,cy+Math.sin((a+s*.55)*D)*r0]);}return g;};
-      /* 구역: 가운데 중앙 축구 + 바퀴 둘레의 다섯 구(북 제철, 북동 정유, 남동 유물 시장, 남서 조립, 북서 창고) */
+      /* 구역: 가운데 액슬 구 + 바퀴 둘레의 다섯 구(북 제철, 북동 정유, 남동 유물 시장, 남서 조립, 북서 창고) */
       o.reg=[];for(let i=0;i<5;i++){const a=-90+72*i,w=[];for(let k=0;k<=8;k++)w.push(pol(a-36+k*9,.22));w.push(pol(a+36,3),pol(a,3.4),pol(a-36,3));w.f=[.02,.08,.03,.09,.05][i];o.reg.push(w);}
       {const c=circ(0,0,.22,30);c.f=.14;o.reg.push(c);}
       /* 바깥 바퀴: 톱니 안쪽 테, 다섯 구를 가르는 큰길 */
@@ -845,7 +845,7 @@ function terrShape(kind,seed){
       /* 순환 철도: 다섯 구를 잇는 둘레 선로와 도는 열차 둘 */
       L(circ(0,0,.775,72),true,"thin");L(circ(0,0,.805,72),true,"thin");for(let k=0;k<24;k++){const a=k*15;L([pol(a,.768),pol(a,.812)],false,"thin");}
       [0,180].forEach(a0=>{for(let c=0;c<4;c++){const tr=[];for(let k=0;k<=3;k++)tr.push(pol(a0+c*2.6+k*.7,.79));L(tr,false,"",{w:.026,spin:[[0,0],70,1]});}});
-      /* 안쪽 바퀴: 축(수도 썬더 기관도)을 감싸 도는 바퀴와 바퀴살 다섯 */
+      /* 안쪽 바퀴: 축(수도 썬더 엔진)을 감싸 도는 바퀴와 바퀴살 다섯 */
       const sp={spin:[[0,0],60,1]};L(cog(0,0,.33,.38,16),true,"",sp);L(circ(0,0,.3,40),true,"thin",sp);L(circ(0,0,.12,24),true,"",sp);
       for(let i=0;i<5;i++)L([pol(i*72-90,.12),pol(i*72-90,.3)],false,"",sp);
       o.bands.push({outer:circ(0,0,.06,16),inner:circ(0,0,.03,10)});
@@ -854,36 +854,36 @@ function terrShape(kind,seed){
       /* 썬더의 번개: 축에서 바퀴살을 타고 튀는 불꽃 */
       for(let k=0;k<5;k++){const a=k*72-54+(R()-.5)*10,p=[pol(a,.07)];for(let j=1;j<=4;j++)p.push(pol(a+(j%2?1:-1)*(6+R()*8),.07+j*.055));L(p,false,"bolt",{pulse:[4+k*.7,"0;0;0;0;1;.2;.9;0",-k*1.3]});}
       glow([0,0],.13,"var(--z-goldhot)",5,".05;.05;.05;.45;.1;.05");
-      /* 제철구(북): 용광로 둘과 쇳물 도랑, 대장간 거리의 모루와 망치 불티 */
+      /* 포지 구(북): 용광로 둘과 쇳물 도랑, 앤빌 스트리트의 모루와 망치 불티 */
       [[-.13,-.58],[.05,-.6]].forEach(([x,y],k)=>{L([[x-.04,y+.05],[x-.025,y-.07],[x+.025,y-.07],[x+.04,y+.05]],true);L([[x-.025,y-.07],[x-.018,y-.1],[x+.018,y-.1],[x+.025,y-.07]],true,"thin");
         glow([x,y-.1],.035,"var(--z-lava)",2.2+k*.6,".25;1;.25");for(let j=0;j<3;j++)mote([x+(R()-.5)*.02,y-.1],.009,"var(--z-hot)",[(R()-.5)*.05,-.12-R()*.05],2+R()*1.5,"0;1;0");});
       L([[-.13,-.53],[-.07,-.47],[.05,-.55]],false,"crack",{pulse:[3,".35;1;.35"]});L([[-.07,-.47],[-.04,-.42]],false,"crack",{pulse:[3,".35;1;.35",-1]});
       L([[.1,-.72],[.17,-.72],[.155,-.70],[.165,-.68],[.105,-.68],[.115,-.70]],true);for(let k=0;k<4;k++)star([.12+R()*.05,-.75-R()*.03],.7,"var(--z-lava)",.5+R()*.6);
-      /* 정유구(북동): 기름 탱크와 관, 불꽃 굴뚝, 기름 항에서 바다로 나가는 배 */
+      /* 리파이너리 구(북동): 기름 탱크와 관, 불꽃 굴뚝, 오일포트에서 바다로 나가는 배 */
       {const tk=[[.48,-.08],[.58,-.03],[.56,-.17]];tk.forEach(q=>{L(circ(q[0],q[1],.042,16),true);L(circ(q[0],q[1],.024,12),true,"thin");});
         L([tk[0],tk[1]],false,"thin");L([tk[0],tk[2]],false,"thin");L([tk[2],[.62,-.22],[.68,-.27]],false,"oil",{flow:[.02,.03,2.4,.008]});
         const x=.43,y=-.24;L([[x,y+.05],[x,y-.06]],false);glow([x,y-.075],.022,"var(--z-lava)",1.1,".3;1;.5;.9;.3");mote([x,y-.07],.012,"#cfd8dc",[.04,-.12],5,"0;.6;0");
         L([[.68,-.28],[.84,-.38]],false);L([[.7,-.25],[.86,-.35]],false,"thin");for(let k=0;k<2;k++){mote([.84,-.37],.016,"var(--mt-line)",[.5,-.3],20,"0;.8;.8;0");o.fx[o.fx.length-1].begin=-k*10;}}
-      /* 유물 시장구(남동): 노점 줄, 비싸게 팔리는 구시대 장비의 금빛, 기술을 잠가 둔 자물쇠, 유물상 길드령으로 가는 유물 가도 */
+      /* 렐릭 마켓 구(남동): 노점 줄, 비싸게 팔리는 구시대 장비의 금빛, 기술을 잠가 둔 자물쇠, 렐릭 길드령으로 가는 렐릭 로드 */
       for(let r=0;r<2;r++)for(let k=0;k<4;k++){const x=.22+k*.05+r*.025,y=.4+r*.05;L(rect(x,y,.034,.026),true,"thin");L([[x-.004,y],[x+.017,y-.016],[x+.038,y]],false,"thin");}
       for(let k=0;k<8;k++)star([.24+R()*.24,.36+R()*.16],.8+R()*.5,"var(--z-goldhot)",1+R()*1.6);
       {const x=.5,y=.42,a=[];L(rect(x-.022,y-.006,.044,.034),true);for(let k=0;k<=8;k++){const t=Math.PI*(1+k/8);a.push([x+Math.cos(t)*.014,y-.006+Math.sin(t)*.02]);}L(a,false);o.dots.push([x,y+.01,.006]);glow([x,y+.008],.04,"var(--z-goldhot)",4,".1;.5;.1");}
       {const rd=[[.42,.6],[.97,.56],[1.62,.72]];L(rd,false,"dash");for(let k=0;k<3;k++){mote(rd[2],.01,"var(--z-goldhot)",[rd[0][0]-rd[2][0],rd[0][1]-rd[2][1]],24,"0;1;1;0");o.fx[o.fx.length-1].begin=-k*8;}mote(rd[0],.01,"var(--tc)",[rd[2][0]-rd[0][0],rd[2][1]-rd[0][1]],28,"0;1;1;0");}
-      /* 쇳돌산 기슭의 갱도 */
+      /* 시데로스 산 기슭의 갱도 */
       {const x=.6,y=.3,a=[];for(let k=0;k<=8;k++){const t=Math.PI*(1+k/8);a.push([x+Math.cos(t)*.025,y+Math.sin(t)*.025]);}L(a,false);L([[x-.025,y],[x+.025,y]],false);L([[x,y],[.66,.42],[.7,.55]],false,"dash");for(let k=0;k<2;k++){mote([x,y],.01,"var(--hill-dk)",[.1,.25],9,"0;1;1;0");o.fx[o.fx.length-1].begin=-k*4.5;}}
-      /* 조립구(남서): 부품이 흘러가는 조립 줄, 짐을 드는 기중기, 톱니역 승강장 */
+      /* 어셈블리 구(남서): 부품이 흘러가는 조립 줄, 짐을 드는 기중기, 코그 역 승강장 */
       {const a=[-.56,.38],b=[-.22,.38];L([[a[0],a[1]-.018],[b[0],b[1]-.018]],false,"thin");L([[a[0],a[1]+.018],[b[0],b[1]+.018]],false,"thin");L([a,b],false,"",{flow:[.02,.03,2,.02]});
         for(let k=0;k<3;k++){mote(a,.012,"var(--z-hot)",[b[0]-a[0],0],6,"0;1;1;0");o.fx[o.fx.length-1].begin=-k*2;}
         const c=[-.3,.52];L([[c[0],c[1]],[c[0],c[1]-.14],[c[0]-.12,c[1]-.14]],false);L([[c[0]-.04,c[1]],[c[0]+.04,c[1]]],false);
         L([[c[0]-.1,c[1]-.14],[c[0]-.1,c[1]-.09],[c[0]-.112,c[1]-.08]],false,"thin",{mv:[.04,0,5,-1]});
         const st=pol(126,.79),n=pol(36,1);L([[st[0]-n[0]*.06,st[1]-n[1]*.06],[st[0]+n[0]*.06,st[1]+n[1]*.06]],false,"",{w:.02});for(let k=-1;k<=1;k++)o.dots.push([st[0]+n[0]*.05*k-.03,st[1]+n[1]*.05*k-.02,.008,{tw:1.8+R()*1.5}]);}
-      /* 창고구(북서): 창고 줄, 덮개를 씌워 보존한 구시대 장비(가끔 불빛만 깜빡인다), 굴뚝 마루의 연기 */
+      /* 디포 구(북서): 창고 줄, 덮개를 씌워 보존한 구시대 장비(가끔 불빛만 깜빡인다), 침니 리지의 연기 */
       for(let r=0;r<3;r++)for(let k=0;k<3;k++)L(rect(-.66+k*.06,-.1+r*.045,.045,.032),true,"thin");
       {const x=-.5,y=-.26,dm=[];for(let k=0;k<=10;k++){const t=Math.PI*(1+k/10);dm.push([x+Math.cos(t)*.08,y+Math.sin(t)*.06]);}L(dm,false);L([[x-.08,y],[x+.08,y]],false);
         [-.04,0,.04].forEach(d=>L([[x+d,y],[x+d,y-Math.sqrt(1-Math.pow(d/.08,2))*.06]],false,"thin"));
         o.dots.push([x,y-.025,.008,{tw:9}]);glow([x,y-.025],.03,"var(--z-ice)",9,".05;.05;.05;.6;.05");}
       for(let k=0;k<3;k++){const x=-.78+k*.04;L(rect(x,-.38,.016,.06),true);for(let j=0;j<2;j++)mote([x+.008,-.38],.02,"var(--z-smoke)",[.06+R()*.04,-.22],5+R()*3,"0;.55;0");}
-      /* 고철 골: 쌓인 고철. 나사 마을: 천천히 도는 너트 */
+      /* 정크 골: 쌓인 고철. 스크루 마을: 천천히 도는 너트 */
       for(let k=0;k<5;k++){const x=-.82+R()*.1,y=.1+R()*.08;L([[x-.02,y+.012],[x+(R()-.5)*.02,y-.02],[x+.022,y+.012]],true,"thin");}
       {const c=[-.6,-.47],hx=[];for(let k=0;k<6;k++)hx.push([c[0]+Math.cos(k*60*D)*.026,c[1]+Math.sin(k*60*D)*.026]);L(hx,true,"",{spin:[c,12,1]});L(circ(c[0],c[1],.012,10),true,"thin");}
       break;}
@@ -948,24 +948,24 @@ function terrShape(kind,seed){
       [[0,-1],[1,0],[0,1],[-1,0]].forEach((d,k)=>{const e=k%2?.75:.86,n=[-d[1],d[0]];[-.013,.013].forEach(s=>L([[d[0]*.14+n[0]*s,d[1]*.14+n[1]*s],[d[0]*e+n[0]*s,d[1]*e+n[1]*s]],false,"thin"));
         for(let q=0;q<7;q++){const u=.2+q*(e-.24)/6;o.dots.push([d[0]*u+n[0]*.03*(q%2?1:-1),d[1]*u+n[1]*.03*(q%2?1:-1),.008,{tw:1.6+R()*2}]);}
         if(k%2){const x=d[0]*.762;o.bands.push({outer:rect(x-.022,-.06,.044,.12),inner:null});}});
-      /* 제1 기어구(북서): 바리케이드와 꺼지지 않는 잔불 */
+      /* 프로토스 기어구(북서): 바리케이드와 꺼지지 않는 잔불 */
       for(let k=0;k<4;k++){const x=-.72+(k%2)*.03,y=-.34+k*.055;L([[x,y],[x+.03,y-.022],[x+.06,y],[x+.09,y-.022],[x+.12,y]],false);star([x+.03+R()*.06,y-.03],.7,"var(--z-lava)",.8+R()*1.2);}
-      /* 제2 기어구(북동): 청룡 광장, 광장을 도는 청룡의 그림자 */
+      /* 듀테로스 기어구(북동): 알파 광장, 광장을 도는 청룡의 그림자 */
       {const p=[.44,-.22];L(circ(p[0],p[1],.075,20),true);L(circ(p[0],p[1],.045,14),true,"thin");glow(p,.09,"var(--z-ice)",3.6,".1;.6;.1");
         const dr=[];for(let k=0;k<=14;k++){const t=k*9*D;dr.push([p[0]+Math.cos(t)*(.06+.008*Math.sin(k*1.3)),p[1]+Math.sin(t)*(.06+.008*Math.sin(k*1.3))]);}L(dr,false,"flowlt",{w:.016,spin:[p,18,1]});}
-      /* 제3 기어구(남서): 배급 밭, 생존자 야영지의 천막과 모닥불 */
+      /* 트리토스 기어구(남서): 배급 밭, 서바이버 캠프의 천막과 모닥불 */
       for(let k=0;k<5;k++)L([[-.74+k*.012,.14+k*.028],[-.6,.14+k*.028]],false,"thin");
       {[[-.7,.47],[-.66,.52],[-.71,.56],[-.64,.6],[-.6,.55]].forEach(q=>L([[q[0]-.018,q[1]+.014],[q[0],q[1]-.016],[q[0]+.018,q[1]+.014]],true));glow([-.66,.56],.03,"var(--z-lava)",1.3,".3;1;.5;.9;.3");}
-      /* 제4 기어구(남동): 염전, 굴뚝과 연기 */
+      /* 테타르토스 기어구(남동): 염전, 굴뚝과 연기 */
       for(let r=0;r<3;r++)for(let k=0;k<3;k++){L(rect(.44+k*.05,.44+r*.05,.04,.04),true,"thin");if((r+k)%2===0)star([.46+k*.05,.46+r*.05],.7,"#fff",1.6+R()*2);}
       for(let k=0;k<3;k++){const x=.62+k*.035;L(rect(x,.2,.018,.05),true);mote([x+.009,.2],.011,"#cfd8dc",[.03+R()*.03,-.13-R()*.05],5+R()*3,"0;.6;0");}
-      /* 투쟁의 문: 남쪽의 개선문, 바벨론으로 가는 길 */
+      /* 아곤 문: 남쪽의 개선문, 바벨론으로 가는 길 */
       {const y=.76;[-.05,.05].forEach(x=>o.bands.push({outer:rect(x-.012,y-.05,.024,.1),inner:null}));o.bands.push({outer:rect(-.062,y-.066,.124,.02),inner:null});
         const ar=[];for(let k=0;k<=8;k++){const t=Math.PI*(1+k/8);ar.push([Math.cos(t)*.038,y-.01+Math.sin(t)*.035]);}L(ar,false);glow([0,y],.07,"var(--z-hot)",3.4,".1;.55;.1");
         L([[0,.9],[-.15,1.05],[-.33,1.2]],false,"dash");}
       for(let i=0;i<8;i++)mote([(R()-.5)*1.1,(R()-.5)*1.1],.016,"var(--z-hot)",[(R()-.5)*.1,-.12],2+R()*2,"0;1;0");break;}
     case "arcane":{o.out=circ(0,0,1,72);const sp=(d,dir)=>({spin:[[0,0],d,dir]});
-      /* 구역: 가운데 중앙 학부 + 네 학구(북 마도, 동 마법, 남 연무, 서 서고) */
+      /* 구역: 가운데 아고라 학부 + 네 학구(북 마도, 동 마법, 남 연무, 서 서고) */
       o.reg=[];for(let i=0;i<4;i++){const a=-90+90*i,w=[];for(let k=0;k<=10;k++)w.push(pol(a-45+k*9,.3));w.push(pol(a+45,3),pol(a,4),pol(a-45,3));w.f=i%2?.09:.02;o.reg.push(w);}
       {const c=circ(0,0,.3,40);c.f=.14;o.reg.push(c);}
       /* 바깥 테: 눈금, 도는 룬 띠, 금빛이 도는 고리 */
@@ -977,7 +977,7 @@ function terrShape(kind,seed){
       L(circ(0,0,.855,72),true,"shim",{flow:[.12,2.57,10,.02]});L(circ(0,0,.855,72),true,"shim",{flow:[.12,2.57,10,.02,-5]});
       /* 겹친 두 사각(팔각별): 네 학구의 틀. 꼭짓점마다 마력 결절 */
       const sqA=[],sqB=[];for(let k=0;k<4;k++){sqA.push(pol(k*90-90,.855));sqB.push(pol(k*90-45,.855));}L(sqA,true);L(sqB,true,"thin");
-      for(let k=0;k<8;k++){const p=pol(k*45-90,.855);if(k===6){/* 꺼진 결절: 대전 때 기록을 말소하며 스스로 끊은 서쪽(서고) 결절 */L(circ(p[0],p[1],.035,14),true,"dash");L([[p[0]-.02,p[1]-.02],[p[0]+.02,p[1]+.02]],false,"thin");L([[p[0]-.02,p[1]+.02],[p[0]+.02,p[1]-.02]],false,"thin");continue;}L(circ(p[0],p[1],.035,14),true,"",{pulse:[3.2,".35;1;.35",-k*.4]});star(p,1.25,"var(--z-goldhot)",2+R()*1.5);}
+      for(let k=0;k<8;k++){const p=pol(k*45-90,.855);if(k===6){/* 데드 노드: 대전 때 기록을 말소하며 스스로 끊은 서쪽(서고) 결절 */L(circ(p[0],p[1],.035,14),true,"dash");L([[p[0]-.02,p[1]-.02],[p[0]+.02,p[1]+.02]],false,"thin");L([[p[0]-.02,p[1]+.02],[p[0]+.02,p[1]-.02]],false,"thin");continue;}L(circ(p[0],p[1],.035,14),true,"",{pulse:[3.2,".35;1;.35",-k*.4]});star(p,1.25,"var(--z-goldhot)",2+R()*1.5);}
       /* 도는 칠각별과 그 안을 도는 일곱 달 */
       const h=[];for(let k=0;k<7;k++)h.push(pol(k*3*360/7-90,.6));L(h,true,"thin",sp(80,1));L(circ(0,0,.6,60),true,"thin");
       for(let k=0;k<7;k++){const p=pol(k*360/7-90,.44);L(circ(p[0],p[1],.03,12),true,"",sp(46,-1));L(circ(p[0]+.012,p[1],.022,10),true,"thin",sp(46,-1));}
@@ -988,21 +988,21 @@ function terrShape(kind,seed){
       glow([0,0],.34,"url(#zgFog)",5,".35;.9;.35");L(circ(0,0,.3,48),true,"",{pulse:[3.5,".55;1;.55"]});
       {const pg=[];for(let k=0;k<5;k++){const p=pol(k*72-90,.2);pg.push(p);o.bands.push({outer:circ(p[0],p[1],.022,10),inner:null});glow(p,.02,"var(--z-goldhot)",2+R()*2,".2;1;.2");}L(pg,true);const ps=[];for(let k=0;k<5;k++)ps.push(pol(k*144-90,.2));L(ps,true,"thin");
         for(let i=0;i<12;i++)L(null,false,"rune",{multi:rune(i*2+1,i*30-90,.25,.022,.026),spin:[[0,0],60,1]});}
-      /* 북 · 마도 학구: 도는 톱니와 그 안의 별 */
+      /* 북 · 테크네 학구: 도는 톱니와 그 안의 별 */
       {const c=pol(-90,.745),t=[];for(let i=0;i<10;i++){const a=i*36;t.push([c[0]+Math.cos((a-7)*D)*.05,c[1]+Math.sin((a-7)*D)*.05],[c[0]+Math.cos((a-5)*D)*.066,c[1]+Math.sin((a-5)*D)*.066],[c[0]+Math.cos((a+5)*D)*.066,c[1]+Math.sin((a+5)*D)*.066],[c[0]+Math.cos((a+7)*D)*.05,c[1]+Math.sin((a+7)*D)*.05]);}
         L(t,true,"",{spin:[c,14,1]});L(circ(c[0],c[1],.024,10),true,"thin");glow(c,.02,"var(--z-hot)",2.4,".2;1;.2");
         const c2=[c[0]+.1,c[1]+.035],t2=[];for(let i=0;i<8;i++){const a=i*45;t2.push([c2[0]+Math.cos((a-9)*D)*.03,c2[1]+Math.sin((a-9)*D)*.03],[c2[0]+Math.cos((a-6)*D)*.042,c2[1]+Math.sin((a-6)*D)*.042],[c2[0]+Math.cos((a+6)*D)*.042,c2[1]+Math.sin((a+6)*D)*.042],[c2[0]+Math.cos((a+9)*D)*.03,c2[1]+Math.sin((a+9)*D)*.03]);}L(t2,true,"thin",{spin:[c2,11.2,-1]});}
-      /* 동 · 마법 학구: 오망성 진과 흩어지는 빛 */
+      /* 동 · 마게이아 학구: 오망성 진과 흩어지는 빛 */
       {const c=pol(0,.745),pt=[];for(let k=0;k<5;k++)pt.push([c[0]+Math.cos((k*144-90)*D)*.055,c[1]+Math.sin((k*144-90)*D)*.055]);L(circ(c[0],c[1],.062,20),true,"",{pulse:[2.8,".4;1;.4"]});L(pt,true,"thin",{spin:[c,20,1]});
         o.fx.push({k:"ring",p:c,r:.05,dur:3.6,begin:0,stroke:"var(--tc)"},{k:"ring",p:c,r:.05,dur:3.6,begin:-1.8,stroke:"var(--z-goldhot)"});for(let k=0;k<6;k++)star([c[0]+(R()-.5)*.22,c[1]+(R()-.5)*.26],.7+R()*.6,k%2?"var(--z-goldhot)":"var(--z-ice)",1+R()*1.6);}
-      /* 남 · 연무 학구: 엇갈린 두 검, 대회장의 원형 경기장 */
+      /* 남 · 팔라이스트라 학구: 엇갈린 두 검, 대회장의 원형 경기장 */
       {const c=pol(90,.745);[-1,1].forEach(s=>{L([[c[0]-s*.055,c[1]+.055],[c[0]+s*.055,c[1]-.055]],false);L([[c[0]-s*.045+.014,c[1]+.031],[c[0]-s*.045-.014,c[1]+.059]].map(p=>[p[0]+(s>0?0:0),p[1]]),false,"thin");});
         const q=[.34,.7];L(circ(q[0],q[1],.06,22),true);L(circ(q[0],q[1],.04,18),true,"thin");L(circ(q[0],q[1],.075,24),true,"lace");[[-.015,-.01],[.02,.012],[0,.02]].forEach((d,k)=>star([q[0]+d[0],q[1]+d[1]],1.1,"var(--z-hot)",.7+k*.35));L([[.22,.62],[q[0]-.05,q[1]-.04]],false,"thin");}
-      /* 서 · 서고 학구: 펼친 책과 떠오르는 책장 */
+      /* 서 · 비블리온 학구: 펼친 책과 떠오르는 책장 */
       {const c=pol(180,.745);L([[c[0],c[1]-.03],[c[0]-.06,c[1]-.045],[c[0]-.06,c[1]+.03],[c[0],c[1]+.045]],false);L([[c[0],c[1]-.03],[c[0]+.06,c[1]-.045],[c[0]+.06,c[1]+.03],[c[0],c[1]+.045],[c[0],c[1]-.03]],false);
         [-.012,.008].forEach(d=>{L([[c[0]-.048,c[1]+d-.012],[c[0]-.012,c[1]+d]],false,"thin");L([[c[0]+.048,c[1]+d-.012],[c[0]+.012,c[1]+d]],false,"thin");});
         for(let k=0;k<5;k++){const x=c[0]+(R()-.5)*.14,y=c[1]-.03-R()*.04,w=.012;L([[x-w,y],[x+w,y-w*.4],[x+w,y+w],[x-w,y+w*1.4]],true,"thin",{mv:[(R()-.5)*.05,-.11-R()*.06,6+R()*4,-R()*8],pulse:[5+R()*3,"0;.9;0",-R()*6]});}}
-      /* 천문봉의 관측소, 약초원 */
+      /* 아스트론 봉의 관측소, 보타네 원 */
       {const q=[-.36,-.4];L([[q[0]-.03,q[1]],[q[0]-.03,q[1]-.015],[q[0]-.02,q[1]-.035],[q[0],q[1]-.043],[q[0]+.02,q[1]-.035],[q[0]+.03,q[1]-.015],[q[0]+.03,q[1]]],true);L([q,[q[0]+.035,q[1]-.07]],false,"thin");for(let k=0;k<4;k++)star([q[0]+.02+R()*.1,q[1]-.08-R()*.08],.7+R()*.5,"var(--z-goldhot)",1.2+R()*2);}
       for(let k=0;k<7;k++)o.dots.push([-.8+(R()-.5)*.13,-.6+(R()-.5)*.1,.009,{tw:2+R()*2}]);
       /* 떠오르는 마력, 흩날리는 나비빛 */
@@ -1017,34 +1017,34 @@ function terrShape(kind,seed){
       const c=[0,.1],ends=[[-.7,-.6],[.1,-.88],[.72,-.3],[.4,.6],[-.5,.5]],far=q=>[c[0]+(q[0]-c[0])*4,c[1]+(q[1]-c[1])*4],sc=ends.map((q,i)=>{const n=ends[(i+1)%5];return [(c[0]+q[0]+n[0])/3,(c[1]+q[1]+n[1])/3];});
       const ell=(x,y,rx,ry,rot)=>{const p=[],cr=Math.cos(rot*D),sr=Math.sin(rot*D);for(let k=0;k<14;k++){const t=k/14*2*Math.PI,u=Math.cos(t)*rx,w=Math.sin(t)*ry;p.push([x+u*cr-w*sr,y+u*sr+w*cr]);}return p;};
       const tent=(x,y)=>L([[x-.018,y+.014],[x,y-.016],[x+.018,y+.014]],true);
-      /* 갈라진 금 다섯 줄기가 쐐기성에서 만난다. 금 사이의 다섯 조각이 지방이다 */
+      /* 갈라진 금 다섯 줄기가 웨지홀드에서 만난다. 금 사이의 다섯 조각이 지방이다 */
       const cr=ends.map(q=>{const p=[c],nx=-(q[1]-c[1]),ny=q[0]-c[0];for(let k=1;k<5;k++){const t=k/5,j=(k%2?1:-1)*(.03+R()*.04);p.push([c[0]+(q[0]-c[0])*t+nx*j,c[1]+(q[1]-c[1])*t+ny*j]);}p.push(q);return p;});
       o.reg=cr.map((p,i)=>{const w=p.concat([far(ends[i]),far(ends[(i+1)%5])],cr[(i+1)%5].slice().reverse());w.f=[.02,.1,.04,.11,.06][i];return w;});
       cr.forEach((p,i)=>{L(p,false,"crack",{pulse:[2.2+R()*2.5,".3;1;.3",-R()*4]});
         /* 금을 사이에 두고 마주 선 감시초 */
         [.45,.75].forEach((t,k)=>{const q=ends[i],len=Math.hypot(q[0]-c[0],q[1]-c[1]),nx=-(q[1]-c[1])/len,ny=(q[0]-c[0])/len,x=c[0]+(q[0]-c[0])*t,y=c[1]+(q[1]-c[1])*t;
           [-1,1].forEach(s=>o.dots.push([x+nx*.06*s,y+ny*.06*s,.011,{tw:s>0?1.3+k*.4:2.1+k*.5}]));});});
-      /* 쐐기성 */
+      /* 웨지홀드 */
       o.bands.push({outer:[[c[0]-.075,c[1]-.085],[c[0]+.075,c[1]-.085],[c[0]+.048,c[1]+.075],[c[0]-.048,c[1]+.075]],inner:[[c[0]-.045,c[1]-.058],[c[0]+.045,c[1]-.058],[c[0]+.028,c[1]+.05],[c[0]-.028,c[1]+.05]]});glow(c,.13,"var(--z-lava)",2.6,".2;.8;.2");
       /* 조각마다 따로 선 가시 요새. 제각각 번쩍인다 */
       sc.forEach((q,i)=>{const p=[q[0]+[.1,-.1,.02,-.14,.02][i],q[1]+[-.1,.09,-.12,.02,-.13][i]],a=[],b=[];for(let k=0;k<16;k++){a.push([p[0]+Math.cos(k*22.5*D)*(k%2?.026:.046),p[1]+Math.sin(k*22.5*D)*(k%2?.026:.046)]);}for(let k=0;k<8;k++)b.push([p[0]+Math.cos(k*45*D)*.014,p[1]+Math.sin(k*45*D)*.014]);
         o.bands.push({outer:a,inner:b});glow(p,.075,"var(--z-lava)",1.7+i*.75,"0;.75;0;0");});
-      /* 칼날 조각: 꽂아 둔 칼 */
+      /* 블레이드 샤드: 꽂아 둔 칼 */
       {const x0=sc[0][0]-.06,y0=sc[0][1]+.15;[-.06,0,.06].forEach((d,k)=>{const x=x0+d,y=y0+(k===1?-.015:0);L([[x-.011,y+.04],[x,y-.085],[x+.011,y+.04]],true);L([[x-.028,y+.04],[x+.028,y+.04]],false);L([[x,y+.04],[x,y+.07]],false);star([x,y-.08],.7,"#fff",1+R()*1.5);});}
-      /* 사슬 조각: 사슬, 암시장의 어두운 등 */
+      /* 체인 샤드: 사슬, 녹턴 마켓의 어두운 등 */
       {for(let k=0;k<7;k++)L(ell(.1+k*.045,-.2-k*.012,.03,.014,k%2?75:-15),true,"",{pulse:[5,".5;1;.5",-k*.4]});
         for(let k=0;k<7;k++){o.dots.push([.2+(k%4)*.04,-.6-Math.floor(k/4)*.035,.008,{tw:2.5+R()*3}]);}for(let k=0;k<3;k++)L([[.19+k*.045,-.66],[.225+k*.045,-.66],[.225+k*.045,-.64],[.19+k*.045,-.64]],true,"thin");}
-      /* 독니 조각: 독니와 떨어지는 독 */
+      /* 팽 샤드: 독니와 떨어지는 독 */
       {const x=.56,y=.12;[-1,1].forEach(s=>L([[x+s*.035,y-.045],[x+s*.012,y-.045],[x+s*.018,y+.05]],true));L([[x-.045,y-.045],[x+.045,y-.045]],false);
         [-1,1].forEach((s,k)=>{mote([x+s*.018,y+.055],.008,"#9BD67A",[0,.1],2.4+k*.7,"0;1;1;0");});glow([x,y+.14],.03,"#9BD67A",3,".1;.6;.1");}
-      /* 그림자 조각: 떠도는 그림자, 밀수항의 부두와 밤배 */
+      /* 섀도 샤드: 떠도는 그림자, 스머글 포트의 부두와 밤배 */
       {for(let k=0;k<3;k++)mote([-.22+k*.12,.36+(k%2)*.1],.05,"var(--z-cur)",[.16-k*.12,(k%2?-.06:.07)],14+k*4,"0;.4;.4;0");
         [-.03,.0,.03,.06].forEach(d=>L([[.08+d,.68],[.08+d,.735]],false));
         L([[.08,.74],[.1,1.0],[.2,1.3]],false,"dash");mote([.2,1.3],.011,"var(--z-cur)",[-.12,-.56],17,"0;.9;.9;0");mote([.2,1.3],.011,"var(--z-cur)",[-.12,-.56],17,"0;.9;.9;0");o.fx[o.fx.length-1].begin=-8.5;mote([.08,.74],.011,"var(--z-cur)",[.12,.56],21,"0;.9;.9;0");o.fx[o.fx.length-1].begin=-4;}
-      /* 재갈 조각: 재갈, 용병 소굴의 천막과 모닥불 */
+      /* 브라이들 샤드: 재갈, 머크 덴의 천막과 모닥불 */
       {const x=-.6,y=-.14;L([[x-.05,y],[x+.05,y]],false);L(circ(x-.066,y,.018,10),true);L(circ(x+.066,y,.018,10),true);L([[x-.066,y+.018],[x-.03,y+.08]],false,"thin");L([[x+.066,y+.018],[x+.03,y+.08]],false,"thin");
         [[-.6,.16],[-.55,.2],[-.62,.23],[-.52,.26]].forEach(q=>tent(q[0],q[1]));glow([-.57,.215],.028,"var(--z-lava)",1.2,".3;1;.5;.9;.3");}
-      /* 침략로: 북동(GIV), 동(괴뢰령), 남동(쐐기 관문과 바벨론). 약탈대가 나가고 전리품이 들어온다 */
+      /* 침략로: 북동(GIV), 동(괴뢰령), 남동(웨지 게이트와 바벨론). 약탈대가 나가고 전리품이 들어온다 */
       [[[.62,-.62],[1.1,-.95],[1.6,-1.3]],[[.72,-.05],[1.0,-.05],[1.22,-.04]],[[.4,.6],[.63,.6],[.85,.575]]].forEach((rd,i)=>{L(rd,false,"dash");const a=rd[0],b=rd[2];
         mote(a,.011,"var(--z-lava)",[b[0]-a[0],b[1]-a[1]],9+i*2,"0;1;1;0");mote(b,.009,"var(--z-goldhot)",[a[0]-b[0],a[1]-b[1]],13+i*2,"0;1;1;0");o.fx[o.fx.length-1].begin=-5;});
       break;}
@@ -1064,39 +1064,39 @@ function terrShape(kind,seed){
         [.45,.62,.78].forEach((u,k)=>{[-1,1].forEach(sd=>L([pol(a,u),pol(a+sd*(15-k*3),u+.17)],false,"thin"));});
         for(let k=0;k<5;k++){const u=.32+k*.12,p=pol(a+(k%2?2.6:-2.6),u);o.dots.push([p[0],p[1],.014,{tw:1.8+R()*2.4}]);}
         L([pol(a-36,.25),pol(a-36,rf(a-36)*.98)],false,"dash");}
-      /* 여우령(북): 도리이와 여우불 */
+      /* 알로펙스령(북): 도리이와 여우불 */
       {const [x,y]=pol(-90,.82);L([[x-.04,y+.045],[x-.04,y-.03]],false);L([[x+.04,y+.045],[x+.04,y-.03]],false);L([[x-.062,y-.028],[x+.062,y-.028]],false);L([[x-.075,y-.05],[x-.04,y-.058],[x+.04,y-.058],[x+.075,y-.05]],false);
         [[-.1,.02],[.1,0],[0,-.1],[-.07,-.07],[.08,-.08]].forEach((d,k)=>{glow([x+d[0],y+d[1]],.016,"var(--z-ice)",1.6+R()*1.6,".1;1;.1");mote([x+d[0],y+d[1]+.03],.008,"var(--z-ice)",[(R()-.5)*.03,-.09],3+R()*2,"0;1;0");});}
-      /* 늑대령(북동): 초승달과 울음, 무리의 순찰 */
+      /* 리코스령(북동): 초승달과 울음, 무리의 순찰 */
       {const [x,y]=pol(-18,.8),m=[];for(let k=0;k<=12;k++){const t=(-100+k*200/12)*D;m.push([x+Math.cos(t)*.055,y+Math.sin(t)*.055]);}for(let k=12;k>=0;k--){const t=(-100+k*200/12)*D;m.push([x+.022+Math.cos(t)*.04,y+Math.sin(t)*.045]);}L(m,true,"",{pulse:[4,".5;1;.5"]});
         o.fx.push({k:"ring",p:[x,y],r:.06,dur:5,begin:0,stroke:"var(--z-ice)"},{k:"ring",p:[x,y],r:.06,dur:5,begin:-2.5,stroke:"var(--z-ice)"});
         for(let k=0;k<4;k++){const a0=-40+k*4,p0=pol(a0,.62),p1=pol(a0+34,.62);mote(p0,.01,"var(--tc)",[p1[0]-p0[0],p1[1]-p0[1]],9,"0;1;1;0");o.fx[o.fx.length-1].begin=-k*.5;}}
-      /* 범령(남동): 발톱 자국, 사냥터 과녁 */
+      /* 티그리스령(남동): 발톱 자국, 사냥터 과녁 */
       {const [x,y]=pol(54,.82);for(let k=-1;k<=1;k++)L([[x-.045+k*.03,y-.05],[x-.02+k*.03,y],[x-.035+k*.03,y+.05]],false,"crack",{pulse:[3,".4;1;.4",-k*.5]});
         const q=[.3,.44];L(circ(q[0]+.07,q[1]-.07,.035,16),true,"thin");L(circ(q[0]+.07,q[1]-.07,.018,12),true,"thin");glow([q[0]+.07,q[1]-.07],.012,"var(--z-lava)",2,".2;1;.2");}
-      /* 사슴령(남서): 뿔, 나루의 못 */
+      /* 엘라포스령(남서): 뿔, 나루의 못 */
       {const [x,y]=pol(126,.84);[-1,1].forEach(sd=>{L([[x+sd*.01,y+.04],[x+sd*.03,y-.01],[x+sd*.045,y-.06]],false);L([[x+sd*.03,y-.01],[x+sd*.065,y-.02]],false);L([[x+sd*.038,y-.035],[x+sd*.07,y-.055]],false);});
         const q=[-.42,.64];L(circ(q[0],q[1],.05,18),true,"water",{w:.012});o.bands.push({outer:circ(q[0],q[1],.012,8),inner:null});o.fx.push({k:"ring",p:q,r:.03,dur:4,begin:0},{k:"ring",p:q,r:.03,dur:4,begin:-2});L([[-.3,.52],[-.36,.58],[q[0]+.035,q[1]-.035]],false,"thin");}
-      /* 새령(서): 둥지와 날아가는 새 떼 */
+      /* 오르니스령(서): 둥지와 날아가는 새 떼 */
       {const [x,y]=pol(198,.8);L(circ(x,y,.04,16),true);L(circ(x,y,.022,12),true,"thin");
         for(let k=0;k<5;k++){const bx=x+.1+(R()-.5)*.2,by=y-.12+(R()-.5)*.16,w=.016+R()*.008;L([[bx-w,by-w*.6],[bx,by],[bx+w,by-w*.6]],false,"",{mv:[.16+R()*.1,-.06-R()*.05,7+R()*5,-R()*8]});}}
       /* 오리온 자리: 어깨(베텔)는 붉게, 발(리겔)은 푸르게, 허리 삼태성은 축제 마당 위 */
       const s=[[-.26,-.5],[.3,-.56],[-.12,-.03],[0,0],[.12,.03],[-.3,.52],[.3,.44]];[[0,1],[0,2],[1,4],[2,3],[3,4],[2,5],[4,6],[5,6]].forEach(([a,b])=>L([s[a],s[b]],false,"dash"));s.forEach(q=>o.dots.push([q[0],q[1],.03,{tw:1.5+R()*2.5}]));
       glow(s[0],.045,"var(--z-lava)",3.4,".08;.4;.08");glow(s[6],.045,"var(--z-ice)",2.6,".15;.6;.15");[s[0],s[1],s[5],s[6]].forEach(q=>star(q,1.5,"var(--z-goldhot)",2+R()*2));
       for(let i=0;i<18;i++)o.fx.push({k:"petal",p:[(R()-.5)*1.5,-.8+R()*1.2],s:.7+R()*.8,mv:[.12+R()*.2,.3+R()*.25],dur:6+R()*6,begin:-R()*12});
-      /* 패전의 흔적 · 새령 서쪽 기슭의 불탄 벚나무 숲: 판데모니움과 맞닿은 대전의 싸움터. 검게 탄 줄기와 꺼지지 않은 잿불 */
+      /* 패전의 흔적 · 오르니스령 서쪽 기슭의 애시블룸 숲: 판데모니움과 맞닿은 대전의 싸움터. 검게 탄 줄기와 꺼지지 않은 잿불 */
       {const c=pol(206,.66);[[-.07,-.03],[-.035,.025],[0,-.02],[.035,.03],[.07,-.015],[-.05,.07],[.02,.075]].forEach(([dx,dy],k)=>{const x=c[0]+dx,y=c[1]+dy,s=k%2?1:-1;
           L([[x,y+.03],[x+.004*s,y-.004],[x-.002*s,y-.03]],false,"char");L([[x+.003*s,y],[x+.022*s,y-.016]],false,"char");L([[x-.001*s,y-.016],[x-.016*s,y-.027]],false,"thin");});
         L(circ(c[0],c[1]+.02,.11,22),true,"dash");[[-.05,.04],[.04,.01],[.0,.06]].forEach((d,k)=>glow([c[0]+d[0],c[1]+d[1]],.014,"var(--z-lava)",3.2+k*.9,".05;.45;.05"));}
       break;}
     case "shamrock":{const fn=th=>(.42+.58*Math.pow(Math.abs(Math.cos(1.5*(th+90)*D)),.55))*(1+.03*Math.abs(Math.sin(21*th*D)));
       const sx=y=>.04*Math.sin((y-.6)*5),rect=(x,y,w,h)=>[[x,y],[x+w,y],[x+w,y+h],[x,y+h]];
-      /* 세 잎과 줄기. 줄기는 남쪽 양치기 언덕으로 내려간다. 잎 안쪽에 겹 테두리 */
+      /* 세 잎과 줄기. 줄기는 남쪽 파스토랄 언덕으로 내려간다. 잎 안쪽에 겹 테두리 */
       const inn=[],dbl=[];let stem=false;
       for(let i=0;i<168;i++){const th=i/168*360;
         if(th>86&&th<94){if(!stem){stem=true;for(let k=0;k<=6;k++){const y=.62+k*.06;o.out.push([sx(y)+.03,y]);}o.out.push([sx(1)+.012,1],[sx(1)-.012,1]);for(let k=6;k>=0;k--){const y=.62+k*.06;o.out.push([sx(y)-.03,y]);}}continue;}
         o.out.push(pol(th,fn(th)));inn.push(pol(th,fn(th)*.86));dbl.push(pol(th,fn(th)*.93));}
-      /* 구역: 세 잎(북엽령, 동엽령, 서엽령)과 가운데 궁 */
+      /* 구역: 세 잎(셉텐트리오 엽령, 오리엔스 엽령, 옥시덴스 엽령)과 가운데 궁 */
       o.reg=[];[-90,30,150].forEach((a,i)=>{const w=[];for(let k=0;k<=12;k++)w.push(pol(a-60+k*10,.15));w.push(pol(a+60,3),pol(a,3.4),pol(a-60,3));w.f=[.02,.09,.05][i];o.reg.push(w);});
       {const c=circ(0,0,.15,28);c.f=.14;o.reg.push(c);}
       /* 레이스 테두리: 두 겹. 빛이 서로 반대로 흐른다 */
@@ -1115,29 +1115,29 @@ function terrShape(kind,seed){
       L(circ(0,0,.15,28),true,"thin");{const y0=-.07;o.bands.push({outer:rect(-.05,y0,.1,.03),inner:null});
         [[-.05,.035],[0,.055],[.05,.035]].forEach(([x,h])=>L([[x-.012,y0],[x-.012,y0-h],[x,y0-.018-h],[x+.012,y0-h],[x+.012,y0]],false));
         const mc=[0,y0-.03];L(circ(mc[0],mc[1],.09,28),true,"dash");L(circ(mc[0]+.09,mc[1],.006,8),true,"shim",{w:.016,spin:[mc,30,1]});glow(mc,.09,"var(--z-goldhot)",6,".05;.3;.05");}
-      /* 북엽령 · 장미 정원시: 장미 아치와 피고 지는 장미 */
+      /* 셉텐트리오 엽령 · 로사리움: 장미 아치와 피고 지는 장미 */
       {const ar=[];for(let k=0;k<=10;k++){const t=Math.PI*(1+k/10);ar.push([Math.cos(t)*.05,-.76+Math.sin(t)*.05]);}L(ar,false);L([[-.05,-.76],[-.05,-.72]],false,"thin");L([[.05,-.76],[.05,-.72]],false,"thin");
         ar.forEach((q,k)=>{if(k%2===0)glow(q,.012,"var(--z-ring)",2.5+R()*2,".2;1;.2");});
         for(let k=0;k<8;k++)glow([(R()-.5)*.26,-.68+(R()-.5)*.1],.012,"var(--z-ring)",3+R()*3,".1;.9;.1");}
-      /* 동엽령 · 레이스 거리: 레이스 무늬 처마가 이어진 거리와 등불 */
+      /* 오리엔스 엽령 · 레이스 거리: 레이스 무늬 처마가 이어진 거리와 등불 */
       {const a=[.46,.26],b=[.8,.48],n=8,dx=(b[0]-a[0])/n,dy=(b[1]-a[1])/n,len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len,sc=[];L([a,b],false,"thin");
         for(let k=0;k<n;k++){const cx=a[0]+dx*(k+.5),cy=a[1]+dy*(k+.5);for(let j=0;j<=6;j++){const t=Math.PI*j/6;sc.push([cx-ux*Math.cos(t)*len/2+uy*Math.sin(t)*len/2,cy-uy*Math.cos(t)*len/2-ux*Math.sin(t)*len/2]);}}
         L(sc,false,"",{pulse:[5,".55;1;.55"]});for(let k=0;k<=n;k++)o.dots.push([a[0]+dx*k-uy*.03,a[1]+dy*k+ux*.03,.008,{tw:1.5+R()*2}]);}
-      /* 서엽령 · 백조 호반: 호수와 물결, 오가는 백조 둘 */
+      /* 옥시덴스 엽령 · 시그너스 호반: 호수와 물결, 오가는 백조 둘 */
       {const c=[-.62,.5];L(circ(c[0],c[1],.12,28).map(p=>[p[0],c[1]+(p[1]-c[1])*.55]),true,"water",{w:.01});o.fx.push({k:"ring",p:c,r:.05,dur:5,begin:0,stroke:"var(--z-ice)"});
         [[-.04,-.01,1],[.04,.02,-1]].forEach(([dx,dy,s],k)=>{const x=c[0]+dx,y=c[1]+dy;L([[x-.02*s,y],[x+.016*s,y],[x+.022*s,y-.011],[x+.014*s,y-.017],[x+.016*s,y-.036],[x+.025*s,y-.039]],false,"wfl2",{w:.007,mv:[.04*s,0,9+k*3,-k*4]});});}
-      /* 양치기 언덕: 줄기 끝의 풀밭과 느릿느릿 움직이는 양 */
+      /* 파스토랄 언덕: 줄기 끝의 풀밭과 느릿느릿 움직이는 양 */
       for(let k=0;k<5;k++){const x=(R()-.5)*.16,y=.76+(R()-.5)*.06;L(circ(x,y,.011,8),true,"wfl",{mv:[(R()-.5)*.03,0,6+R()*5,-R()*6]});}
-      /* 등대 마을: 잎 사이의 등대와 도는 불빛 */
+      /* 파로스 마을: 잎 사이의 등대와 도는 불빛 */
       {const c=[.82,-.25],t=[c[0],c[1]-.035];L([[c[0]-.012,c[1]+.03],[c[0]-.007,c[1]-.03],[c[0]+.007,c[1]-.03],[c[0]+.012,c[1]+.03]],true);glow(t,.02,"var(--z-goldhot)",2,".4;1;.4");
         L([t,[t[0]+.2,t[1]]],false,"shim",{w:.008,spin:[t,8,1]});}
       /* 에메랄드 봉의 초록 반짝임 */
       for(let k=0;k<5;k++)star([-.53+(R()-.5)*.12,-.16+(R()-.5)*.08],1.1,"var(--tc)",1.4+R()*2);
-      /* 관광객과 순례자: 순례자 섬령에서 레이스 거리로, 클로버 백작령에서 백조 호반으로 */
+      /* 관광객과 순례자: 페레그리나 섬령에서 레이스 거리로, 클로버 백작령에서 시그너스 호반으로 */
       [[[1.49,-.28],[1.1,-.05],[.74,.3]],[[-1.18,-.49],[-.95,-.1],[-.7,.32]]].forEach((rd,i)=>{L(rd,false,"dash");const a=rd[0],b=rd[2];for(let k=0;k<3;k++){mote(a,.01,"var(--z-goldhot)",[b[0]-a[0],b[1]-a[1]],18+i*3,"0;1;1;0");o.fx[o.fx.length-1].begin=-k*6;}});
       /* 흩날리는 클로버 잎 */
       for(let i=0;i<8;i++)o.fx.push({k:"petal",p:[(R()-.5)*1.4,-.7+R()*1.1],s:.6+R()*.5,mv:[.1+R()*.15,.2+R()*.2],dur:8+R()*6,begin:-R()*12});
-      /* 패전의 흔적 · 무너진 넷째 탑 터: 대전 때 무너진 궁의 넷째 탑. 다시 세우지 않고 밑동만 남겼다 */
+      /* 패전의 흔적 · 테타르토스 탑 터: 대전 때 무너진 궁의 넷째 탑. 다시 세우지 않고 밑동만 남겼다 */
       {const y0=-.07,x=.1;L([[x-.03,y0+.05],[x-.03,y0-.02],[x-.012,y0-.04],[x+.004,y0-.012],[x+.016,y0-.034],[x+.03,y0-.016],[x+.03,y0+.05]],false);
         L([[x-.03,y0+.012],[x+.03,y0+.012]],false,"thin");L([[x-.045,y0+.05],[x+.045,y0+.05]],false);
         [[x-.05,y0+.06],[x+.048,y0+.064],[x+.008,y0+.072],[x-.022,y0+.07]].forEach(q=>o.dots.push([q[0],q[1],.005]));glow([x,y0],.05,"var(--z-ice)",6,".04;.3;.04");}
@@ -1145,7 +1145,7 @@ function terrShape(kind,seed){
     case "gem":{const ov=[],tv=[],kv=[],c8=Math.cos(22.5*D),T=.3*c8,rev=p=>p.slice().reverse();
       for(let i=0;i<8;i++){ov.push(pol(i*45+22.5,1));tv.push(pol(i*45+22.5,.3));kv.push(pol(i*45,.64));}o.out=ov;
       const rect=(x,y,w,h)=>[[x,y],[x+w,y],[x+w,y+h],[x,y+h]],boat=(p,mv,dur,bg)=>{mote(p,.009,"var(--z-ice)",mv,dur,"0;1;1;0");if(bg!=null)o.fx[o.fx.length-1].begin=bg;};
-      /* 구역: 가운데 금고 구, 네 방향의 구. 구의 경계는 운하다 */
+      /* 구역: 가운데 테사우루스 구, 네 방향의 구. 구의 경계는 운하다 */
       o.reg=[];[-90,0,90,180].forEach((a,i)=>{const w=[pol(a-45,T),pol(a-22.5,.3),pol(a+22.5,.3),pol(a+45,T),pol(a+45,3),pol(a,3.4),pol(a-45,3)];w.f=i%2?.09:.03;o.reg.push(w);});
       {const c=tv.slice();c.f=.15;o.reg.push(c);}
       /* 세공면: 브릴리언트 컷. 깎인 면이 차례로 번쩍인다 */
@@ -1154,7 +1154,7 @@ function terrShape(kind,seed){
       /* 금고 해자와 네 줄기 큰 운하. 남서·북서 운하는 바다로 나간다 */
       L(tv,true,"water",{w:.02});L(tv,true,"flowlt",{flow:[.05,.09,3.2,.007]});
       [45,135,225,315].forEach((a,k)=>{const p=[pol(a,T),pol(a,a===135||a===225?1.34:c8)];L(p,false,"water",{w:.013});L(p,false,"flowlt",{flow:[.04,.08,2.4,.005,-k*.6]});});
-      /* 금고 구: 금고 성벽, 보석 문장, 해자를 도는 수룡의 그림자 */
+      /* 테사우루스 구: 금고 성벽, 보석 문장, 해자를 도는 수룡의 그림자 */
       {const a=[],b=[],g=[];for(let i=0;i<8;i++){a.push(pol(i*45+22.5,.15));b.push(pol(i*45+22.5,.132));g.push(pol(i*45,.08));}o.bands.push({outer:a,inner:b});L(g,true,"",{pulse:[3.2,".5;1;.5"]});
         for(let i=0;i<8;i+=2)L([g[i],g[(i+4)%8]],false,"thin");glow([0,0],.1,"var(--z-goldhot)",3.2,".1;.55;.1");
         const dr=[];for(let k=0;k<=16;k++)dr.push(pol(k*3.6,.288+.01*Math.sin(k*1.2)));L(dr,false,"dragon",{w:.024,spin:[[0,0],46,1]});
@@ -1162,56 +1162,56 @@ function terrShape(kind,seed){
       /* 네 성문과 큰길 (남쪽은 대운하) */
       [0,-90,180,90].forEach(a=>{const p=pol(a,c8),t=pol(a+90,1);o.bands.push({outer:[[p[0]-t[0]*.05-p[0]*.02,p[1]-t[1]*.05-p[1]*.02],[p[0]+t[0]*.05-p[0]*.02,p[1]+t[1]*.05-p[1]*.02],[p[0]+t[0]*.05+p[0]*.02,p[1]+t[1]*.05+p[1]*.02],[p[0]-t[0]*.05+p[0]*.02,p[1]-t[1]*.05+p[1]*.02]],inner:null});
         glow(p,.03,"var(--z-hot)",3+R()*2,".15;.8;.15");if(a!==90)L([pol(a,T),pol(a,c8)],false,"dash");});
-      /* 운하 구(남): 대운하, 가로 운하 넷, 다리, 나루의 부두, 오가는 배 */
+      /* 카날리스 구(남): 대운하, 가로 운하 넷, 다리, 나루의 부두, 오가는 배 */
       {const gc=[[0,T],[0,c8]];L(gc,false,"water",{w:.014});L(gc,false,"flowlt",{flow:[.04,.08,2.6,.006]});
         [.42,.56,.7,.84].forEach((y,k)=>{const p=[[-y+.03,y],[y-.03,y]];L(p,false,"water",{w:.008});L(k%2?p:rev(p),false,"flowlt",{flow:[.03,.06,2.2+k*.3,.004,-k*.5]});});
         [[-.25,.42],[.25,.42],[-.34,.56],[.3,.7],[-.45,.7],[.4,.84]].forEach(q=>[-.012,.012].forEach(d=>L([[q[0]+d,q[1]-.022],[q[0]+d,q[1]+.022]],false)));
         [-.18,-.155,-.13,-.105,-.08].forEach(x=>L([[x,.56],[x,.595]],false));
         boat([-.5,.56],[1,0],22);boat([.38,.42],[-.76,0],18,-6);boat([-.64,.7],[1.28,0],26,-11);boat([0,T],[0,c8-T],15,-4);
         mote(pol(135,T),.012,"#fff",[pol(135,1.05)[0],pol(135,1.05)[1]],24,"0;1;1;0");mote(pol(135,1.3),.012,"#fff",[-pol(135,1.0)[0],-pol(135,1.0)[1]],24,"0;1;1;0");o.fx[o.fx.length-1].begin=-12;}
-      /* 상단 구(북): 대거래소, 창고 줄, 금화의 반짝임, 북동으로 나가는 상단 길 */
+      /* 메르카토르 구(북): 엠포리온, 창고 줄, 금화의 반짝임, 북동으로 나가는 상단 길 */
       {const x=.12,y=-.62;L(rect(x-.05,y-.105,.1,.07),true);L([[x-.05,y-.07],[x,y-.105],[x+.05,y-.07],[x,y-.035]],true,"thin");
         for(let r=0;r<2;r++)for(let k=0;k<5;k++)L(rect(-.34+k*.05,-.5-r*.045,.034,.024),true,"thin");
         for(let k=0;k<10;k++)star([x+(R()-.5)*.3,y-.07+(R()-.5)*.2],.8+R()*.5,"var(--z-goldhot)",1+R()*1.5);
         const rd=[[x,y-.105],[.3,-.9],[.62,-1.12],[.95,-1.25]];L(rd,false,"dash");
         for(let k=0;k<3;k++){mote(rd[0],.009,"var(--z-goldhot)",[rd[3][0]-rd[0][0],rd[3][1]-rd[0][1]],26,"0;1;1;0");o.fx[o.fx.length-1].begin=-k*8.5;}
         mote([0,-c8],.009,"var(--z-goldhot)",[0,c8-T],16,"0;1;1;0");}
-      /* 학원 구(동): 학원 회랑과 펼친 책, 강의동, 길러 낸 인재가 세상으로 나간다. 남동의 용목 가도 */
+      /* 스콜라 구(동): 학원 회랑과 펼친 책, 강의동, 길러 낸 인재가 세상으로 나간다. 남동의 트라켈로스 가도 */
       {const x=.6,y=-.27;L(rect(x-.085,y-.085,.17,.17),true);L(rect(x-.05,y-.05,.1,.1),true,"thin");[[-1,-1],[1,-1],[1,1],[-1,1]].forEach(s=>L(circ(x+s[0]*.085,y+s[1]*.085,.014,8),true));
         L([[x-.03,y+.02],[x,y+.03],[x+.03,y+.02],[x+.03,y-.02],[x,y-.01],[x-.03,y-.02]],true);L([[x,y+.03],[x,y-.01]],false);
         for(let k=0;k<5;k++)L(rect(.42+k*.055,.3,.036,.026),true,"thin");
         [[.7,-.2],[.2,-.75],[.55,.6],[-.5,-.1],[.75,.25],[-.2,.55]].forEach((d,k)=>{mote([x,y],.007,k%2?"var(--z-ice)":"var(--z-goldhot)",d,13+k*1.7,"0;1;.7;0");o.fx[o.fx.length-1].begin=-k*2.3;});
         for(let k=0;k<5;k++)star([x+(R()-.5)*.22,y+(R()-.5)*.22],.8,"var(--z-ice)",1.6+R()*2);
         L([pol(0,c8),[1.36,0]],false,"dash");L([[.62,.14],[.8,.45],[.91,.71],[1.0,.92]],false,"dash");}
-      /* 공방 구(서): 세공한 보석, 공방 줄, 망치의 불티, 서쪽 수출 부두 */
+      /* 파브리카 구(서): 세공한 보석, 공방 줄, 망치의 불티, 서쪽 수출 부두 */
       {["var(--z-ice)","var(--z-lava)","var(--z-goldhot)","var(--z-hot)","var(--tc)"].forEach((c,k)=>{const x=-.8+k*.075,y=-.32,s=1;
           L([[x-.022*s,y-.012],[x-.011,y-.025],[x+.011,y-.025],[x+.022,y-.012],[x,y+.028]],true);L([[x-.022,y-.012],[x+.022,y-.012]],false,"thin");L([[x-.011,y-.025],[x,y+.028],[x+.011,y-.025]],false,"thin");
           glow([x,y],.03,c,2.5,".1;.9;.1");o.fx[o.fx.length-1].dur=2+k*.4;});
         for(let r=0;r<2;r++)for(let k=0;k<6;k++){L(rect(-.84+k*.05,.2+r*.045,.034,.024),true,"thin");if((k+r)%2)star([-.823+k*.05,.2+r*.045],.7,"var(--z-lava)",.7+R()*.9);}
         [-.05,0,.05].forEach(y=>L([[-c8,y],[-c8-.07,y]],false));mote([-c8-.03,0],.011,"#fff",[-.4,.06],18,"0;1;1;0");mote([-c8-.03,.05],.011,"#fff",[-.4,-.1],23,"0;1;1;0");o.fx[o.fx.length-1].begin=-9;}
       for(let i=0;i<8;i++)star(pol(R()*360,.35+R()*.55),1+R(),"var(--z-hot)");
-      /* 패전의 흔적 · 갚음 비석: 대전 배상으로 내준 돈과 식량을 새긴 비석. 다 갚은 날 대거래소 곁에 세웠다. 안트리의 흔적은 이것 하나다 */
+      /* 패전의 흔적 · 아포도시스 비석: 대전 배상으로 내준 돈과 식량을 새긴 비석. 다 갚은 날 엠포리온 곁에 세웠다. 안트리의 흔적은 이것 하나다 */
       {const x=.3,y=-.5;L([[x-.016,y+.035],[x-.016,y-.02],[x-.008,y-.032],[x+.008,y-.032],[x+.016,y-.02],[x+.016,y+.035]],true);
         [-.012,-.002,.008,.018].forEach(d=>L([[x-.009,y+d],[x+.009,y+d]],false,"thin"));L([[x-.03,y+.035],[x+.03,y+.035]],false);glow([x,y],.03,"var(--z-goldhot)",5,".05;.35;.05");}
       break;}
     case "snowflake":{for(let i=0;i<6;i++){const a=i*60-90;o.out.push(pol(a-30,.44),pol(a-15,.5),pol(a-19,.68),pol(a-8.5,.62),pol(a-11,.86),pol(a-4.5,.82),pol(a,1),pol(a+4.5,.82),pol(a+11,.86),pol(a+8.5,.62),pol(a+19,.68),pol(a+15,.5));}
-      /* 구역: 가운데 백화성, 세 갈래(북 백화 직할령, 남동 기갑 공창구, 남서 설령 변방) */
+      /* 구역: 가운데 레우칸테 성, 세 갈래(북 레우칸테 직할령, 남동 호플론 공창구, 남서 키오니아 변방) */
       o.reg=[];[-90,30,150].forEach((a,i)=>{const w=[pol(a-60,.18),pol(a,.18),pol(a+60,.18),pol(a+60,3),pol(a,3.4),pol(a-60,3)];w.f=[.03,.1,.06][i];o.reg.push(w);});
       const h1=[],h1b=[],h2=[];for(let i=0;i<6;i++){h1.push(pol(i*60-90,.18));h1b.push(pol(i*60-90,.162));h2.push(pol(i*60-60,.4));}{const c=h1.slice();c.f=.16;o.reg.push(c);}
       /* 여섯 갈래의 결정: 축과 곁가지 */
       for(let i=0;i<6;i++){const a=i*60-90;L([pol(a,.18),pol(a,.96)],false,"",{pulse:[6,".5;1;.5",-i]});
         [[.46,19,.66],[.66,11,.84],[.84,5,.91]].forEach(v=>[-1,1].forEach(sd=>L([pol(a,v[0]),pol(a+sd*v[1],v[2])],false,"thin")));
         glow(pol(a,.98),.03,"var(--z-ice)",3+R()*2,".1;.8;.1");}
-      /* 백화성: 육각 성벽, 외성, 흰 꽃 */
+      /* 레우칸테 성: 육각 성벽, 외성, 흰 꽃 */
       o.bands.push({outer:h1,inner:h1b});L(h2,true,"thin");
       for(let i=0;i<6;i++){const b=i*60-60;L([pol(b,.03),pol(b-15,.085),pol(b,.142),pol(b+15,.085)],true,"wfl",{pulse:[7,".55;1;.55",-i*.5]});}
       L(circ(0,0,.025,10),true,"shim");glow([0,0],.16,"#fff",7,".05;.3;.05");
-      /* 백화 직할령(북): 길을 따라 선 등, 서리 광산의 마나 결정, 용목 고개로 가는 길 */
+      /* 레우칸테 직할령(북): 길을 따라 선 등, 크리오스 광산의 마나 결정, 트라켈로스 고개로 가는 길 */
       for(let k=0;k<7;k++){const p=pol(-90,.26+k*.1);o.dots.push([p[0]+(k%2?.018:-.018),p[1],.009,{tw:2.5+R()*2}]);}
       {const mx=-.29,my=-.78;for(let k=0;k<6;k++){const x=mx+(k-2.5)*.026+(R()-.5)*.01,h=.04+R()*.045,y=my+(R()-.5)*.03;L([[x-.011,y],[x-.002,y-h],[x+.011,y]],true,"flowlt");}
         glow([mx,my-.02],.06,"var(--z-ice)",3.5,".15;.75;.15");for(let k=0;k<4;k++)star([mx+(R()-.5)*.14,my-.03+(R()-.5)*.08],.8,"var(--z-ice)",1.4+R()*1.6);
         L([pol(-150,.18),[-.25,-.5],[-.4,-.82],[-.55,-1.12]],false,"dash");}
-      /* 기갑 공창구(남동): 육각 장갑판 조립, 대장간 불, 굴뚝 연기, 출고를 기다리는 기갑주, 광석 길 */
+      /* 호플론 공창구(남동): 육각 장갑판 조립, 대장간 불, 굴뚝 연기, 출고를 기다리는 기갑주, 광석 길 */
       {const c=pol(30,.37),s=.04,hx=(x,y)=>{const h=[];for(let j=0;j<6;j++)h.push([x+Math.cos(j*60*D)*s,y+Math.sin(j*60*D)*s]);return h;};
         L(hx(c[0],c[1]),true,"",{pulse:[4.2,".3;1;.3;.3",0]});for(let j=0;j<6;j++){const q=pol(30+j*60,s*1.732);L(hx(c[0]+q[0],c[1]+q[1]),true,"",{pulse:[4.2,".3;1;.3;.3",-(j+1)*.6]});}
         const f=[.5,.34];glow(f,.075,"var(--z-lava)",2.6,".2;.85;.2");L(circ(f[0],f[1],.035,12),true);
@@ -1219,7 +1219,7 @@ function terrShape(kind,seed){
         for(let k=0;k<3;k++){const p=pol(30,.72+k*.075),n=pol(120,1),u=pol(30,1),bx=(du,dn)=>[p[0]+u[0]*du+n[0]*dn,p[1]+u[1]*du+n[1]*dn];
           L([bx(-.022,-.014),bx(.012,-.014),bx(.012,.014),bx(-.022,.014)],true);L([bx(.012,-.024),bx(.012,.024)],false);o.dots.push([...bx(.03,0),.008,{tw:1.6+k*.5}]);}
         const m=[-.2,-.74];L([m,f],false,"dash");for(let k=0;k<3;k++){mote(m,.01,"var(--z-ice)",[f[0]-m[0],f[1]-m[1]],21,"0;1;1;0");o.fx[o.fx.length-1].begin=-k*7;}}
-      /* 설령 변방(남서): 띄엄띄엄 떨어진 집, 고요골의 흑백 그림자, 얼음못 */
+      /* 키오니아 변방(남서): 띄엄띄엄 떨어진 집, 갈레네 골의 흑백 그림자, 얼음못 */
       {[[-.42,.3],[-.6,.28],[-.5,.5],[-.3,.52],[-.7,.46]].forEach(q=>o.dots.push([q[0],q[1],.009,{tw:5+R()*4}]));
         const g=[-.86,.5],ar=(a0,r)=>{const p=[];for(let k=0;k<=10;k++){const t=(a0+k*15)*D;p.push([g[0]+Math.cos(t)*r,g[1]+Math.sin(t)*r]);}return p;};
         L(ar(0,.06),false,"dragon",{w:.016,spin:[g,60,1]});L(ar(180,.06),false,"wfl2",{w:.016,spin:[g,60,1]});
@@ -1322,67 +1322,67 @@ function flairCtx(G,m,still,S){S=S||1.8;const F=v=>(+v).toFixed(1),g=el("g",{cla
 const GOLD="var(--z-goldhot)",ICE="var(--z-ice)",ICEL="var(--z-iceline)",LAVA="var(--z-lava)",VIO="#C9A6F5";
 const FLAIR={
  /* ===== 환상: 해와 눈의 산악 ===== */
- "c-hwansang":c=>{/* 해마루: 해를 등진 태양 대성당. 서열 1위의 종소리 */
+ "c-hwansang":c=>{/* 헬리오폴리스: 해를 등진 태양 대성당. 서열 1위의 종소리 */
    c.ln([[-28,-24],[-28,-54],[-15,-54],[-15,-70],[-6,-70],[-6,-84],[0,-104],[6,-84],[6,-70],[15,-70],[15,-54],[28,-54],[28,-24]],"gold f-gold",true);
    c.circ(0,-44,7,"gold");c.rays(0,-44,9,14,8,0,315,"gold thin");c.ln([[-5,-24],[-5,-34],[0,-39],[5,-34],[5,-24]],"gold",false);
    c.ring(0,-96,16,6,0,GOLD);c.ring(0,-96,16,6,-3,GOLD);},
- "t-hwansang-1":c=>{/* 금실 과원: 줄 맞춘 과수, 가지 사이의 금실, 익어 가는 열매 */
+ "t-hwansang-1":c=>{/* 크리소스 과원: 줄 맞춘 과수, 가지 사이의 금실, 익어 가는 열매 */
    for(let j=0;j<3;j++)for(let i=0;i<5;i++){const x=-118+i*24+(j%2)*8,y=-92+j*22;c.circ(x,y,7,"grn");c.dot(x+2,y+1,2.4,GOLD,1.8+c.R()*2.6);}
    for(let j=0;j<3;j++){const p=[];for(let k=0;k<=12;k++){const x=-124+k*10;p.push([x+(j%2)*8,-98+j*22+4*Math.sin(k*1.05)]);}c.ln(p,"gold thin",false,{pulse:[5,".25;1;.25",-j*1.6]});}
    c.mote(-60,-20,3,GOLD,60,20,9,"0;1;1;0");},
- "g-hwansang-2":{s:1,f:c=>{/* 금실 숲: 나무 사이에 걸린 금빛 실 */
+ "g-hwansang-2":{s:1,f:c=>{/* 크리소스 숲: 나무 사이에 걸린 금빛 실 */
    for(let j=0;j<6;j++){const y0=-70+j*26,p=[];for(let k=0;k<=14;k++){const u=k/14;p.push([-130+u*260+(j%2?12:-12),y0+16*Math.sin(u*Math.PI)*(j%2?1:-.6)+6*Math.sin(u*9+j)]);}c.ln(p,"gold thin",false,{pulse:[6,".15;1;.15;.15",-j]});}
    for(let k=0;k<6;k++)c.star((c.R()-.5)*230,(c.R()-.5)*130,1.4,GOLD,2+c.R()*2);}},
- "g-hwansang-1":{s:1,f:c=>{/* 양지 숲: 나뭇잎 사이로 떨어지는 볕뉘 */
+ "g-hwansang-1":{s:1,f:c=>{/* 헬리아 숲: 나뭇잎 사이로 떨어지는 볕뉘 */
    for(let k=0;k<6;k++){c.glow((c.R()-.5)*220,(c.R()-.5)*120,16+c.R()*10,GOLD,5+c.R()*4,".05;.45;.05");}
    for(let k=0;k<4;k++)c.mote((c.R()-.5)*200,30+c.R()*30,2.4,GOLD,(c.R()-.5)*20,-70,8+c.R()*4,"0;.9;0");}},
- "g-hwansang-3":c=>{/* 해맞이내: 물머리의 해맞이 돌, 물비늘 */
+ "g-hwansang-3":c=>{/* 아나톨레 내: 물머리의 해맞이 돌, 물비늘 */
    c.arc(-26,-16,13,180,360,"gold");c.ln([[-44,-16],[-8,-16]],"gold",false);c.rays(-26,-16,17,25,5,200,340,"gold thin",{seq:5});
    for(let k=0;k<6;k++)c.star(6+c.R()*26,24+k*26,1.2,GOLD,1.4+c.R()*2);},
- "gp-hwansang":{under:true,s:1,f:c=>{/* 해오름 봉: 봉우리 뒤로 떠오르는 해 */
+ "gp-hwansang":{under:true,s:1,f:c=>{/* 히페리온 봉: 봉우리 뒤로 떠오르는 해 */
    c.glow(0,-150,150,"url(#zgGold)",9,".15;.75;.15");c.arc(0,-150,120,180,360,"gold");c.arc(0,-150,150,180,360,"gold thin");c.rays(0,-150,165,215,11,188,352,"gold",{seq:9});}},
- "v-hwansang-1":c=>{/* 첫눈재: 두 봉우리 사이의 고갯길, 해마다 가장 먼저 내리는 눈 */
+ "v-hwansang-1":c=>{/* 프로토키온 재: 두 봉우리 사이의 고갯길, 해마다 가장 먼저 내리는 눈 */
    c.ln([[-78,-18],[-50,-58],[-24,-30]],"",false);c.ln([[-14,-32],[16,-68],[48,-22]],"",false);c.ln([[-50,-58],[-44,-48],[-52,-44]],"lite",false);c.ln([[16,-68],[22,-56],[13,-52]],"lite",false);
    c.ln([[-40,-4],[-26,-14],[-32,-22],[-19,-31],[-23,-40],[-14,-50]],"thin dash",false);c.dot(-19,-31,2.6,GOLD,3);
    for(let k=0;k<9;k++)c.mote(-70+c.R()*110,-90+c.R()*30,2.2,"#fff",8,46,4+c.R()*3,"0;1;1;0");},
- "sm-hwansang-1":c=>{/* 새벽빛 자치령: 지평선에 걸린 새벽 해 */
+ "sm-hwansang-1":c=>{/* 아우로라 자치령: 지평선에 걸린 새벽 해 */
    c.ln([[-80,-92],[80,-92]],"gold",false);c.arc(0,-92,34,180,360,"gold f-gold");c.rays(0,-92,42,62,7,198,342,"gold",{seq:7});c.glow(0,-100,60,"url(#zgGold)",7,".1;.7;.1");},
- "p-in-11":c=>{/* 태양 순례길: 길가의 해 돌 */
+ "p-in-11":c=>{/* 헬리오스 순례길: 길가의 해 돌 */
    c.ln([[-6,-22],[-6,-44],[6,-44],[6,-22]],"gold",false);c.circ(0,-54,8,"gold f-gold");c.rays(0,-54,11,16,8,0,315,"gold thin");c.glow(0,-54,16,GOLD,5);},
- "p-hwansang-c1":c=>{/* 빙문곶: 해협을 향해 선 얼음 문 */
+ "p-hwansang-c1":c=>{/* 크리오필레 곶: 해협을 향해 선 얼음 문 */
    [[-66,0],[-28,0]].forEach(q=>c.ln([[q[0]-9,-12],[q[0]-6,-74],[q[0]+6,-74],[q[0]+9,-12]],"ice f-ice",true));c.arc(-47,-70,19,180,360,"ice");c.arc(-47,-70,27,185,355,"lite thin");
    for(let k=0;k<4;k++)c.mote(-47,-30-k*8,3,"#fff",-110,(c.R()-.5)*30,7+c.R()*4,"0;.7;0");c.star(-66,-78,1.6,ICE,2.5);c.star(-28,-78,1.6,ICE,3.3);},
- "p-hwansang-c2":c=>{/* 해돋이 곶: 환상에서 가장 먼저 뜨는 해 */
+ "p-hwansang-c2":c=>{/* 아나톨레 곶: 환상에서 가장 먼저 뜨는 해 */
    c.ln([[20,-10],[150,-10]],"gold",false);c.arc(85,-10,30,180,360,"gold f-gold");c.rays(85,-10,38,58,9,190,350,"gold",{seq:4});c.glow(85,-18,70,"url(#zgGold)",4,".2;.9;.2");c.ring(85,-10,40,8,0,GOLD);},
- "p-hwansang-c3":c=>{/* 서리 나루: 서리 낀 잔교, 서리해를 건너는 배 */
+ "p-hwansang-c3":c=>{/* 파고스 나루: 서리 낀 잔교, 파고스해를 건너는 배 */
    c.ln([[-5,18],[-5,78]],"",false);c.ln([[5,18],[5,78]],"",false);for(let k=0;k<6;k++)c.ln([[-5,24+k*10],[5,24+k*10]],"thin",false);
    for(let k=0;k<5;k++)c.star(-14+c.R()*28,20+c.R()*60,1.1,ICE,2+c.R()*2);
    c.mote(0,86,4,"#fff",40,330,26,"0;1;1;0");c.mote(40,416,4,"#fff",-40,-330,26,"0;1;1;0",-13);},
- "p-hwansang-c4":c=>{/* 북해 벼랑: 깎아지른 얼음 벼랑, 떨어져 나가는 얼음 */
+ "p-hwansang-c4":c=>{/* 보레아스 벼랑: 깎아지른 얼음 벼랑, 떨어져 나가는 얼음 */
    const p=[[-96,-22],[-66,-38],[-40,-24],[-8,-42],[24,-26],[56,-40],[90,-22]];c.ln(p,"ice",false,{w:3});p.forEach((q,i)=>{if(i<p.length-1)for(let k=0;k<3;k++){const u=(k+.5)/3,x=q[0]+(p[i+1][0]-q[0])*u,y=q[1]+(p[i+1][1]-q[1])*u;c.ln([[x,y],[x-2,y+12]],"ice thin",false);}});
    for(let k=0;k<4;k++)c.mote(-70+k*45,-40,3.4,"#fff",(c.R()-.5)*20,-70,6+c.R()*4,"0;1;.6;0");},
- "d-hwansang-1":c=>{/* 설인 동굴: 굴로 이어지는 커다란 발자국 */
+ "d-hwansang-1":c=>{/* 예티 동굴: 굴로 이어지는 커다란 발자국 */
    for(let k=0;k<7;k++){const x=34+k*20,y=30+k*13+(k%2?9:-9),e=c.circ(x,y,6.5,"f-dark",{ry:.7});if(e&&!c.still)c.A(e,"opacity","0;.75;.75;0",7,-(7-k)*.7);
      for(let t=-1;t<=1;t++)c.dot(x-8,y+t*4,1.3,"var(--mt-line)");}},
- "d-hwansang-2":c=>{/* 수정 빙굴: 얼음과 수정이 뒤섞인 결정 */
+ "d-hwansang-2":c=>{/* 크리스탈로스 빙굴: 얼음과 수정이 뒤섞인 결정 */
    [[-60,-20,34,0],[-46,-22,50,1],[-32,-20,40,0],[-20,-22,28,1],[-70,-18,22,1]].forEach(q=>c.ln([[q[0]-7,q[1]],[q[0]+1,q[1]-q[2]],[q[0]+8,q[1]]],q[3]?"vio f-vio":"ice f-ice",true));
    c.glow(-44,-40,34,ICE,4,".1;.6;.1");c.star(-46,-74,1.6,VIO,2.2);c.star(-60,-56,1.3,ICE,3);c.star(-30,-62,1.3,"#fff",2.6);},
- "d-hwansang-3":c=>{/* 골렘 채석장: 계단식 채석장, 황금 제단에서 걸어 내려오는 골렘 */
+ "d-hwansang-3":c=>{/* 골렘 쿼리: 계단식 채석장, 황금 제단에서 걸어 내려오는 골렘 */
    for(let k=0;k<3;k++)c.ln([[-84+k*10,-18-k*12],[-84+k*10,-30-k*12],[-30-k*10,-30-k*12],[-30-k*10,-18-k*12]],"",false);
    [[-96,-12],[-22,-12],[-58,-62],[-40,-66]].forEach(q=>c.ln([[q[0],q[1]],[q[0]+9,q[1]],[q[0]+9,q[1]-9],[q[0],q[1]-9]],"gold f-gold",true));
    const a=M["a-hwansang"];if(a){const dx=a.x-c.X,dy=a.y-c.Y,L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L,far=Math.min(L-60,420);c.ln([[ux*40,uy*40],[ux*far/c.S,uy*far/c.S]],"gold thin dash",false);
      for(let k=0;k<2;k++){const w=el("g",{},c.g),e=el("rect",{x:c.F(c.X+ux*far-5),y:c.F(c.Y+uy*far-6),width:10,height:12,fill:GOLD,opacity:c.still?.6:0},w);c.AT(w,"translate",`0 0;${c.F(-ux*(far-40*c.S))} ${c.F(-uy*(far-40*c.S))}`,22,-k*11);c.A(e,"opacity","0;1;1;0",22,-k*11);}}},
- "d-hwansang-4":c=>{/* 서리 거인의 계단: 산을 오르는 거인의 층계, 멀리 울리는 발소리 */
+ "d-hwansang-4":c=>{/* 기간테스 계단: 산을 오르는 거인의 층계, 멀리 울리는 발소리 */
    const p=[[-30,-10]];for(let k=0;k<6;k++){p.push([-30-k*24,-10-(k+1)*17],[-54-k*24,-10-(k+1)*17]);}c.ln(p,"ice",false,{w:3.5});p.forEach((q,i)=>{if(i%2===0&&i)c.star(q[0]-12,q[1]-4,1.2,ICE,2+c.R()*2);});
    c.ring(-150,-120,34,7,0,ICE);c.ring(-150,-120,34,7,-.7,ICE);},
- "d-hwansang-5":c=>{/* 눈사태 골짜기: 쏟아져 내리는 눈 */
+ "d-hwansang-5":c=>{/* 애벌랜치 협곡: 쏟아져 내리는 눈 */
    c.ln([[-86,-80],[-50,-16],[-14,-80]],"",false);
    for(let k=0;k<3;k++)c.ln([[-66,-74],[-50,-62],[-34,-74]],"lite",false,{w:3,mv:[0,44,2.6,-k*.87],pulse:[2.6,"0;1;1;0",-k*.87]});
    for(let k=0;k<5;k++)c.mote(-62+c.R()*24,-28,4+c.R()*3,"#fff",(c.R()-.5)*50,10+c.R()*14,2.4+c.R(),"0;.8;0");},
- "u-hwansang-1":c=>{/* 해시계 광장: 눈금은 맞는데 그림자가 거꾸로 돈다 */
+ "u-hwansang-1":c=>{/* 그노몬 광장: 눈금은 맞는데 그림자가 거꾸로 돈다 */
    c.circ(0,-62,36,"");c.circ(0,-62,28,"thin");for(let k=0;k<12;k++){const t=k*Math.PI/6;c.ln([[Math.cos(t)*29,-62+Math.sin(t)*29],[Math.cos(t)*36,-62+Math.sin(t)*36]],k%3?"thin":"",false);}
    c.ln([[0,-62],[0,-84],[7,-62]],"gold",true);c.ln([[0,-62],[22,-50]],"shade",false,{w:4,spin:[0,-62,37,-1]});},
- "u-hwansang-2":c=>{/* 얼어붙은 종루: 얼음에 갇혀 울리지 않는 종 */
+ "u-hwansang-2":c=>{/* 캄파나 종루: 얼음에 갇혀 울리지 않는 종 */
    c.ln([[-26,-16],[-34,-52],[-22,-92],[0,-108],[22,-92],[34,-52],[26,-16]],"ice f-icelo",true);
    c.ln([[-10,-20],[-10,-74],[10,-74],[10,-20]],"",false);c.ln([[-14,-74],[0,-94],[14,-74]],"",true);c.arc(0,-56,7,180,360,"gold");c.ln([[-8,-56],[8,-56]],"gold",false);c.dot(0,-52,1.8,GOLD);
    c.arc(0,-56,16,200,250,"lite thin");c.arc(0,-56,16,290,340,"lite thin");c.star(-22,-90,1.4,ICE,5);},
@@ -1391,49 +1391,49 @@ const FLAIR={
    for(let s=0;s<2;s++){const p=[];for(let k=0;k<=30;k++){const t=k/30*3.6*Math.PI+s*Math.PI,r=14+k*3.6;p.push([Math.cos(t)*r,Math.sin(t)*r*.62]);}c.ln(p,"lite thin",false,{spin:[0,0,110,1]});}
    {const p=[];for(let k=0;k<16;k++){const t=k*Math.PI/8-Math.PI/2,r=k%2?11:26;p.push([Math.cos(t)*r,-72+Math.sin(t)*r]);}c.ln(p,"ice f-ice",true,{pulse:[6,".6;1;.6"]});c.dot(0,-72,3,"#fff",3);}
    for(let k=0;k<8;k++){const t=c.R()*6.28,r=70+c.R()*80,x=Math.cos(t)*r,y=Math.sin(t)*r*.6;c.arc(x,y,7,180,360,"");c.ln([[x-7,y],[x+7,y]],"thin",false);c.dot(x,y-2,1.6,GOLD,2+c.R()*6);}},
- "t-bit-1":c=>{/* 흩별나루: 흩어진 별 같은 등불, 제각각 모여드는 사람들 */
+ "t-bit-1":c=>{/* 스포라데스 나루: 흩어진 별 같은 등불, 제각각 모여드는 사람들 */
    for(let k=0;k<3;k++)c.ln([[14,-14+k*14],[62,-14+k*14]],"",false);for(let k=0;k<3;k++)c.ln([[-52+k*18,-30],[-43+k*18,-46],[-34+k*18,-30]],"",true);
    for(let k=0;k<10;k++)c.star((c.R()-.5)*210,(c.R()-.5)*130,1+c.R()*.8,GOLD,1.6+c.R()*4);
    for(let k=0;k<6;k++){const t=c.R()*6.28,r=170+c.R()*90,x=Math.cos(t)*r,y=Math.sin(t)*r*.7;c.mote(x,y,2.6,"#fff",-x*.9,-y*.9-30*.9,13+c.R()*9,"0;1;1;0");}},
- "v-bit-1":c=>{/* 눈꽃쉼터: 눈꽃, 설원에 하나뿐인 화톳불, 엇갈리는 발자국 길 */
+ "v-bit-1":c=>{/* 스노블룸 쉼터: 눈꽃, 설원에 하나뿐인 화톳불, 엇갈리는 발자국 길 */
    [[-46,-48,13,30],[-16,-66,8,-44],[-70,-22,7,52]].forEach(q=>{c.flake(q[0],q[1],q[2],"lite",{spin:[q[0],q[1],Math.abs(q[3]),q[3]>0?1:-1]});c.dot(q[0],q[1],1.8,"#fff");});
    c.glow(-18,-22,6,LAVA,1.6,".3;.9;.5;.8;.3");c.ln([[-26,-16],[-18,-30],[-10,-16]],"",true);c.ln([[-150,20],[150,-20]],"thin dots",false);c.ln([[-30,-140],[20,140]],"thin dots",false);},
- "sm-bit-1":{s:1,f:c=>{/* 유빙 연맹: 떠다니는 얼음, 얼음 사이의 고깃배 */
+ "sm-bit-1":{s:1,f:c=>{/* 플로 연맹: 떠다니는 얼음, 얼음 사이의 고깃배 */
    for(let k=0;k<7;k++){const x=150+c.R()*150,y=-150+k*48+c.R()*20,s=10+c.R()*12;c.ln([[x-s,y],[x-s*.3,y-s*.6],[x+s,y-s*.2],[x+s*.6,y+s*.5],[x-s*.4,y+s*.6]],"ice f-snow",true,{mv:[(c.R()-.5)*26,(c.R()-.5)*18,14+c.R()*10,-c.R()*10],back:1});}
    c.mote(120,-60,3.4,GOLD,150,40,24,"0;1;1;0");c.mote(270,60,3.4,GOLD,-150,-30,28,"0;1;1;0",-9);}},
- "p-bit-c1":c=>{/* 빙산곶: 갈라져 서쪽으로 떠내려가는 빙산 */
+ "p-bit-c1":c=>{/* 아이스버그 곶: 갈라져 서쪽으로 떠내려가는 빙산 */
    for(let k=0;k<4;k++){const y=-60+k*40,s=14+k*4;c.ln([[-40-s,y+s*.5],[-40-s*.4,y-s],[-40+s*.2,y-s*.3],[-40+s*.7,y-s*.8],[-40+s,y+s*.5]],"ice f-ice",true,{mv:[-200,(k-1.5)*24,36+k*7,-k*9],pulse:[36+k*7,"0;1;1;0",-k*9]});}},
- "p-bit-c2":c=>{/* 동녘 얼음벽: 아침 해를 받는 얼음 절벽 */
+ "p-bit-c2":c=>{/* 에오스 빙벽: 아침 해를 받는 얼음 절벽 */
    const p=[];for(let k=0;k<=10;k++)p.push([34+(k%2?9:0),-90+k*18]);c.ln(p,"ice",false,{w:3});p.forEach((q,i)=>{if(i<10)c.ln([[q[0],q[1]+6],[q[0]-13,q[1]+10]],"ice thin",false);});
    for(let k=0;k<4;k++)c.star(44,-76+k*44,1.5,GOLD,2+k*.7);c.glow(60,0,50,"url(#zgGold)",6,".05;.4;.05");},
- "p-bit-c3":c=>{/* 월흔 빙벽: 달의 조수가 깎은 벼랑 */
+ "p-bit-c3":c=>{/* 셀레네 빙벽: 달의 조수가 깎은 벼랑 */
    for(let k=0;k<5;k++)c.arc(-80+k*40,-28,20,20,160,"ice");
    {const p=[];for(let k=0;k<=12;k++){const t=(-100+k*200/12)*Math.PI/180;p.push([Math.cos(t)*16,-92+Math.sin(t)*16]);}for(let k=12;k>=0;k--){const t=(-100+k*200/12)*Math.PI/180;p.push([7+Math.cos(t)*11,-92+Math.sin(t)*13]);}c.ln(p,"lite f-snow",true,{pulse:[8,".5;1;.5"]});}
    for(let k=0;k<2;k++){const p=[];for(let j=0;j<=16;j++)p.push([-110+j*13.75,-52-5*Math.sin(j*.8+k)]);c.ln(p,"lite thin",false,{mv:[0,18,8,-k*4],back:1});}},
- "p-bit-c4":c=>{/* 남해 끝: 세상의 남쪽 끝에 쌓은 돌무지와 깃대 */
+ "p-bit-c4":c=>{/* 에스카톤 곶: 세상의 남쪽 끝에 쌓은 돌무지와 깃대 */
    c.circ(-34,-10,11,"f-dark",{ry:.55});c.circ(-34,-21,8,"f-dark",{ry:.6});c.circ(-34,-30,5.5,"f-dark",{ry:.65});c.ln([[-34,-34],[-34,-76]],"",false);
    c.ln([[-34,-76],[-12,-70],[-34,-63]],"lite f-ice",true,{pulse:[3,".6;1;.6"]});c.ln([[-8,18],[-8,44],[-13,36]],"thin",false);c.ln([[-8,44],[-3,36]],"thin",false);c.ring(-34,-10,30,9,0,ICE);},
- "g-bit-1":{s:1,f:c=>{/* 서리 기둥밭: 기둥마다 맺힌 서리의 반짝임 */
+ "g-bit-1":{s:1,f:c=>{/* 프로스트필러 들: 기둥마다 맺힌 서리의 반짝임 */
    for(let k=0;k<8;k++)c.star((c.R()-.5)*260,(c.R()-.5)*130-20,1.3,k%3?ICE:"#fff",1.6+c.R()*3);}},
- "g-bit-2":c=>{/* 얼음내: 언 강의 금. 흐르지 않는다 */
+ "g-bit-2":c=>{/* 아이스번: 언 강의 금. 흐르지 않는다 */
    c.ln([[10,24],[22,36],[14,48],[30,62]],"lite",false);c.ln([[22,36],[36,34]],"lite thin",false);c.star(18,40,1.2,ICE,6);},
- "gp-bit":{s:1,f:c=>{/* 빙관산: 꼭대기를 두른 얼음 왕관 */
+ "gp-bit":{s:1,f:c=>{/* 스테파노스 산: 꼭대기를 두른 얼음 왕관 */
    c.ln([[-40,-178],[-40,-212],[-26,-194],[-13,-222],[0,-198],[13,-222],[26,-194],[40,-212],[40,-178]],"ice",false,{w:2.5});
    [[-40,-212],[-13,-222],[13,-222],[40,-212]].forEach((q,i)=>c.star(q[0],q[1]-4,1.5,i%2?"#fff":ICE,2+i*.6));c.glow(0,-200,50,ICE,7,".05;.4;.05");}},
- "d-bit-1":c=>{/* 설원 늑대굴: 눈 위의 발자국, 어둠 속의 두 눈, 긴 울음 */
+ "d-bit-1":c=>{/* 울프하울 굴: 눈 위의 발자국, 어둠 속의 두 눈, 긴 울음 */
    for(let k=0;k<8;k++){const x=30+k*17,y=24+k*9+(k%2?5:-5);c.dot(x,y,2.6,"var(--mt-line)");for(let t=-1;t<=1;t++)c.dot(x-5,y+t*3,1,"var(--mt-line)");}
    c.dot(-34,-34,2,GOLD,3.2,0);c.dot(-26,-34,2,GOLD,3.2,0);c.ring(-30,-40,26,6,0,ICE);c.ring(-30,-40,26,6,-.8,ICE);},
- "d-bit-2":c=>{/* 빙하 균열굴: 푸르게 빛나는 빙하의 틈 */
+ "d-bit-2":c=>{/* 크레바스 굴: 푸르게 빛나는 빙하의 틈 */
    [[[-90,-50],[-62,-34],[-70,-18],[-40,-4],[-46,12]],[[-62,-34],[-40,-40],[-22,-30]],[[-40,-4],[-18,-8]]].forEach((p,i)=>c.ln(p,"lite",false,{w:3-i*.8,pulse:[4,".35;1;.35",-i]}));c.glow(-55,-20,36,ICE,4,".05;.5;.05");},
- "d-bit-3":c=>{/* 눈보라 미궁: 멎지 않고 도는 눈보라 */
+ "d-bit-3":c=>{/* 블리자드 라비린스: 멎지 않고 도는 눈보라 */
    {const p=[];for(let k=0;k<=44;k++){const t=k/44*6*Math.PI,r=6+k*1.5;p.push([-60+Math.cos(t)*r,-50+Math.sin(t)*r]);}c.ln(p,"lite",false,{spin:[-60,-50,11,1]});}
    for(let k=0;k<4;k++){const s=22+k*14;c.ln([[-60-s,-50-s+10],[-60-s,-50-s],[-60-s+10,-50-s]],"thin",false);c.ln([[-60+s,-50+s-10],[-60+s,-50+s],[-60+s-10,-50+s]],"thin",false);}
    for(let k=0;k<8;k++){const t=c.R()*6.28;c.mote(-60+Math.cos(t)*70,-50+Math.sin(t)*70,2.4,"#fff",-Math.sin(t)*90,Math.cos(t)*90,2.2+c.R()*1.6,"0;1;0");}},
- "d-bit-4":c=>{/* 얼음 호수 밑: 얼음장 아래로 내려가는 구멍, 밑에서 오르는 공기 방울 */
+ "d-bit-4":c=>{/* 언더미어: 얼음장 아래로 내려가는 구멍, 밑에서 오르는 공기 방울 */
    c.circ(-70,-36,62,"ice f-icelo",{ry:.5});c.ln([[-116,-40],[-92,-30],[-98,-18]],"lite thin",false);c.ln([[-40,-52],[-26,-40],[-34,-30]],"lite thin",false);
    c.circ(-70,-36,12,"f-dark",{ry:.6});for(let k=0;k<3;k++)c.ln([[-78+k*2,-38+k*3],[-62-k*2,-38+k*3]],"thin",false);
    for(let k=0;k<6;k++)c.mote(-118+c.R()*96,-26-c.R()*8,2.2,"#fff",(c.R()-.5)*12,-10,3+c.R()*3,"0;.8;0");},
- "u-bit-1":c=>{/* 빙하 속 등대: 얼음에 갇힌 채 아직 희미하게 켜진 불, 얼어붙은 빛줄기 */
+ "u-bit-1":c=>{/* 크리스탈로스 등대: 얼음에 갇힌 채 아직 희미하게 켜진 불, 얼어붙은 빛줄기 */
    c.ln([[-30,-14],[-40,-58],[-26,-104],[2,-116],[28,-98],[38,-52],[30,-14]],"ice f-icelo",true);
    c.ln([[-9,-18],[-6,-78],[6,-78],[9,-18]],"",true);c.ln([[-9,-78],[9,-78]],"",false);c.ln([[-6,-78],[-6,-88],[6,-88],[6,-78]],"gold",false);c.ln([[-8,-88],[0,-96],[8,-88]],"",true);
    c.glow(0,-83,10,GOLD,12,".05;.55;.05");c.ln([[6,-85],[34,-96]],"gold thin",false);c.ln([[6,-81],[36,-80]],"gold thin",false);},
@@ -1472,31 +1472,31 @@ function drawFlairs(G,GH,still){if(layers.nfx===false)return;ROUTES.forEach(r=>d
    교역로는 J-3의 '재료는 경계·심연·잔재·환상에서 빛·침묵으로 흐른다, 안트리가 중개'를 따라 그린다. 금빛 점이 짐이 가는 쪽으로 흐른다 */
 const NET={
   road:[
-    {p:["c-essension","t-essension-3","c-pandemo"],n:"강심과 흑철성을 잇는 길"},
-    {p:["c-pandemo","t-pandemo-1","p-in-8","c-gemu"],n:"흑철성에서 세 나라 갈림목을 지나 벚꽃 마당으로"},
-    {p:["p-in-8","c-reva"],n:"세 나라 갈림목에서 타나토스 학원으로"},
-    {p:["c-pandemo","t-pandemo-4","p-gyeonggye-c1"],n:"흑철성에서 서리곶으로"},
-    {p:["c-reva","p-gyeonggye-c2"],n:"타나토스 학원에서 월흔 나루로"},
-    {p:["c-gemu","p-gyeonggye-c3"],n:"벚꽃 마당에서 환류곶으로"},
-    {p:["c-pandemo","t-pandemo-3","p-in-4","a-gyeonggye"],n:"진혼 가도"},
-    {p:["c-giv","t-giv-2","p-chimmuk-c1"],n:"포시드에서 빙문 나루로"},
-    {p:["c-cruel","p-chimmuk-c3"],n:"쐐기성에서 갈림곶으로"},
-    {p:["c-antri","t-antri-1","p-simyeon-c1"],n:"포티아 수도에서 갈림 나루로"},
-    {p:["c-antri","t-antri-2","p-yongmok","t-baekso-2","c-baekso"],n:"용목 가도"},
-    {p:["c-gigye","t-gigye-4","p-janjae-c4"],n:"썬더 기관도에서 환류 나루로"},
-    {p:["c-repli","sm-repli-1","p-janjae-c4"],n:"가니메데 궁에서 환류 나루로"}],
+    {p:["c-essension","t-essension-3","c-pandemo"],n:"강심과 아테르 성을 잇는 길"},
+    {p:["c-pandemo","t-pandemo-1","p-in-8","c-gemu"],n:"아테르 성에서 트리오도스를 지나 블로섬 코트로"},
+    {p:["p-in-8","c-reva"],n:"트리오도스에서 타나토스 학원으로"},
+    {p:["c-pandemo","t-pandemo-4","p-gyeonggye-c1"],n:"아테르 성에서 파고스 곶으로"},
+    {p:["c-reva","p-gyeonggye-c2"],n:"타나토스 학원에서 셀레네 나루로"},
+    {p:["c-gemu","p-gyeonggye-c3"],n:"블로섬 코트에서 키클로스 곶으로"},
+    {p:["c-pandemo","t-pandemo-3","p-in-4","a-gyeonggye"],n:"레퀴엠 가도"},
+    {p:["c-giv","t-giv-2","p-chimmuk-c1"],n:"포시드에서 크리오필레 나루로"},
+    {p:["c-cruel","p-chimmuk-c3"],n:"웨지홀드에서 스키스마 곶으로"},
+    {p:["c-antri","t-antri-1","p-simyeon-c1"],n:"포티아폴리스에서 스키스마 나루로"},
+    {p:["c-antri","t-antri-2","p-yongmok","t-baekso-2","c-baekso"],n:"트라켈로스 가도"},
+    {p:["c-gigye","t-gigye-4","p-janjae-c4"],n:"썬더 엔진에서 키클로스 나루로"},
+    {p:["c-repli","sm-repli-1","p-janjae-c4"],n:"가니메데 궁에서 키클로스 나루로"}],
   ferry:[
     ["p-hwansang-c3","p-gyeonggye-c1"],["p-gyeonggye-c2","p-bit-c3"],["p-chimmuk-c1","p-hwansang-c1"],
     ["p-chimmuk-c3","p-simyeon-c1"],["p-janjae-c4","p-gyeonggye-c3"]],
   trade:[
     {p:["sm-antri-1",[2350,4420],[2620,3500],[2460,2700],"p-chimmuk-c4","v-giv-2","c-giv"],n:"안트리 상단의 뱃길: 합금과 보석을 GIV로"},
-    {p:["t-antri-1","p-simyeon-c1","p-chimmuk-c3","c-cruel"],n:"갈림해협 건너기: 안트리의 합금을 크루얼 키스톤으로"},
-    {p:["c-pandemo","p-in-8","c-reva","p-gyeonggye-c2","p-bit-c3","c-bit"],n:"월흔해 건너기: 경계의 합금을 빛으로"},
-    {p:["sm-gigye-2",[9500,3150],[9820,3900],[9800,5000],[9250,5700],[7900,6150],"t-bit-1"],n:"녹슨 자유항의 뱃길: 잔재의 쇠붙이를 빛 동쪽으로"},
-    {p:["c-gigye","t-gigye-4","p-janjae-c4","p-gyeonggye-c3","c-gemu","p-in-8","c-pandemo"],n:"환류 뱃길: 구시대 장비와 철을 경계로"},
-    {p:["c-hwansang","p-hwansang-c3","p-gyeonggye-c1","c-pandemo"],n:"서리해 건너기: 환상의 합금을 경계로"},
-    {p:["t-baekso-2","p-yongmok","t-antri-2","c-antri"],n:"용목 가도: 백소의 경무광과 카고스를 안트리로"},
-    {p:["t-antri-2","p-yongmok","t-baekso-2","c-baekso"],n:"용목 가도: 안트리의 프림 다이아몬드를 백소로"}]};
+    {p:["t-antri-1","p-simyeon-c1","p-chimmuk-c3","c-cruel"],n:"스키스마 해협 건너기: 안트리의 합금을 크루얼 키스톤으로"},
+    {p:["c-pandemo","p-in-8","c-reva","p-gyeonggye-c2","p-bit-c3","c-bit"],n:"셀레네해 건너기: 경계의 합금을 빛으로"},
+    {p:["sm-gigye-2",[9500,3150],[9820,3900],[9800,5000],[9250,5700],[7900,6150],"t-bit-1"],n:"러스트포트 자유항의 뱃길: 잔재의 쇠붙이를 빛 동쪽으로"},
+    {p:["c-gigye","t-gigye-4","p-janjae-c4","p-gyeonggye-c3","c-gemu","p-in-8","c-pandemo"],n:"키클로스 뱃길: 구시대 장비와 철을 경계로"},
+    {p:["c-hwansang","p-hwansang-c3","p-gyeonggye-c1","c-pandemo"],n:"파고스해 건너기: 환상의 합금을 경계로"},
+    {p:["t-baekso-2","p-yongmok","t-antri-2","c-antri"],n:"트라켈로스 가도: 백소의 경무광과 카고스를 안트리로"},
+    {p:["t-antri-2","p-yongmok","t-baekso-2","c-baekso"],n:"트라켈로스 가도: 안트리의 프림 다이아몬드를 백소로"}]};
 const netPt=q=>Array.isArray(q)?{x:q[0],y:q[1]}:M[q];
 function netPath(list,wig,seed){const ms=list.map(netPt);if(ms.some(m=>!m))return null;const R=rng(seed),pts=[];
   for(let i=0;i<ms.length-1;i++){const a=ms[i],b=ms[i+1],dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy)||1,n=Math.max(3,Math.round(L/160)),amp=Math.min(40,L*.04)*wig,ph=R()*6;
@@ -2341,7 +2341,7 @@ window.addEventListener("keydown",e=>{
 });
 
 (function(){const box=$("legIcons");if(!box)return;
-  const desc={volcano:"용의 협곡 · 심연 · 활화산과 용암",altar:"천상의 황금 제단 · 환상 · 산 위의 제단",iceberg:"갈라진 빙산의 협곡 · 빛 · 갈라진 빙산",grave:"죽은 자들의 무덤 · 경계 · 공동묘지",pond:"흑연의 연못 · 잔재 · 검은 연못의 유령 고래",tower:"바벨론 · 침묵 · 지하로 파고드는 역방향 타워"};
+  const desc={volcano:"드라콘 협곡 · 심연 · 활화산과 용암",altar:"우라니아 제단 · 환상 · 산 위의 제단",iceberg:"크리오클라스 협곡 · 빛 · 갈라진 빙산",grave:"네크로폴리스 · 경계 · 공동묘지",pond:"멜란 림네 · 잔재 · 검은 연못의 유령 고래",tower:"바벨론 · 침묵 · 지하로 파고드는 역방향 타워"};
   Object.keys(desc).forEach(k=>{const d=document.createElement("div");d.className="legi";
     const sv=document.createElementNS(NS,"svg");sv.setAttribute("viewBox","-17 -17 34 34");
     el("circle",{r:15,class:"bdg",fill:`var(${ICONS[k].c})`},sv);glyph(el("g",{},sv),k,ICONS[k].c);
